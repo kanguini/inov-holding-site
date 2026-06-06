@@ -5,13 +5,15 @@ import { Router } from 'express';
 import { q, one, getSetting, setSetting } from '../db.js';
 import { login, setAuthCookie, clearAuthCookie, requireAuth, changePassword } from '../auth.js';
 import { uploadImage, publicUrl } from '../upload.js';
+import { rateLimit } from '../security.js';
 
 const router = Router();
+const loginLimit = rateLimit({ windowMs: 5 * 60_000, max: 10, message: 'too_many_attempts' });
 const clean = (v, max = 5000) => String(v == null ? '' : v).trim().slice(0, max);
 const num = (v, d = 0) => (Number.isFinite(Number(v)) ? Number(v) : d);
 
 // ── Auth ─────────────────────────────────────────────────────────────────
-router.post('/login', async (req, res) => {
+router.post('/login', loginLimit, async (req, res) => {
   const token = await login(req.body?.email, req.body?.password);
   if (!token) return res.status(401).json({ error: 'invalid_credentials' });
   setAuthCookie(res, token);

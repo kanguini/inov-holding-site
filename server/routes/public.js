@@ -4,11 +4,16 @@ import { q, getSetting } from '../db.js';
 import { shapePublication, shapeCompany, shapePosition } from '../shape.js';
 import { uploadCv, uploadNone, publicUrl } from '../upload.js';
 import { notify } from '../email.js';
+import { rateLimit } from '../security.js';
 
 const router = Router();
 
 const clean = (v, max = 5000) => String(v == null ? '' : v).trim().slice(0, max);
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+// Bot trap: hidden form field that real users never fill.
+const isBot = (b) => String((b || {}).company_website || '').trim() !== '';
+// Cap form submissions per IP.
+const formLimit = rateLimit({ windowMs: 60_000, max: 5 });
 
 // Single bootstrap call the frontend uses to populate window.INOV.
 router.get('/content', async (req, res) => {
@@ -32,9 +37,10 @@ router.get('/content', async (req, res) => {
 });
 
 // Contact message (browser submits as multipart FormData).
-router.post('/messages', uploadNone, async (req, res) => {
+router.post('/messages', formLimit, uploadNone, async (req, res) => {
   try {
     const b = req.body || {};
+    if (isBot(b)) return res.json({ ok: true });
     const name = clean(b.name, 200);
     const email = clean(b.email, 200);
     const message = clean(b.message, 5000);
@@ -59,7 +65,7 @@ router.post('/messages', uploadNone, async (req, res) => {
 });
 
 // Job application (optional CV file upload).
-router.post('/applications', (req, res) => {
+router.post('/applications', formLimit, (req, res) => {
   uploadCv.single('cv')(req, res, async (uploadErr) => {
     if (uploadErr) {
       const code = uploadErr.message === 'invalid_file_type' ? 'invalid_file_type' : 'upload_error';
@@ -67,6 +73,7 @@ router.post('/applications', (req, res) => {
     }
     try {
       const b = req.body || {};
+      if (isBot(b)) return res.json({ ok: true });
       const name = clean(b.name, 200);
       const email = clean(b.email, 200);
       const message = clean(b.message, 5000);

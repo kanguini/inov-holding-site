@@ -12,6 +12,7 @@ import { initDb } from './db.js';
 import publicRoutes from './routes/public.js';
 import adminRoutes from './routes/admin.js';
 import { UPLOAD_DIR } from './upload.js';
+import { securityHeaders } from './security.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -21,6 +22,8 @@ const STATIC = fs.existsSync(path.join(DIST, 'index.html')) ? DIST : ROOT;
 
 const app = express();
 app.disable('x-powered-by');
+app.set('trust proxy', 1); // Hostinger serves behind a reverse proxy
+app.use(securityHeaders);
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

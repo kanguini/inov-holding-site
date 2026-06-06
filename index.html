@@ -29,7 +29,7 @@
 :root{
   --navy:#002F55;
   --navy-deep:#00223e;
-  --steel:#5d7d99;
+  --steel:#556f88;
   --cream:#FBFAF5;
   --white:#ffffff;
   --ink:#0f1c28;
@@ -41,6 +41,14 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+.skip-link{position:absolute;left:1rem;top:-4rem;z-index:1000;background:var(--navy);color:#fff;padding:.65rem 1.1rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;transition:top .2s ease}
+.skip-link:focus{top:1rem;outline:3px solid rgba(255,255,255,.6);outline-offset:2px}
+:focus-visible{outline:3px solid var(--steel);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal{opacity:1!important;transform:none!important}
+}
 body{background:var(--white);color:var(--ink);font-family:var(--body);font-weight:300;line-height:1.65;overflow-x:hidden}
 ::selection{background:var(--navy);color:var(--cream)}
 
@@ -349,6 +357,11 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content · Saltar para o conteúdo</a>
+<noscript>
+  <style>.site-page{display:block!important}.hero-cover,.sector-img,.nav-toggle{display:none!important}#wrap-pt{display:none!important}</style>
+  <div style="background:#002F55;color:#fff;padding:.8rem 1.2rem;text-align:center;font-size:.9rem">For the full interactive experience, please enable JavaScript. · Para a experiência completa, active o JavaScript.</div>
+</noscript>
 <nav>
   <a class="brand" href="#home">
     <svg class="mark" viewBox="0 0 713 713" xmlns="http://www.w3.org/2000/svg" aria-label="INOV">
@@ -369,6 +382,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
   </div>
 </nav>
 
+<main id="main-content" tabindex="-1">
 <div class="lang-wrap active" id="wrap-en">
 <div class="site-page" id="en-page-home">
 <header class="home">
@@ -817,6 +831,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'application','en')">
+        <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden"><label>Company website</label><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
         <div><label for="en-ap-name">Name</label><input id="en-ap-name" name="name" type="text" required></div>
         <div><label for="en-ap-email">E-mail</label><input id="en-ap-email" name="email" type="email" required></div>
         <div><label for="en-ap-pos">Position</label>
@@ -845,6 +860,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'contact','en')">
+        <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden"><label>Company website</label><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
         <div><label for="en-nome">Name</label><input id="en-nome" name="name" type="text" required></div>
         <div><label for="en-org">Organisation</label><input id="en-org" name="organisation" type="text"></div>
         <div><label for="en-email">E-mail</label><input id="en-email" name="email" type="email" required></div>
@@ -1303,6 +1319,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'application','pt')">
+        <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden"><label>Company website</label><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
         <div><label for="pt-ap-name">Nome</label><input id="pt-ap-name" name="name" type="text" required></div>
         <div><label for="pt-ap-email">E-mail</label><input id="pt-ap-email" name="email" type="email" required></div>
         <div><label for="pt-ap-pos">Vaga</label>
@@ -1331,6 +1348,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'contact','pt')">
+        <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden"><label>Company website</label><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
         <div><label for="pt-nome">Nome</label><input id="pt-nome" name="name" type="text" required></div>
         <div><label for="pt-org">Organização</label><input id="pt-org" name="organisation" type="text"></div>
         <div><label for="pt-email">E-mail</label><input id="pt-email" name="email" type="email" required></div>
@@ -1345,6 +1363,8 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 </section>
 </div>
 </div>
+
+</main>
 
 <div class="modal" id="article-modal" aria-hidden="true">
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">

@@ -269,6 +269,83 @@ footer .tagline{color:var(--navy)}
 .lang-wrap{display:none}
 .lang-wrap.active{display:block}
 
+/* ---------- HERO COVER (admin-managed image) ---------- */
+header.home.has-cover::after{display:none}
+header.home.has-cover::before{display:none}
+.hero-cover{
+  position:absolute;right:4vw;top:14vh;bottom:14vh;width:34vw;max-width:480px;z-index:0;
+  background:linear-gradient(135deg,#e9ece9,#d7dde2 55%,#c4ccd4);
+  background-size:cover;background-position:center;
+}
+.hero-cover::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,47,85,0) 40%,rgba(0,47,85,.18));
+}
+header.home.has-cover .hero-cover::after{background:linear-gradient(180deg,rgba(0,47,85,0) 45%,rgba(0,47,85,.35))}
+.hero-cover .cover-tag{position:absolute;left:1.1rem;bottom:1rem;font-family:var(--head);font-size:.6rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);z-index:1}
+header.home.has-cover .hero-cover .cover-tag{display:none}
+@media(max-width:920px){.hero-cover{display:none}}
+
+/* ---------- SECTOR IMAGE (admin-managed) ---------- */
+.sector-img{
+  width:100%;aspect-ratio:16/10;margin-bottom:1.4rem;border-radius:2px;
+  background:linear-gradient(135deg,#eef0ee,#dfe4e9 60%,#cfd6dd);
+  background-size:cover;background-position:center;
+  display:flex;align-items:flex-end;padding:.7rem;
+}
+.sector-img .img-tag{font-family:var(--head);font-size:.58rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--steel)}
+.sector-img.set .img-tag{display:none}
+
+/* ---------- GROUP COMPANIES (grayscale -> colour on hover) ---------- */
+.companies-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:3rem}
+@media(max-width:860px){.companies-grid{grid-template-columns:repeat(2,1fr)}}
+.logo-tile{
+  background:var(--white);min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;
+  text-decoration:none;padding:1.6rem 1rem;transition:background .35s;text-align:center;
+}
+.logo-tile:hover{background:var(--cream)}
+.logo-tile img,.logo-tile .logo-word{filter:grayscale(1);opacity:.55;transition:filter .45s ease,opacity .45s ease;transform:translateZ(0)}
+.logo-tile:hover img,.logo-tile:hover .logo-word{filter:grayscale(0);opacity:1}
+.logo-tile img{max-width:140px;max-height:56px;width:auto;height:auto;object-fit:contain}
+.logo-tile .logo-word{font-family:var(--head);font-weight:700;font-size:1.35rem;letter-spacing:-.01em;color:var(--brand,var(--navy))}
+.logo-tile .logo-cap{font-family:var(--head);font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);opacity:0;transition:opacity .35s}
+.logo-tile:hover .logo-cap{opacity:1}
+
+/* ---------- INSIGHTS / PUBLICATIONS ---------- */
+.pub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2vw;margin-top:1rem}
+@media(max-width:980px){.pub-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.pub-grid{grid-template-columns:1fr}}
+.pub-card{display:flex;flex-direction:column;text-align:left;background:none;border:0;cursor:pointer;padding:0;font:inherit;color:inherit}
+.pub-card .pub-cover{width:100%;aspect-ratio:3/2;background:linear-gradient(135deg,#e7eaee,#d3dae1 60%,#bcc6cf);background-size:cover;background-position:center;margin-bottom:1.1rem;transition:opacity .35s}
+.pub-card:hover .pub-cover{opacity:.88}
+.pub-meta{font-family:var(--head);font-size:.66rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);display:flex;gap:.8rem;margin-bottom:.6rem}
+.pub-card h3{font-size:1.15rem;line-height:1.3;margin-bottom:.5rem}
+.pub-card p{font-size:.9rem;color:var(--grey)}
+.pub-card .pub-more{font-family:var(--head);font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--navy);margin-top:.9rem;text-transform:uppercase}
+.pub-empty{color:var(--grey);margin-top:2rem}
+
+/* ---------- ARTICLE MODAL ---------- */
+.modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;padding:6vh 4vw;overflow:auto;background:rgba(0,34,62,.55);backdrop-filter:blur(4px)}
+.modal.open{display:flex}
+.modal-box{background:var(--white);max-width:760px;width:100%;padding:3rem clamp(1.4rem,4vw,3.4rem) 3.4rem;position:relative}
+.modal-close{position:absolute;top:1rem;right:1rem;width:40px;height:40px;border:1px solid var(--line);background:var(--white);cursor:pointer;font-size:1.2rem;color:var(--navy);line-height:1}
+.modal-cover{width:100%;aspect-ratio:21/9;background:linear-gradient(135deg,#e7eaee,#cfd7df);background-size:cover;background-position:center;margin-bottom:1.6rem}
+.modal-box .pub-meta{margin-bottom:1rem}
+.modal-box h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:1.4rem}
+.modal-body p{color:var(--grey);margin-bottom:1.1rem;max-width:62ch}
+
+/* ---------- POSITIONS / CAREERS ---------- */
+.pos-list{display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:1rem}
+.pos{display:grid;grid-template-columns:1.6fr 1fr auto;gap:1.5rem;align-items:center;padding:1.5rem 0;border-bottom:1px solid var(--line)}
+@media(max-width:720px){.pos{grid-template-columns:1fr;gap:.5rem}}
+.pos h3{font-size:1.1rem}
+.pos .pos-dept{font-family:var(--head);font-size:.66rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:.3rem}
+.pos .pos-tags{font-size:.85rem;color:var(--grey)}
+.pos .btn-sm{font-family:var(--head);font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border:1px solid var(--navy);padding:.6rem 1.1rem;background:none;cursor:pointer;white-space:nowrap;transition:.3s}
+.pos .btn-sm:hover{background:var(--navy);color:var(--cream)}
+.pos-empty{color:var(--grey);margin-top:1.5rem}
+.form-ok{color:var(--navy);font-family:var(--head);font-weight:600;margin-top:1rem}
+
 </style>
 </head>
 <body>
@@ -282,8 +359,8 @@ footer .tagline{color:var(--navy)}
     <span class="names"><span class="top">INOV</span><span class="bottom">Holding Corporate</span></span>
   </a>
   <div class="nav-right">
-    <ul class="nav-links" id="nav-en"><li><a href="#home" data-nav="home">Home</a></li><li><a href="#group" data-nav="group">The Group</a></li><li><a href="#sectors" data-nav="sectors">Sectors</a></li><li><a href="#presence" data-nav="presence">Presence</a></li><li><a href="#governance" data-nav="governance">Governance</a></li><li><a href="#sustainability" data-nav="sustainability">Sustainability</a></li><li><a href="#contact" data-nav="contact">Contact</a></li></ul>
-    <ul class="nav-links" id="nav-pt" style="display:none"><li><a href="#home" data-nav="home">Início</a></li><li><a href="#group" data-nav="group">O Grupo</a></li><li><a href="#sectors" data-nav="sectors">Sectores</a></li><li><a href="#presence" data-nav="presence">Presença</a></li><li><a href="#governance" data-nav="governance">Governação</a></li><li><a href="#sustainability" data-nav="sustainability">Sustentabilidade</a></li><li><a href="#contact" data-nav="contact">Contacto</a></li></ul>
+    <ul class="nav-links" id="nav-en"><li><a href="#home" data-nav="home">Home</a></li><li><a href="#group" data-nav="group">The Group</a></li><li><a href="#sectors" data-nav="sectors">Sectors</a></li><li><a href="#presence" data-nav="presence">Presence</a></li><li><a href="#governance" data-nav="governance">Governance</a></li><li><a href="#sustainability" data-nav="sustainability">Sustainability</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Careers</a></li><li><a href="#contact" data-nav="contact">Contact</a></li></ul>
+    <ul class="nav-links" id="nav-pt" style="display:none"><li><a href="#home" data-nav="home">Início</a></li><li><a href="#group" data-nav="group">O Grupo</a></li><li><a href="#sectors" data-nav="sectors">Sectores</a></li><li><a href="#presence" data-nav="presence">Presença</a></li><li><a href="#governance" data-nav="governance">Governação</a></li><li><a href="#sustainability" data-nav="sustainability">Sustentabilidade</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Carreiras</a></li><li><a href="#contact" data-nav="contact">Contacto</a></li></ul>
     <div class="lang-toggle">
       <button data-lang="en" class="active">EN</button>
       <button data-lang="pt">PT</button>
@@ -534,6 +611,13 @@ footer .tagline{color:var(--navy)}
     <div class="reveal"><a class="btn" href="#presence">See where we operate</a></div>
   </div>
 </section>
+
+<section class="cream">
+  <p class="sec-label">The Group</p>
+  <h2 class="reveal">The companies that <span class="lt">make up INOV.</span></h2>
+  <p class="lead reveal">Independent platforms, one shared standard. Each operates in its own market with its own team — together they form the group's integrated value chain.</p>
+  <div class="companies-grid reveal" id="companies-en"></div>
+</section>
 </div>
 
 <div class="site-page" id="en-page-presence">
@@ -692,6 +776,61 @@ footer .tagline{color:var(--navy)}
 </section>
 </div>
 
+<div class="site-page" id="en-page-insights">
+<header class="page"><p class="kicker">Insights</p><h1>Ideas from <span class="lt">the ground up.</span></h1><p class="hero-sub">Perspectives, announcements and reports from across the group — on the sectors, markets and ideas shaping how value is built in Angola and beyond.</p></header>
+<section>
+  <p class="sec-label">Latest</p>
+  <div class="pub-grid" id="insights-en"></div>
+</section>
+</div>
+
+<div class="site-page" id="en-page-careers">
+<header class="page"><p class="kicker">Careers</p><h1>Build what <span class="lt">comes next.</span></h1><p class="hero-sub">We are building companies meant to last for generations — and we are looking for people who want to build with us. Discipline, ambition and integrity matter more here than any single line on a CV.</p></header>
+<section>
+  <div class="grid-2">
+    <div class="reveal">
+      <p class="sec-label">Why INOV</p>
+      <h2>A group where careers <span class="lt">are built, not just held.</span></h2>
+      <div class="prose">
+        <p>Joining INOV means joining a platform of platforms: the breadth of a group with the agility of a focused team. People grow across sectors — from infrastructure to finance, digital to the creative economy.</p>
+        <p>We invest in our people the way we invest in our businesses: <strong>for the long term</strong>.</p>
+      </div>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar"><h3><span>I</span>Ownership</h3><p>Real responsibility from day one, with accountability for outcomes.</p></div>
+      <div class="pillar"><h3><span>II</span>Mobility</h3><p>Grow across six platforms and three continents of activity.</p></div>
+      <div class="pillar"><h3><span>III</span>Standards</h3><p>Institutional rigour and mentorship that raise the bar of your craft.</p></div>
+    </div>
+  </div>
+</section>
+<section class="cream">
+  <p class="sec-label">Open Positions</p>
+  <h2 class="reveal">Current <span class="lt">opportunities.</span></h2>
+  <div class="pos-list reveal" id="careers-en"></div>
+</section>
+<section>
+  <div class="grid-2">
+    <div class="reveal">
+      <p class="sec-label">Apply</p>
+      <h2>Send us your <span class="lt">application.</span></h2>
+      <p class="lead">Don't see the right role? We are always interested in exceptional people — submit a general application and tell us where you could add value.</p>
+    </div>
+    <div class="reveal">
+      <form class="form" onsubmit="return submitForm(event,'application','en')">
+        <div><label for="en-ap-name">Name</label><input id="en-ap-name" name="name" type="text" required></div>
+        <div><label for="en-ap-email">E-mail</label><input id="en-ap-email" name="email" type="email" required></div>
+        <div><label for="en-ap-pos">Position</label>
+          <select id="en-ap-pos" name="position"><option>General application</option></select></div>
+        <div><label for="en-ap-link">Portfolio / LinkedIn (optional)</label><input id="en-ap-link" name="link" type="url" placeholder="https://"></div>
+        <div><label for="en-ap-msg">Cover note</label><textarea id="en-ap-msg" name="message" rows="5" required></textarea></div>
+        <button type="submit">Submit application</button>
+        <p class="form-note">By submitting, you consent to the processing of your data for recruitment purposes.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</div>
+
 <div class="site-page" id="en-page-contact">
 <header class="page"><p class="kicker">Contact</p><h1>Let’s talk.</h1><p class="hero-sub">For commercial proposals, partnerships, press or institutional matters — the INOV team responds from Luanda.</p></header>
 
@@ -704,7 +843,7 @@ footer .tagline{color:var(--navy)}
       <div class="contact-block"><span class="mode">Group Platforms</span><p>Meteoro · Adventure · Factory Ideas · Andala · Hexa · Publink</p></div>
     </div>
     <div class="reveal">
-      <form class="form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Message received — thank you';">
+      <form class="form" onsubmit="return submitForm(event,'contact','en')">
         <div><label for="en-nome">Name</label><input id="en-nome" type="text" required></div>
         <div><label for="en-org">Organisation</label><input id="en-org" type="text"></div>
         <div><label for="en-email">E-mail</label><input id="en-email" type="email" required></div>
@@ -957,6 +1096,13 @@ footer .tagline{color:var(--navy)}
     <div class="reveal"><a class="btn" href="#presence">Ver onde actuamos</a></div>
   </div>
 </section>
+
+<section class="cream">
+  <p class="sec-label">O Grupo</p>
+  <h2 class="reveal">As empresas que <span class="lt">formam a INOV.</span></h2>
+  <p class="lead reveal">Plataformas independentes, um padrão comum. Cada uma actua no seu mercado com a sua equipa — juntas formam a cadeia de valor integrada do grupo.</p>
+  <div class="companies-grid reveal" id="companies-pt"></div>
+</section>
 </div>
 
 <div class="site-page" id="pt-page-presence">
@@ -1115,6 +1261,61 @@ footer .tagline{color:var(--navy)}
 </section>
 </div>
 
+<div class="site-page" id="pt-page-insights">
+<header class="page"><p class="kicker">Insights</p><h1>Ideias desde <span class="lt">a base.</span></h1><p class="hero-sub">Perspectivas, anúncios e relatórios de todo o grupo — sobre os sectores, os mercados e as ideias que moldam a forma como se constrói valor em Angola e além-fronteiras.</p></header>
+<section>
+  <p class="sec-label">Mais Recentes</p>
+  <div class="pub-grid" id="insights-pt"></div>
+</section>
+</div>
+
+<div class="site-page" id="pt-page-careers">
+<header class="page"><p class="kicker">Carreiras</p><h1>Construa o que <span class="lt">vem a seguir.</span></h1><p class="hero-sub">Estamos a construir empresas feitas para durar gerações — e procuramos pessoas que queiram construir connosco. Disciplina, ambição e integridade contam aqui mais do que qualquer linha de um currículo.</p></header>
+<section>
+  <div class="grid-2">
+    <div class="reveal">
+      <p class="sec-label">Porquê a INOV</p>
+      <h2>Um grupo onde as carreiras <span class="lt">se constroem.</span></h2>
+      <div class="prose">
+        <p>Entrar na INOV é entrar numa plataforma de plataformas: a amplitude de um grupo com a agilidade de uma equipa focada. As pessoas crescem entre sectores — da infra-estrutura à finança, do digital à economia criativa.</p>
+        <p>Investimos nas nossas pessoas como investimos nos nossos negócios: <strong>a longo prazo</strong>.</p>
+      </div>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar"><h3><span>I</span>Responsabilidade</h3><p>Responsabilidade real desde o primeiro dia, com prestação de contas pelos resultados.</p></div>
+      <div class="pillar"><h3><span>II</span>Mobilidade</h3><p>Cresça entre seis plataformas e três continentes de actividade.</p></div>
+      <div class="pillar"><h3><span>III</span>Exigência</h3><p>Rigor institucional e mentoria que elevam o nível do seu trabalho.</p></div>
+    </div>
+  </div>
+</section>
+<section class="cream">
+  <p class="sec-label">Vagas Abertas</p>
+  <h2 class="reveal">Oportunidades <span class="lt">actuais.</span></h2>
+  <div class="pos-list reveal" id="careers-pt"></div>
+</section>
+<section>
+  <div class="grid-2">
+    <div class="reveal">
+      <p class="sec-label">Candidatar</p>
+      <h2>Envie a sua <span class="lt">candidatura.</span></h2>
+      <p class="lead">Não vê a vaga certa? Estamos sempre interessados em pessoas excepcionais — envie uma candidatura espontânea e diga-nos onde pode acrescentar valor.</p>
+    </div>
+    <div class="reveal">
+      <form class="form" onsubmit="return submitForm(event,'application','pt')">
+        <div><label for="pt-ap-name">Nome</label><input id="pt-ap-name" name="name" type="text" required></div>
+        <div><label for="pt-ap-email">E-mail</label><input id="pt-ap-email" name="email" type="email" required></div>
+        <div><label for="pt-ap-pos">Vaga</label>
+          <select id="pt-ap-pos" name="position"><option>Candidatura espontânea</option></select></div>
+        <div><label for="pt-ap-link">Portfólio / LinkedIn (opcional)</label><input id="pt-ap-link" name="link" type="url" placeholder="https://"></div>
+        <div><label for="pt-ap-msg">Mensagem</label><textarea id="pt-ap-msg" name="message" rows="5" required></textarea></div>
+        <button type="submit">Enviar candidatura</button>
+        <p class="form-note">Ao submeter, consente o tratamento dos seus dados para fins de recrutamento.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</div>
+
 <div class="site-page" id="pt-page-contact">
 <header class="page"><p class="kicker">Contacto</p><h1>Falemos.</h1><p class="hero-sub">Para propostas comerciais, parcerias, imprensa ou questões institucionais — a equipa da INOV responde a partir de Luanda.</p></header>
 
@@ -1127,7 +1328,7 @@ footer .tagline{color:var(--navy)}
       <div class="contact-block"><span class="mode">Plataformas do Grupo</span><p>Meteoro · Adventure · Factory Ideas · Andala · Hexa · Publink</p></div>
     </div>
     <div class="reveal">
-      <form class="form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Mensagem registada — obrigado';">
+      <form class="form" onsubmit="return submitForm(event,'contact','pt')">
         <div><label for="pt-nome">Nome</label><input id="pt-nome" type="text" required></div>
         <div><label for="pt-org">Organização</label><input id="pt-org" type="text"></div>
         <div><label for="pt-email">E-mail</label><input id="pt-email" type="email" required></div>
@@ -1143,6 +1344,16 @@ footer .tagline{color:var(--navy)}
 </div>
 </div>
 
+<div class="modal" id="article-modal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div class="modal-cover" id="modal-cover"></div>
+    <div class="pub-meta" id="modal-meta"></div>
+    <h2 id="modal-title"></h2>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
 <footer>
   <span>© 2026 INOV Holding Corporate</span>
   <span class="tagline">Intelligent Management, Sustainable Growth.</span>
@@ -1150,10 +1361,144 @@ footer .tagline{color:var(--navy)}
 </footer>
 
 <script>
-const PAGES = ['home', 'group', 'sectors', 'presence', 'governance', 'sustainability', 'contact'];
+const PAGES = ['home', 'group', 'sectors', 'presence', 'governance', 'sustainability', 'insights', 'careers', 'contact'];
 let LANG = 'en';
 let currentPage = 'home';
 let io;
+
+/* =========================================================================
+   CONTENT / DATA LAYER  (Phase 1 placeholder)
+   This is the single seam that the admin backend will replace: in Phase 3
+   these arrays come from the Hostinger API (e.g. fetch('/api/publications')),
+   and `media` from /api/settings. Shape stays identical, so no UI rework.
+   ========================================================================= */
+const INOV = {
+  media: {
+    cover: null,                 // hero cover image URL (admin-managed)
+    sectors: { infrastructure:null, finance:null, digital:null, creative:null } // by sector order
+  },
+  companies: [
+    { name:'Meteoro',       word:'Meteoro',      color:'#C8102E', url:'#', cap:{en:'Infrastructure & Logistics', pt:'Infra-estrutura & Logística'} },
+    { name:'Hexa',          word:'Hexa',         color:'#1D4ED8', url:'#', cap:{en:'Insurance Brokerage', pt:'Corretagem de Seguros'} },
+    { name:'Andala',        word:'Andala',       color:'#7C3AED', url:'#', cap:{en:'Digital Marketplace', pt:'Marketplace Digital'} },
+    { name:'Adventure',     word:'Adventure',    color:'#0EA5A4', url:'#', cap:{en:'Communication & Events', pt:'Comunicação & Eventos'} },
+    { name:'Factory Ideas', word:'Factory Ideas',color:'#F59E0B', url:'#', cap:{en:'Graphic Production', pt:'Produção Gráfica'} },
+    { name:'Publink',       word:'Publink',      color:'#10B981', url:'#', cap:{en:'Out-of-Home Media', pt:'Media Exterior'} }
+  ],
+  publications: [
+    { id:'p1', date:'2026-05-20', cover:null,
+      cat:{en:'Insight', pt:'Análise'},
+      title:{en:'Why the next reference companies will also be born in Africa', pt:'Porque as próximas empresas de referência também nascerão em África'},
+      excerpt:{en:'Demographics, urbanisation and the formalisation of markets are aligning. The opportunity is structural — for those with the discipline to build for decades.', pt:'Demografia, urbanização e formalização dos mercados estão a alinhar-se. A oportunidade é estrutural — para quem tem a disciplina de construir por décadas.'},
+      body:{en:['Across the strategic sectors of the economy, the same pattern repeats: demand is structural, execution is scarce, and trust is the real barrier to entry.','INOV was designed for exactly this environment — to allocate capital with conviction and to operate with the rigour of an institution.','The companies that organise the formalisation of markets will capture value durably. That is our thesis, and it is why we build for generations rather than cycles.'],
+            pt:['Nos sectores estratégicos da economia repete-se o mesmo padrão: a procura é estrutural, a execução é escassa e a confiança é a verdadeira barreira à entrada.','A INOV foi desenhada exactamente para este ambiente — para alocar capital com convicção e operar com o rigor de uma instituição.','As empresas que organizam a formalização dos mercados capturam valor de forma duradoura. Essa é a nossa tese, e é por isso que construímos para gerações e não para ciclos.']} },
+    { id:'p2', date:'2026-04-08', cover:null,
+      cat:{en:'Press', pt:'Imprensa'},
+      title:{en:'INOV expands its creative platform across East Africa', pt:'INOV expande a sua plataforma criativa na África Oriental'},
+      excerpt:{en:'Events delivered in Kenya, Mozambique and Ethiopia mark a new stage in the group’s internationalisation.', pt:'Eventos realizados no Quénia, Moçambique e Etiópia marcam uma nova etapa na internacionalização do grupo.'},
+      body:{en:['The communication and creative-industries platform — the sector where the group was born — continues to lead its internationalisation, with representation in South Africa and projects across the continent.','This expansion reflects a simple conviction: the economy of attention has no borders.'],
+            pt:['A plataforma de comunicação e indústrias criativas — o sector onde o grupo nasceu — continua a liderar a sua internacionalização, com representação na África do Sul e projectos por todo o continente.','Esta expansão reflecte uma convicção simples: a economia da atenção não tem fronteiras.']} },
+    { id:'p3', date:'2026-02-15', cover:null,
+      cat:{en:'Report', pt:'Relatório'},
+      title:{en:'Governance as a competitive advantage', pt:'A governação como vantagem competitiva'},
+      excerpt:{en:'In markets where informality is the norm, rigorous governance is a commercial differentiator — not a cost.', pt:'Em mercados onde a informalidade é a norma, a governação rigorosa é um diferenciador comercial — não um custo.'},
+      body:{en:['INOV was designed to earn the confidence of regulators, partners and investors. Consolidated reporting, legal rigour and clear accountability are not overhead — they are how trust is built.','In a region where trust is scarce, discipline compounds.'],
+            pt:['A INOV foi desenhada para inspirar a confiança de reguladores, parceiros e investidores. O reporte consolidado, o rigor legal e a prestação de contas clara não são um custo — são a forma como se constrói confiança.','Numa região onde a confiança é escassa, a disciplina compõe-se ao longo do tempo.']} }
+  ],
+  positions: [
+    { id:'j1', location:'Luanda, AO',
+      title:{en:'Group Financial Controller', pt:'Controller Financeiro do Grupo'},
+      dept:{en:'Finance', pt:'Finanças'}, type:{en:'Full-time', pt:'Tempo inteiro'},
+      summary:{en:'Consolidated reporting across the group’s platforms.', pt:'Reporte consolidado das plataformas do grupo.'} },
+    { id:'j2', location:'Luanda, AO',
+      title:{en:'Platform Operations Manager — Logistics', pt:'Gestor de Operações — Logística'},
+      dept:{en:'Operations', pt:'Operações'}, type:{en:'Full-time', pt:'Tempo inteiro'},
+      summary:{en:'Run integrated logistics for Meteoro and group clients.', pt:'Gerir a logística integrada da Meteoro e clientes do grupo.'} },
+    { id:'j3', location:'Remote / Luanda',
+      title:{en:'Product Designer — Digital', pt:'Product Designer — Digital'},
+      dept:{en:'Digital', pt:'Digital'}, type:{en:'Hybrid', pt:'Híbrido'},
+      summary:{en:'Shape the Andala marketplace experience.', pt:'Moldar a experiência do marketplace Andala.'} }
+  ]
+};
+function tLang(o){ return o ? (o[LANG] || o.en || o.pt || '') : ''; }
+function fmtDate(iso, lg){ try{ return new Date(iso+'T00:00:00').toLocaleDateString(lg==='pt'?'pt-PT':'en-GB',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return iso; } }
+function pick(o, lg){ return o ? (o[lg] || o.en || o.pt || '') : ''; }
+
+function renderCompanies(){
+  ['en','pt'].forEach(lg=>{
+    const el = document.getElementById('companies-'+lg); if(!el) return;
+    el.innerHTML = INOV.companies.map(c=>{
+      const inner = c.logo ? `<img src="${c.logo}" alt="${c.name}">` : `<span class="logo-word">${c.word||c.name}</span>`;
+      const cap = c.cap ? `<span class="logo-cap">${pick(c.cap,lg)}</span>` : '';
+      const real = c.url && c.url !== '#';
+      return real
+        ? `<a class="logo-tile" href="${c.url}" target="_blank" rel="noopener" style="--brand:${c.color||'#002F55'}">${inner}${cap}</a>`
+        : `<div class="logo-tile" style="--brand:${c.color||'#002F55'}">${inner}${cap}</div>`;
+    }).join('');
+  });
+}
+function renderInsights(){
+  ['en','pt'].forEach(lg=>{
+    const el = document.getElementById('insights-'+lg); if(!el) return;
+    if(!INOV.publications.length){ el.innerHTML = `<p class="pub-empty">${lg==='pt'?'Sem publicações por agora.':'No publications yet.'}</p>`; return; }
+    el.innerHTML = INOV.publications.map(p=>{
+      const cov = p.cover ? `style="background-image:url('${p.cover}')"` : '';
+      return `<button class="pub-card reveal" data-pub="${p.id}"><div class="pub-cover" ${cov}></div><div class="pub-meta"><span>${pick(p.cat,lg)}</span><span>${fmtDate(p.date,lg)}</span></div><h3>${pick(p.title,lg)}</h3><p>${pick(p.excerpt,lg)}</p><span class="pub-more">${lg==='pt'?'Ler mais':'Read more'} →</span></button>`;
+    }).join('');
+  });
+}
+function renderPositions(){
+  ['en','pt'].forEach(lg=>{
+    const el = document.getElementById('careers-'+lg);
+    if(el){
+      el.innerHTML = INOV.positions.length
+        ? INOV.positions.map(p=>`<div class="pos reveal"><div><span class="pos-dept">${pick(p.dept,lg)}</span><h3>${pick(p.title,lg)}</h3></div><div class="pos-tags">${p.location} · ${pick(p.type,lg)}</div><button class="btn-sm" data-apply="${pick(p.title,lg)}">${lg==='pt'?'Candidatar':'Apply'}</button></div>`).join('')
+        : `<p class="pos-empty">${lg==='pt'?'Sem vagas abertas neste momento — envie uma candidatura espontânea abaixo.':'No open roles right now — send a general application below.'}</p>`;
+    }
+    const sel = document.getElementById(lg+'-ap-pos');
+    if(sel){ const base = sel.querySelector('option').cloneNode(true); sel.innerHTML=''; sel.appendChild(base); INOV.positions.forEach(p=>{ const o=document.createElement('option'); o.textContent=pick(p.title,lg); sel.appendChild(o); }); }
+  });
+}
+function decorateMedia(page){
+  const hero = page.querySelector('header.home');
+  if(hero){
+    let cv = hero.querySelector('.hero-cover');
+    if(!cv){ cv=document.createElement('div'); cv.className='hero-cover'; cv.innerHTML='<span class="cover-tag"></span>'; hero.appendChild(cv); }
+    cv.querySelector('.cover-tag').textContent = LANG==='pt' ? 'Imagem de capa' : 'Cover image';
+    if(INOV.media.cover){ cv.style.backgroundImage=`url('${INOV.media.cover}')`; hero.classList.add('has-cover'); }
+    else { cv.style.backgroundImage=''; hero.classList.remove('has-cover'); }
+  }
+  const keys = Object.keys(INOV.media.sectors);
+  page.querySelectorAll('.sector-detail').forEach((sd,i)=>{
+    const side = sd.querySelector('.side'); if(!side) return;
+    let im = side.querySelector('.sector-img');
+    if(!im){ im=document.createElement('div'); im.className='sector-img'; im.innerHTML='<span class="img-tag"></span>'; side.insertBefore(im, side.firstChild); }
+    im.querySelector('.img-tag').textContent = LANG==='pt' ? 'Imagem do sector' : 'Sector image';
+    const url = INOV.media.sectors[keys[i]];
+    if(url){ im.style.backgroundImage=`url('${url}')`; im.classList.add('set'); }
+    else { im.style.backgroundImage=''; im.classList.remove('set'); }
+  });
+}
+function openArticle(id){
+  const p = INOV.publications.find(x=>x.id===id); if(!p) return;
+  document.getElementById('modal-cover').style.backgroundImage = p.cover ? `url('${p.cover}')` : '';
+  document.getElementById('modal-meta').innerHTML = `<span>${tLang(p.cat)}</span><span>${fmtDate(p.date,LANG)}</span>`;
+  document.getElementById('modal-title').textContent = tLang(p.title);
+  document.getElementById('modal-body').innerHTML = (p.body[LANG]||p.body.en||[]).map(t=>`<p>${t}</p>`).join('');
+  const m = document.getElementById('article-modal'); m.classList.add('open'); m.setAttribute('aria-hidden','false');
+}
+function closeArticle(){ const m=document.getElementById('article-modal'); m.classList.remove('open'); m.setAttribute('aria-hidden','true'); }
+function submitForm(ev, type, lang){
+  ev.preventDefault();
+  /* Phase 3: POST to Hostinger API, e.g.
+     fetch('/api/'+(type==='application'?'applications':'messages'), {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}) */
+  const f = ev.target;
+  const btn = f.querySelector('button[type="submit"]') || f.querySelector('button');
+  const ok = { en:{contact:'Message received — thank you', application:'Application received — thank you'},
+               pt:{contact:'Mensagem registada — obrigado', application:'Candidatura registada — obrigado'} };
+  if(btn){ btn.disabled=true; btn.textContent = (ok[lang]||ok.en)[type] || 'OK'; }
+  return false;
+}
 function observeReveals(root){
   if(io) io.disconnect();
   io = new IntersectionObserver(es=>{
@@ -1173,6 +1518,7 @@ function render(){
   document.querySelectorAll('#nav-'+LANG+' a').forEach(a=>a.classList.toggle('active', a.dataset.nav===currentPage));
   window.scrollTo(0,0);
   try{ history.replaceState(null,'','#'+currentPage); }catch(e){}
+  decorateMedia(page);
   observeReveals(page);
 }
 function showPage(pid){
@@ -1189,13 +1535,29 @@ document.addEventListener('click', function(ev){
   if(tgl){ const open = navEl.classList.toggle('open'); navToggle.setAttribute('aria-expanded', open?'true':'false'); return; }
   const btn = ev.target.closest('.lang-toggle button');
   if(btn){ LANG = btn.dataset.lang; render(); return; }
+  /* article modal */
+  const pub = ev.target.closest('[data-pub]');
+  if(pub){ openArticle(pub.getAttribute('data-pub')); return; }
+  if(ev.target.closest('#modal-close') || ev.target.id==='article-modal'){ closeArticle(); return; }
+  /* apply to a specific position */
+  const ap = ev.target.closest('[data-apply]');
+  if(ap){
+    const sel = document.getElementById(LANG+'-ap-pos');
+    if(sel){ const want=ap.getAttribute('data-apply'); [...sel.options].forEach(o=>{ if(o.textContent===want) o.selected=true; }); }
+    const form = document.querySelector('#'+LANG+'-page-careers form');
+    if(form){ form.scrollIntoView({behavior:'smooth',block:'center'}); const fn=form.querySelector('input'); if(fn) setTimeout(()=>fn.focus(),400); }
+    return;
+  }
   const a = ev.target.closest('a[href^="#"]');
   if(!a) return;
   ev.preventDefault();
   closeMenu();
   showPage(a.getAttribute('href').slice(1));
 }, true);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeArticle(); });
 window.addEventListener('hashchange', ()=>showPage((location.hash||'#home').slice(1)));
+/* fill admin-managed content, then route */
+renderCompanies(); renderInsights(); renderPositions();
 showPage((location.hash||'#home').slice(1));
 </script>
 </body>

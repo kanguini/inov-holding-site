@@ -1,0 +1,15 @@
+{
+  "name": "inov-holding-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "INOV Holding Corporate — bilingual institutional website (static, Vite-built).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.10"
+  }
+}

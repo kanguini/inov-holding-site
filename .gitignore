@@ -4,6 +4,17 @@ node_modules/
 # Build output
 dist/
 
+# Environment / secrets
+.env
+.env.local
+
+# Local data + uploads (runtime, not source)
+data.sqlite
+data.sqlite-shm
+data.sqlite-wal
+uploads/*
+!uploads/.gitkeep
+
 # OS
 .DS_Store
 Thumbs.db

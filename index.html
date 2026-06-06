@@ -822,6 +822,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
         <div><label for="en-ap-pos">Position</label>
           <select id="en-ap-pos" name="position"><option>General application</option></select></div>
         <div><label for="en-ap-link">Portfolio / LinkedIn (optional)</label><input id="en-ap-link" name="link" type="url" placeholder="https://"></div>
+        <div><label for="en-ap-cv">CV — PDF/DOC (optional)</label><input id="en-ap-cv" name="cv" type="file" accept=".pdf,.doc,.docx"></div>
         <div><label for="en-ap-msg">Cover note</label><textarea id="en-ap-msg" name="message" rows="5" required></textarea></div>
         <button type="submit">Submit application</button>
         <p class="form-note">By submitting, you consent to the processing of your data for recruitment purposes.</p>
@@ -844,12 +845,12 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'contact','en')">
-        <div><label for="en-nome">Name</label><input id="en-nome" type="text" required></div>
-        <div><label for="en-org">Organisation</label><input id="en-org" type="text"></div>
-        <div><label for="en-email">E-mail</label><input id="en-email" type="email" required></div>
+        <div><label for="en-nome">Name</label><input id="en-nome" name="name" type="text" required></div>
+        <div><label for="en-org">Organisation</label><input id="en-org" name="organisation" type="text"></div>
+        <div><label for="en-email">E-mail</label><input id="en-email" name="email" type="email" required></div>
         <div><label for="en-assunto">Subject</label>
-          <select id="en-assunto"><option>Commercial proposal</option><option>Partnership</option><option>Press</option><option>Other</option></select></div>
-        <div><label for="en-msg">Message</label><textarea id="en-msg" rows="6" required></textarea></div>
+          <select id="en-assunto" name="subject"><option>Commercial proposal</option><option>Partnership</option><option>Press</option><option>Other</option></select></div>
+        <div><label for="en-msg">Message</label><textarea id="en-msg" name="message" rows="6" required></textarea></div>
         <button type="submit">Send message</button>
         <p class="form-note">By submitting, you consent to the processing of your data for the purpose of responding to this enquiry.</p>
       </form>
@@ -1307,6 +1308,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
         <div><label for="pt-ap-pos">Vaga</label>
           <select id="pt-ap-pos" name="position"><option>Candidatura espontânea</option></select></div>
         <div><label for="pt-ap-link">Portfólio / LinkedIn (opcional)</label><input id="pt-ap-link" name="link" type="url" placeholder="https://"></div>
+        <div><label for="pt-ap-cv">CV — PDF/DOC (opcional)</label><input id="pt-ap-cv" name="cv" type="file" accept=".pdf,.doc,.docx"></div>
         <div><label for="pt-ap-msg">Mensagem</label><textarea id="pt-ap-msg" name="message" rows="5" required></textarea></div>
         <button type="submit">Enviar candidatura</button>
         <p class="form-note">Ao submeter, consente o tratamento dos seus dados para fins de recrutamento.</p>
@@ -1329,12 +1331,12 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'contact','pt')">
-        <div><label for="pt-nome">Nome</label><input id="pt-nome" type="text" required></div>
-        <div><label for="pt-org">Organização</label><input id="pt-org" type="text"></div>
-        <div><label for="pt-email">E-mail</label><input id="pt-email" type="email" required></div>
+        <div><label for="pt-nome">Nome</label><input id="pt-nome" name="name" type="text" required></div>
+        <div><label for="pt-org">Organização</label><input id="pt-org" name="organisation" type="text"></div>
+        <div><label for="pt-email">E-mail</label><input id="pt-email" name="email" type="email" required></div>
         <div><label for="pt-assunto">Assunto</label>
-          <select id="pt-assunto"><option>Proposta comercial</option><option>Parceria</option><option>Imprensa</option><option>Outro</option></select></div>
-        <div><label for="pt-msg">Mensagem</label><textarea id="pt-msg" rows="6" required></textarea></div>
+          <select id="pt-assunto" name="subject"><option>Proposta comercial</option><option>Parceria</option><option>Imprensa</option><option>Outro</option></select></div>
+        <div><label for="pt-msg">Mensagem</label><textarea id="pt-msg" name="message" rows="6" required></textarea></div>
         <button type="submit">Enviar mensagem</button>
         <p class="form-note">Ao enviar, autoriza o tratamento dos seus dados para efeitos de resposta a este contacto.</p>
       </form>
@@ -1488,15 +1490,27 @@ function openArticle(id){
   const m = document.getElementById('article-modal'); m.classList.add('open'); m.setAttribute('aria-hidden','false');
 }
 function closeArticle(){ const m=document.getElementById('article-modal'); m.classList.remove('open'); m.setAttribute('aria-hidden','true'); }
-function submitForm(ev, type, lang){
+async function submitForm(ev, type, lang){
   ev.preventDefault();
-  /* Phase 3: POST to Hostinger API, e.g.
-     fetch('/api/'+(type==='application'?'applications':'messages'), {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}) */
   const f = ev.target;
   const btn = f.querySelector('button[type="submit"]') || f.querySelector('button');
-  const ok = { en:{contact:'Message received — thank you', application:'Application received — thank you'},
-               pt:{contact:'Mensagem registada — obrigado', application:'Candidatura registada — obrigado'} };
-  if(btn){ btn.disabled=true; btn.textContent = (ok[lang]||ok.en)[type] || 'OK'; }
+  const label = btn ? btn.textContent : '';
+  const ok  = { en:{contact:'Message received — thank you', application:'Application received — thank you'},
+                pt:{contact:'Mensagem registada — obrigado', application:'Candidatura registada — obrigado'} };
+  const err = { en:'Could not send — please e-mail geral@inovholding.ao',
+                pt:'Não foi possível enviar — escreva para geral@inovholding.ao' };
+  const sending = { en:'Sending…', pt:'A enviar…' };
+  const endpoint = '/api/'+(type==='application'?'applications':'messages');
+  if(btn){ btn.disabled=true; btn.textContent = sending[lang]||sending.en; }
+  try{
+    const res = await fetch(endpoint, { method:'POST', body:new FormData(f) });
+    if(!res.ok) throw new Error('bad');
+    if(btn) btn.textContent = (ok[lang]||ok.en)[type];
+    f.reset();
+  }catch(e){
+    if(btn){ btn.disabled=false; btn.textContent = label || ((lang==='pt'?'Enviar':'Send')); }
+    alert(err[lang]||err.en);
+  }
   return false;
 }
 function observeReveals(root){
@@ -1556,9 +1570,25 @@ document.addEventListener('click', function(ev){
 }, true);
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeArticle(); });
 window.addEventListener('hashchange', ()=>showPage((location.hash||'#home').slice(1)));
-/* fill admin-managed content, then route */
-renderCompanies(); renderInsights(); renderPositions();
-showPage((location.hash||'#home').slice(1));
+/* Render with whatever data we currently have, then route. */
+function bootRender(){
+  renderCompanies(); renderInsights(); renderPositions();
+  showPage((location.hash||'#home').slice(1));
+}
+/* Try the live admin API first; fall back silently to the built-in defaults
+   (e.g. on the static GitHub Pages mirror, where /api does not exist). */
+fetch('/api/content', { headers:{ 'Accept':'application/json' } })
+  .then(r => (r.ok && (r.headers.get('content-type')||'').includes('json')) ? r.json() : Promise.reject())
+  .then(d => {
+    if(d && typeof d==='object'){
+      if(d.media) INOV.media = d.media;
+      if(Array.isArray(d.companies) && d.companies.length) INOV.companies = d.companies;
+      if(Array.isArray(d.publications)) INOV.publications = d.publications;
+      if(Array.isArray(d.positions)) INOV.positions = d.positions;
+    }
+  })
+  .catch(()=>{})
+  .finally(bootRender);
 </script>
 </body>
 </html>

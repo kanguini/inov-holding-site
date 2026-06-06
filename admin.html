@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>INOV Holding — Administração</title>
+<link rel="icon" href="favicon.svg">
+<style>
+  :root{
+    --navy:#002F55; --navy-2:#0A4575; --cream:#FBFAF5; --ink:#1B2733;
+    --steel:#5B6B7B; --line:#E4E0D6; --white:#fff; --ok:#10785a; --bad:#b0203a;
+    --accent:#C8A24B;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.5}
+  h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.01em}
+  a{color:var(--navy-2)}
+  button{font-family:inherit;cursor:pointer}
+  .btn{border:0;background:var(--navy);color:#fff;padding:10px 18px;border-radius:8px;font-weight:600;font-size:14px}
+  .btn:hover{background:var(--navy-2)}
+  .btn.ghost{background:transparent;color:var(--navy);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#fff}
+  .btn.sm{padding:6px 12px;font-size:13px}
+  .btn.danger{background:transparent;color:var(--bad);border:1px solid #e8c9cf}
+  .btn.danger:hover{background:#fbeef0}
+  .hidden{display:none!important}
+
+  /* Login */
+  .login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}
+  .login-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:38px;width:100%;max-width:380px;box-shadow:0 24px 60px rgba(0,47,85,.08)}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+  .brand .mark{width:38px;height:38px;border-radius:9px;background:var(--navy);color:var(--cream);display:grid;place-items:center;font-weight:700}
+  .brand b{font-size:15px;letter-spacing:.04em}
+  .brand span{display:block;font-size:11px;color:var(--steel);letter-spacing:.12em;text-transform:uppercase}
+
+  label{display:block;font-size:12px;font-weight:600;color:var(--steel);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 6px}
+  input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy-2);box-shadow:0 0 0 3px rgba(10,69,117,.1)}
+  textarea{resize:vertical;min-height:90px}
+
+  /* Shell */
+  .shell{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+  aside{background:var(--navy);color:#cfe0ee;padding:22px 16px;display:flex;flex-direction:column}
+  aside .brand .mark{background:#fff;color:var(--navy)}
+  aside .brand b,aside .brand span{color:#fff}
+  nav.side{margin-top:18px;display:flex;flex-direction:column;gap:2px;flex:1}
+  nav.side button{display:flex;justify-content:space-between;align-items:center;gap:8px;background:transparent;border:0;color:#cfe0ee;text-align:left;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500}
+  nav.side button:hover{background:rgba(255,255,255,.08);color:#fff}
+  nav.side button.active{background:#fff;color:var(--navy);font-weight:600}
+  nav.side .badge{background:var(--accent);color:#3a2c08;border-radius:20px;font-size:11px;font-weight:700;padding:1px 8px;min-width:20px;text-align:center}
+  nav.side button.active .badge{background:var(--navy);color:#fff}
+  aside .foot{font-size:12px;color:#9fb6cb;border-top:1px solid rgba(255,255,255,.12);padding-top:14px;margin-top:14px}
+  aside .foot a{color:#fff;cursor:pointer}
+
+  main{padding:30px 36px;overflow:auto;max-height:100vh}
+  .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:16px;flex-wrap:wrap}
+  .head h1{font-size:24px}
+  .head .sub{color:var(--steel);font-size:13px;margin-top:4px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
+  .stat .n{font-size:30px;font-weight:700;color:var(--navy)}
+  .stat .l{font-size:13px;color:var(--steel);margin-top:2px}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}
+  th{background:#faf8f2;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--steel)}
+  tr:last-child td{border-bottom:0}
+  td.actions{white-space:nowrap;text-align:right}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
+  .pill.pub{background:#e3f1ea;color:var(--ok)}
+  .pill.draft{background:#f3ece0;color:#7a5b16}
+  .pill.open{background:#e3f1ea;color:var(--ok)}
+  .pill.closed{background:#f1e3e6;color:var(--bad)}
+  .pill.new{background:var(--accent);color:#3a2c08}
+  .muted{color:var(--steel);font-size:13px}
+  .empty{padding:40px;text-align:center;color:var(--steel);background:#fff;border:1px dashed var(--line);border-radius:12px}
+
+  /* Drawer / editor */
+  .drawer-bg{position:fixed;inset:0;background:rgba(0,18,33,.4);display:none;z-index:40}
+  .drawer-bg.open{display:block}
+  .drawer{position:fixed;top:0;right:0;height:100vh;width:min(560px,94vw);background:var(--cream);border-left:1px solid var(--line);box-shadow:-20px 0 50px rgba(0,47,85,.12);transform:translateX(100%);transition:transform .25s ease;z-index:50;display:flex;flex-direction:column}
+  .drawer.open{transform:translateX(0)}
+  .drawer header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line);background:#fff}
+  .drawer header h2{font-size:18px}
+  .drawer .body{padding:22px;overflow:auto;flex:1}
+  .drawer .foot{padding:16px 22px;border-top:1px solid var(--line);background:#fff;display:flex;gap:10px;justify-content:flex-end}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .field-group{border:1px solid var(--line);border-radius:10px;padding:6px 14px 14px;margin-top:14px;background:#fff}
+  .field-group > .gl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-top:12px}
+  .x{background:transparent;border:0;font-size:24px;line-height:1;color:var(--steel)}
+
+  .img-field{display:flex;gap:12px;align-items:center;margin-top:6px}
+  .img-prev{width:72px;height:54px;border-radius:8px;border:1px solid var(--line);background:#f3efe6 center/cover no-repeat;flex:none}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:11px 20px;border-radius:10px;font-size:14px;box-shadow:0 16px 30px rgba(0,47,85,.25);z-index:80;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+  .toast.bad{background:var(--bad)}
+  .loginerr{color:var(--bad);font-size:13px;margin-top:12px;min-height:18px}
+  .swatch{width:18px;height:18px;border-radius:4px;display:inline-block;vertical-align:middle;margin-right:6px;border:1px solid rgba(0,0,0,.1)}
+  .detail p{margin:8px 0}
+  .detail .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--steel);font-weight:600}
+  @media(max-width:760px){.shell{grid-template-columns:1fr}aside{flex-direction:row;flex-wrap:wrap;align-items:center}nav.side{flex-direction:row;flex-wrap:wrap;margin-top:0}aside .foot{display:none}main{padding:20px}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login" class="login-wrap">
+  <form class="login-card" id="loginForm">
+    <div class="brand"><span class="mark">I</span><div><b>INOV HOLDING</b><span>Administração</span></div></div>
+    <label for="li-email">E-mail</label>
+    <input id="li-email" type="email" autocomplete="username" required>
+    <label for="li-pass">Palavra-passe</label>
+    <input id="li-pass" type="password" autocomplete="current-password" required>
+    <div class="loginerr" id="loginErr"></div>
+    <button class="btn" style="width:100%;margin-top:8px" type="submit">Entrar</button>
+  </form>
+</div>
+
+<!-- APP -->
+<div id="app" class="shell hidden">
+  <aside>
+    <div class="brand"><span class="mark">I</span><div><b>INOV</b><span>Admin</span></div></div>
+    <nav class="side" id="tabs">
+      <button data-tab="overview" class="active">Visão geral</button>
+      <button data-tab="publications">Publicações</button>
+      <button data-tab="positions">Carreiras</button>
+      <button data-tab="companies">Empresas</button>
+      <button data-tab="media">Imagens</button>
+      <button data-tab="messages">Mensagens <span class="badge hidden" id="b-msg">0</span></button>
+      <button data-tab="applications">Candidaturas <span class="badge hidden" id="b-app">0</span></button>
+      <button data-tab="account">Conta</button>
+    </nav>
+    <div class="foot">Sessão: <span id="who">—</span><br><a id="logout">Terminar sessão</a> · <a href="/" target="_blank">Ver site →</a></div>
+  </aside>
+  <main id="view"></main>
+</div>
+
+<!-- DRAWER -->
+<div class="drawer-bg" id="drawerBg"></div>
+<div class="drawer" id="drawer">
+  <header><h2 id="drawerTitle">Editar</h2><button class="x" id="drawerClose">&times;</button></header>
+  <div class="body" id="drawerBody"></div>
+  <div class="foot" id="drawerFoot"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(msg,bad){ const t=$('#toast'); t.textContent=msg; t.className='toast show'+(bad?' bad':''); setTimeout(()=>t.className='toast',2400); }
+
+async function api(path, opts={}){
+  const res = await fetch('/api'+path, {credentials:'same-origin', headers: opts.body && !(opts.body instanceof FormData) ? {'Content-Type':'application/json'} : undefined, ...opts});
+  if(res.status===401){ show('login'); throw new Error('unauth'); }
+  const data = res.headers.get('content-type')?.includes('json') ? await res.json() : null;
+  if(!res.ok) throw new Error((data&&data.error)||('http_'+res.status));
+  return data;
+}
+
+let STATE = {};
+function show(which){ $('#login').classList.toggle('hidden', which!=='login'); $('#app').classList.toggle('hidden', which!=='app'); }
+
+/* ── Auth ── */
+$('#loginForm').addEventListener('submit', async e=>{
+  e.preventDefault(); $('#loginErr').textContent='';
+  try{
+    await api('/admin/login',{method:'POST',body:JSON.stringify({email:$('#li-email').value,password:$('#li-pass').value})});
+    await boot();
+  }catch(err){ $('#loginErr').textContent = err.message==='invalid_credentials' ? 'Credenciais inválidas.' : 'Erro ao entrar.'; }
+});
+$('#logout').addEventListener('click', async()=>{ await api('/admin/logout',{method:'POST'}); show('login'); });
+
+/* ── Tabs ── */
+let TAB='overview';
+$('#tabs').addEventListener('click', e=>{ const b=e.target.closest('button[data-tab]'); if(!b) return; TAB=b.dataset.tab; [...$('#tabs').children].forEach(x=>x.classList.toggle('active',x===b)); renderTab(); });
+
+async function boot(){
+  try{ const me = await api('/admin/me'); $('#who').textContent = me.email; show('app'); await refreshBadges(); renderTab(); }
+  catch{ show('login'); }
+}
+
+async function refreshBadges(){
+  try{
+    const s = await api('/admin/stats');
+    const bm=$('#b-msg'), ba=$('#b-app');
+    bm.textContent=s.unreadMessages; bm.classList.toggle('hidden', !s.unreadMessages);
+    ba.textContent=s.unreadApplications; ba.classList.toggle('hidden', !s.unreadApplications);
+    STATE.stats=s;
+  }catch{}
+}
+
+/* ── Drawer ── */
+function openDrawer(title, bodyHtml, footHtml){
+  $('#drawerTitle').textContent=title; $('#drawerBody').innerHTML=bodyHtml; $('#drawerFoot').innerHTML=footHtml||'';
+  $('#drawer').classList.add('open'); $('#drawerBg').classList.add('open');
+}
+function closeDrawer(){ $('#drawer').classList.remove('open'); $('#drawerBg').classList.remove('open'); }
+$('#drawerClose').addEventListener('click', closeDrawer);
+$('#drawerBg').addEventListener('click', closeDrawer);
+
+/* Inline image-upload widget: returns hidden input #<id> holding the URL */
+function imgField(id, label, url){
+  return `<label>${label}</label><div class="img-field">
+    <div class="img-prev" id="${id}-prev" style="background-image:${url?`url('${esc(url)}')`:'none'}"></div>
+    <div style="flex:1">
+      <input type="hidden" id="${id}" value="${esc(url||'')}">
+      <input type="file" accept="image/*" id="${id}-file">
+      <button type="button" class="btn ghost sm" style="margin-top:6px" onclick="document.getElementById('${id}').value='';document.getElementById('${id}-prev').style.backgroundImage='none'">Remover</button>
+    </div></div>`;
+}
+function wireImg(id){
+  const f=$('#'+id+'-file'); if(!f) return;
+  f.addEventListener('change', async()=>{
+    if(!f.files[0]) return;
+    const fd=new FormData(); fd.append('file', f.files[0]);
+    try{ const r=await api('/admin/upload',{method:'POST',body:fd}); $('#'+id).value=r.url; $('#'+id+'-prev').style.backgroundImage=`url('${r.url}')`; toast('Imagem carregada'); }
+    catch(err){ toast(err.message==='invalid_file_type'?'Tipo de ficheiro inválido':'Falha no upload', true); }
+  });
+}
+const val=id=>{ const e=$('#'+id); return e?e.value:''; };
+
+/* ── Render tab ── */
+function renderTab(){
+  const v=$('#view');
+  if(TAB==='overview') return renderOverview(v);
+  if(TAB==='publications') return renderPublications(v);
+  if(TAB==='positions') return renderPositions(v);
+  if(TAB==='companies') return renderCompanies(v);
+  if(TAB==='media') return renderMedia(v);
+  if(TAB==='messages') return renderMessages(v);
+  if(TAB==='applications') return renderApplications(v);
+  if(TAB==='account') return renderAccount(v);
+}
+
+/* OVERVIEW */
+async function renderOverview(v){
+  v.innerHTML=`<div class="head"><div><h1>Visão geral</h1><div class="sub">Resumo do conteúdo e da caixa de entrada</div></div></div><div class="cards" id="ov"></div>`;
+  const s = STATE.stats || await api('/admin/stats');
+  $('#ov').innerHTML=[
+    ['Mensagens por ler', s.unreadMessages],['Candidaturas por ler', s.unreadApplications],
+    ['Publicações', s.publications],['Vagas', s.positions],['Empresas', s.companies],
+  ].map(([l,n])=>`<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+}
+
+/* PUBLICATIONS */
+async function renderPublications(v){
+  v.innerHTML=`<div class="head"><div><h1>Publicações</h1><div class="sub">Insights, imprensa e relatórios (EN + PT)</div></div><button class="btn" id="new">+ Nova publicação</button></div><div id="list"></div>`;
+  $('#new').onclick=()=>editPublication(null);
+  const rows = await api('/admin/publications');
+  $('#list').innerHTML = rows.length ? `<table><thead><tr><th>Data</th><th>Título (EN)</th><th>Categoria</th><th>Estado</th><th></th></tr></thead><tbody>${
+    rows.map(r=>`<tr><td>${esc(r.pdate)}</td><td>${esc(r.title_en)}</td><td>${esc(r.cat_en)}</td><td><span class="pill ${r.status==='draft'?'draft':'pub'}">${r.status==='draft'?'Rascunho':'Publicado'}</span></td>
+    <td class="actions"><button class="btn ghost sm" data-edit="${r.id}">Editar</button> <button class="btn danger sm" data-del="${r.id}">Apagar</button></td></tr>`).join('')
+  }</tbody></table>` : `<div class="empty">Sem publicações.</div>`;
+  $('#list').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editPublication(rows.find(r=>r.id==b.dataset.edit)));
+  $('#list').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>del('/admin/publications/'+b.dataset.del, renderTab));
+}
+function editPublication(r){
+  r=r||{};
+  openDrawer(r.id?'Editar publicação':'Nova publicação', `
+    <div class="row2"><div><label>Data</label><input id="f-pdate" type="date" value="${esc(r.pdate||new Date().toISOString().slice(0,10))}"></div>
+    <div><label>Estado</label><select id="f-status"><option value="published"${r.status!=='draft'?' selected':''}>Publicado</option><option value="draft"${r.status==='draft'?' selected':''}>Rascunho</option></select></div></div>
+    ${imgField('f-cover','Imagem de capa', r.cover)}
+    <div class="field-group"><div class="gl">Inglês (EN)</div>
+      <label>Categoria</label><input id="f-cat_en" value="${esc(r.cat_en)}" placeholder="Insight / Press / Report">
+      <label>Título</label><input id="f-title_en" value="${esc(r.title_en)}">
+      <label>Resumo</label><textarea id="f-excerpt_en">${esc(r.excerpt_en)}</textarea>
+      <label>Corpo (parágrafos separados por linha em branco)</label><textarea id="f-body_en" style="min-height:140px">${esc(r.body_en)}</textarea>
+    </div>
+    <div class="field-group"><div class="gl">Português (PT)</div>
+      <label>Categoria</label><input id="f-cat_pt" value="${esc(r.cat_pt)}" placeholder="Análise / Imprensa / Relatório">
+      <label>Título</label><input id="f-title_pt" value="${esc(r.title_pt)}">
+      <label>Resumo</label><textarea id="f-excerpt_pt">${esc(r.excerpt_pt)}</textarea>
+      <label>Corpo</label><textarea id="f-body_pt" style="min-height:140px">${esc(r.body_pt)}</textarea>
+    </div>`,
+    `<button class="btn ghost" onclick="closeDrawer()">Cancelar</button><button class="btn" id="save">Guardar</button>`);
+  wireImg('f-cover');
+  $('#save').onclick=async()=>{
+    const body={pdate:val('f-pdate'),status:val('f-status'),cover:val('f-cover'),
+      cat_en:val('f-cat_en'),title_en:val('f-title_en'),excerpt_en:val('f-excerpt_en'),body_en:val('f-body_en'),
+      cat_pt:val('f-cat_pt'),title_pt:val('f-title_pt'),excerpt_pt:val('f-excerpt_pt'),body_pt:val('f-body_pt')};
+    try{ await api('/admin/publications'+(r.id?'/'+r.id:''),{method:r.id?'PUT':'POST',body:JSON.stringify(body)}); closeDrawer(); toast('Guardado'); renderTab(); }
+    catch(err){ toast('Erro ao guardar',true); }
+  };
+}
+
+/* POSITIONS */
+async function renderPositions(v){
+  v.innerHTML=`<div class="head"><div><h1>Carreiras</h1><div class="sub">Vagas abertas (EN + PT)</div></div><button class="btn" id="new">+ Nova vaga</button></div><div id="list"></div>`;
+  $('#new').onclick=()=>editPosition(null);
+  const rows = await api('/admin/positions');
+  $('#list').innerHTML = rows.length ? `<table><thead><tr><th>Título (EN)</th><th>Departamento</th><th>Local</th><th>Estado</th><th></th></tr></thead><tbody>${
+    rows.map(r=>`<tr><td>${esc(r.title_en)}</td><td>${esc(r.dept_en)}</td><td>${esc(r.location)}</td><td><span class="pill ${r.status==='closed'?'closed':'open'}">${r.status==='closed'?'Fechada':'Aberta'}</span></td>
+    <td class="actions"><button class="btn ghost sm" data-edit="${r.id}">Editar</button> <button class="btn danger sm" data-del="${r.id}">Apagar</button></td></tr>`).join('')
+  }</tbody></table>` : `<div class="empty">Sem vagas.</div>`;
+  $('#list').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editPosition(rows.find(r=>r.id==b.dataset.edit)));
+  $('#list').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>del('/admin/positions/'+b.dataset.del, renderTab));
+}
+function editPosition(r){
+  r=r||{};
+  openDrawer(r.id?'Editar vaga':'Nova vaga',`
+    <div class="row2"><div><label>Local</label><input id="f-location" value="${esc(r.location||'Luanda, AO')}"></div>
+    <div><label>Estado</label><select id="f-status"><option value="open"${r.status!=='closed'?' selected':''}>Aberta</option><option value="closed"${r.status==='closed'?' selected':''}>Fechada</option></select></div></div>
+    <div class="field-group"><div class="gl">Inglês (EN)</div>
+      <label>Título</label><input id="f-title_en" value="${esc(r.title_en)}">
+      <div class="row2"><div><label>Departamento</label><input id="f-dept_en" value="${esc(r.dept_en)}"></div><div><label>Tipo</label><input id="f-type_en" value="${esc(r.type_en)}" placeholder="Full-time"></div></div>
+      <label>Resumo</label><textarea id="f-summary_en">${esc(r.summary_en)}</textarea>
+    </div>
+    <div class="field-group"><div class="gl">Português (PT)</div>
+      <label>Título</label><input id="f-title_pt" value="${esc(r.title_pt)}">
+      <div class="row2"><div><label>Departamento</label><input id="f-dept_pt" value="${esc(r.dept_pt)}"></div><div><label>Tipo</label><input id="f-type_pt" value="${esc(r.type_pt)}" placeholder="Tempo inteiro"></div></div>
+      <label>Resumo</label><textarea id="f-summary_pt">${esc(r.summary_pt)}</textarea>
+    </div>`,
+    `<button class="btn ghost" onclick="closeDrawer()">Cancelar</button><button class="btn" id="save">Guardar</button>`);
+  $('#save').onclick=async()=>{
+    const body={location:val('f-location'),status:val('f-status'),title_en:val('f-title_en'),dept_en:val('f-dept_en'),type_en:val('f-type_en'),summary_en:val('f-summary_en'),title_pt:val('f-title_pt'),dept_pt:val('f-dept_pt'),type_pt:val('f-type_pt'),summary_pt:val('f-summary_pt')};
+    try{ await api('/admin/positions'+(r.id?'/'+r.id:''),{method:r.id?'PUT':'POST',body:JSON.stringify(body)}); closeDrawer(); toast('Guardado'); renderTab(); }catch{ toast('Erro ao guardar',true); }
+  };
+}
+
+/* COMPANIES */
+async function renderCompanies(v){
+  v.innerHTML=`<div class="head"><div><h1>Empresas do grupo</h1><div class="sub">Logótipos (cinza por defeito, cor ao passar o cursor no site)</div></div><button class="btn" id="new">+ Nova empresa</button></div><div id="list"></div>`;
+  $('#new').onclick=()=>editCompany(null);
+  const rows = await api('/admin/companies');
+  $('#list').innerHTML = rows.length ? `<table><thead><tr><th>Ordem</th><th>Nome</th><th>Cor</th><th>Legenda (EN)</th><th>Link</th><th></th></tr></thead><tbody>${
+    rows.map(r=>`<tr><td>${r.sort_order}</td><td>${esc(r.name)}</td><td><span class="swatch" style="background:${esc(r.color)}"></span>${esc(r.color)}</td><td>${esc(r.cap_en)}</td><td>${r.url&&r.url!=='#'?`<a href="${esc(r.url)}" target="_blank">↗</a>`:'<span class="muted">—</span>'}</td>
+    <td class="actions"><button class="btn ghost sm" data-edit="${r.id}">Editar</button> <button class="btn danger sm" data-del="${r.id}">Apagar</button></td></tr>`).join('')
+  }</tbody></table>` : `<div class="empty">Sem empresas.</div>`;
+  $('#list').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editCompany(rows.find(r=>r.id==b.dataset.edit)));
+  $('#list').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>del('/admin/companies/'+b.dataset.del, renderTab));
+}
+function editCompany(r){
+  r=r||{};
+  openDrawer(r.id?'Editar empresa':'Nova empresa',`
+    <div class="row2"><div><label>Nome</label><input id="f-name" value="${esc(r.name)}"></div><div><label>Texto do logo (se sem imagem)</label><input id="f-word" value="${esc(r.word||r.name||'')}"></div></div>
+    <div class="row2"><div><label>Cor da marca</label><input id="f-color" type="color" value="${esc(r.color||'#002F55')}" style="height:42px;padding:4px"></div><div><label>Ordem</label><input id="f-sort_order" type="number" value="${esc(r.sort_order||0)}"></div></div>
+    <label>Website (deixe vazio se não houver)</label><input id="f-url" value="${esc(r.url&&r.url!=='#'?r.url:'')}" placeholder="https://">
+    ${imgField('f-logo','Logótipo (PNG/SVG)', r.logo)}
+    <div class="row2"><div><label>Legenda EN</label><input id="f-cap_en" value="${esc(r.cap_en)}"></div><div><label>Legenda PT</label><input id="f-cap_pt" value="${esc(r.cap_pt)}"></div></div>`,
+    `<button class="btn ghost" onclick="closeDrawer()">Cancelar</button><button class="btn" id="save">Guardar</button>`);
+  wireImg('f-logo');
+  $('#save').onclick=async()=>{
+    const body={name:val('f-name'),word:val('f-word'),color:val('f-color'),sort_order:val('f-sort_order'),url:val('f-url')||'#',logo:val('f-logo'),cap_en:val('f-cap_en'),cap_pt:val('f-cap_pt')};
+    try{ await api('/admin/companies'+(r.id?'/'+r.id:''),{method:r.id?'PUT':'POST',body:JSON.stringify(body)}); closeDrawer(); toast('Guardado'); renderTab(); }catch{ toast('Erro ao guardar',true); }
+  };
+}
+
+/* MEDIA */
+async function renderMedia(v){
+  const m = await api('/admin/media');
+  const s=m.sectors||{};
+  v.innerHTML=`<div class="head"><div><h1>Imagens do site</h1><div class="sub">Capa do hero e imagem de cada sector</div></div><button class="btn" id="save">Guardar alterações</button></div>
+    <div class="field-group" style="max-width:560px">
+      <div class="gl">Capa (hero)</div>${imgField('m-cover','Imagem de capa', m.cover)}
+      <div class="gl">Sectores</div>
+      ${imgField('m-infrastructure','Infra-estrutura', s.infrastructure)}
+      ${imgField('m-finance','Finanças / Risco', s.finance)}
+      ${imgField('m-digital','Digital', s.digital)}
+      ${imgField('m-creative','Criatividade', s.creative)}
+    </div>`;
+  ['m-cover','m-infrastructure','m-finance','m-digital','m-creative'].forEach(wireImg);
+  $('#save').onclick=async()=>{
+    const body={cover:val('m-cover'),sectors:{infrastructure:val('m-infrastructure'),finance:val('m-finance'),digital:val('m-digital'),creative:val('m-creative')}};
+    try{ await api('/admin/media',{method:'PUT',body:JSON.stringify(body)}); toast('Imagens guardadas'); }catch{ toast('Erro ao guardar',true); }
+  };
+}
+
+/* MESSAGES */
+async function renderMessages(v){
+  v.innerHTML=`<div class="head"><div><h1>Mensagens de contacto</h1><div class="sub">Pedidos recebidos pelo formulário de contacto</div></div></div><div id="list"></div>`;
+  const rows = await api('/admin/messages');
+  $('#list').innerHTML = rows.length ? `<table><thead><tr><th>Data</th><th>Nome</th><th>Assunto</th><th></th></tr></thead><tbody>${
+    rows.map(r=>`<tr style="${r.is_read?'':'font-weight:600'}"><td>${esc(String(r.created_at).slice(0,16).replace('T',' '))} ${r.is_read?'':'<span class="pill new">nova</span>'}</td><td>${esc(r.name)}<div class="muted">${esc(r.email)}</div></td><td>${esc(r.subject||'—')}</td>
+    <td class="actions"><button class="btn ghost sm" data-view="${r.id}">Ver</button> <button class="btn danger sm" data-del="${r.id}">Apagar</button></td></tr>`).join('')
+  }</tbody></table>` : `<div class="empty">Sem mensagens.</div>`;
+  $('#list').querySelectorAll('[data-view]').forEach(b=>b.onclick=async()=>{
+    const r=rows.find(x=>x.id==b.dataset.view);
+    if(!r.is_read){ await api('/admin/messages/'+r.id,{method:'PATCH',body:JSON.stringify({is_read:1})}); refreshBadges(); }
+    openDrawer('Mensagem', `<div class="detail">
+      <p class="lbl">De</p><p>${esc(r.name)} &lt;${esc(r.email)}&gt;</p>
+      <p class="lbl">Organização</p><p>${esc(r.organisation||'—')}</p>
+      <p class="lbl">Assunto</p><p>${esc(r.subject||'—')}</p>
+      <p class="lbl">Data</p><p>${esc(String(r.created_at).replace('T',' ').slice(0,19))}</p>
+      <p class="lbl">Mensagem</p><p style="white-space:pre-wrap">${esc(r.message)}</p></div>`,
+      `<a class="btn ghost" href="mailto:${esc(r.email)}">Responder por e-mail</a>`);
+    renderTab();
+  });
+  $('#list').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>del('/admin/messages/'+b.dataset.del, ()=>{refreshBadges();renderTab();}));
+}
+
+/* APPLICATIONS */
+async function renderApplications(v){
+  v.innerHTML=`<div class="head"><div><h1>Candidaturas</h1><div class="sub">Candidaturas submetidas na página de Carreiras</div></div></div><div id="list"></div>`;
+  const rows = await api('/admin/applications');
+  $('#list').innerHTML = rows.length ? `<table><thead><tr><th>Data</th><th>Nome</th><th>Vaga</th><th>CV</th><th></th></tr></thead><tbody>${
+    rows.map(r=>`<tr style="${r.is_read?'':'font-weight:600'}"><td>${esc(String(r.created_at).slice(0,16).replace('T',' '))} ${r.is_read?'':'<span class="pill new">nova</span>'}</td><td>${esc(r.name)}<div class="muted">${esc(r.email)}</div></td><td>${esc(r.position||'—')}</td><td>${r.cv?`<a href="${esc(r.cv)}" target="_blank">Descarregar</a>`:'<span class="muted">—</span>'}</td>
+    <td class="actions"><button class="btn ghost sm" data-view="${r.id}">Ver</button> <button class="btn danger sm" data-del="${r.id}">Apagar</button></td></tr>`).join('')
+  }</tbody></table>` : `<div class="empty">Sem candidaturas.</div>`;
+  $('#list').querySelectorAll('[data-view]').forEach(b=>b.onclick=async()=>{
+    const r=rows.find(x=>x.id==b.dataset.view);
+    if(!r.is_read){ await api('/admin/applications/'+r.id,{method:'PATCH',body:JSON.stringify({is_read:1})}); refreshBadges(); }
+    openDrawer('Candidatura', `<div class="detail">
+      <p class="lbl">Candidato</p><p>${esc(r.name)} &lt;${esc(r.email)}&gt;</p>
+      <p class="lbl">Vaga</p><p>${esc(r.position||'—')}</p>
+      <p class="lbl">Link</p><p>${r.link?`<a href="${esc(r.link)}" target="_blank">${esc(r.link)}</a>`:'—'}</p>
+      <p class="lbl">CV</p><p>${r.cv?`<a href="${esc(r.cv)}" target="_blank">Descarregar ficheiro</a>`:'— (sem ficheiro)'}</p>
+      <p class="lbl">Data</p><p>${esc(String(r.created_at).replace('T',' ').slice(0,19))}</p>
+      <p class="lbl">Mensagem</p><p style="white-space:pre-wrap">${esc(r.message)}</p></div>`,
+      `<a class="btn ghost" href="mailto:${esc(r.email)}">Contactar candidato</a>`);
+    renderTab();
+  });
+  $('#list').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>del('/admin/applications/'+b.dataset.del, ()=>{refreshBadges();renderTab();}));
+}
+
+/* ACCOUNT */
+function renderAccount(v){
+  v.innerHTML=`<div class="head"><div><h1>Conta</h1><div class="sub">Alterar palavra-passe de administrador</div></div></div>
+    <div class="field-group" style="max-width:420px">
+      <label>Palavra-passe atual</label><input id="a-cur" type="password">
+      <label>Nova palavra-passe (mín. 8 caracteres)</label><input id="a-new" type="password">
+      <label>Confirmar nova palavra-passe</label><input id="a-conf" type="password">
+      <button class="btn" id="a-save" style="margin-top:16px">Atualizar palavra-passe</button>
+    </div>`;
+  $('#a-save').onclick=async()=>{
+    if(val('a-new')!==val('a-conf')) return toast('As palavras-passe não coincidem',true);
+    try{ await api('/admin/password',{method:'POST',body:JSON.stringify({current:val('a-cur'),next:val('a-new')})}); toast('Palavra-passe atualizada'); $('#a-cur').value=$('#a-new').value=$('#a-conf').value=''; }
+    catch(err){ toast(err.message==='wrong_password'?'Palavra-passe atual incorreta':err.message==='weak_password'?'Mínimo 8 caracteres':'Erro',true); }
+  };
+}
+
+async function del(path, after){ if(!confirm('Apagar definitivamente?')) return; try{ await api(path,{method:'DELETE'}); toast('Apagado'); after&&after(); }catch{ toast('Erro ao apagar',true); } }
+
+boot();
+</script>
+</body>
+</html>

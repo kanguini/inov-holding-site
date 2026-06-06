@@ -1,13 +1,28 @@
 {
   "name": "inov-holding-site",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "INOV Holding Corporate — bilingual institutional website (static, Vite-built).",
+  "description": "INOV Holding Corporate — bilingual institutional website with admin backend (Vite frontend + Express/MySQL API).",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "node server/index.js",
+    "serve": "npm run build && npm start",
     "preview": "vite preview"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.1.1",
+    "mysql2": "^3.11.4",
+    "nodemailer": "^8.0.10"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.5.0"
   },
   "devDependencies": {
     "vite": "^5.4.10"

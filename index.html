@@ -357,47 +357,46 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 .form-ok{color:var(--navy);font-family:var(--head);font-weight:600;margin-top:1rem}
 
 /* ═══════════════════════════════════════════════════════════════════════
-   DARK PREMIUM THEME — navy + gold  (Phase 1)
-   Appended last so it re-skins the light base through the cascade.
-   Pure CSS: applies to EN + PT and every page with no markup changes.
+   LIGHT PREMIUM THEME — white + gold
+   Appended last so it re-skins the base through the cascade.
+   Pure CSS: applies to EN + PT and every page; keeps the AKFA layout.
    ═══════════════════════════════════════════════════════════════════════ */
 :root{
-  --gold:#C9A24A;
-  --gold-soft:#E6C982;
-  --line:rgba(255,255,255,.11);        /* separators -> dark */
-  --tx:#EAF1F8;                         /* primary text */
-  --mut:rgba(234,241,248,.60);          /* muted text */
-  --pline:rgba(255,255,255,.12);        /* panel borders */
+  --gold:#A8842F;                       /* accent — deep gold, reads on white */
+  --gold-soft:#C9A24A;                  /* brighter gold for washes/hover */
+  --line:rgba(0,47,85,.12);             /* separators */
+  --tx:#10202E;                          /* primary text */
+  --mut:#5a6672;                         /* muted text */
+  --pline:rgba(0,47,85,.13);            /* panel borders / hairlines */
 }
 body{
-  background:
-    radial-gradient(120% 55% at 50% 0%, rgba(0,72,128,.34), transparent 55%) no-repeat,
-    linear-gradient(180deg,#001b2f 0%,#000c17 100%) no-repeat;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfaf6 100%) no-repeat;
   color:var(--tx);
 }
-::selection{background:var(--gold);color:#001120}
+::selection{background:var(--gold);color:#fff}
 
 /* ---- nav ---- */
-nav{background:transparent;backdrop-filter:blur(14px);border-bottom:none}
-.nav-links a{color:rgba(234,241,248,.62)}
+nav{background:rgba(255,255,255,.78);backdrop-filter:blur(14px);border-bottom:none}
+.nav-links a{color:rgba(16,32,46,.62)}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
 .nav-toggle span{background:var(--tx)}
 .brand .names .top{color:var(--tx)}
 .lang-toggle button{border-color:var(--pline);color:var(--mut)}
-.lang-toggle button.active{background:var(--gold);border-color:var(--gold);color:#001120}
-@media(max-width:920px){nav.open .nav-links{background:#02192b;border-bottom:1px solid var(--pline);box-shadow:0 20px 40px rgba(0,0,0,.5)}nav.open .nav-links li{border-top:1px solid var(--pline)}}
+.lang-toggle button.active{background:var(--gold);border-color:var(--gold);color:#fff}
+@media(max-width:920px){nav.open .nav-links{background:#ffffff;border-bottom:1px solid var(--pline);box-shadow:0 20px 40px rgba(0,34,62,.12)}nav.open .nav-links li{border-top:1px solid var(--pline)}}
 
 /* ---- generic text & surfaces ---- */
 h1,h2,h3,h4{color:var(--tx)}
-h1 .lt,h2 .lt{color:rgba(234,241,248,.42)}
+h1 .lt,h2 .lt{color:rgba(16,32,46,.34)}
 .kicker,.sec-label{color:var(--gold)}
 .sec-label::after{background:var(--gold)}
 .lead,.prose p,.cell p,.pillar p,.topline p,.t-item p,.market p,.pos .pos-tags{color:var(--mut)}
 .lead strong,.prose strong{color:var(--tx)}
 section{background:transparent}
 .cream{background:transparent}
-.navy{background:transparent}
+.navy{background:transparent;color:var(--tx)}
 .navy .sec-label,.navy .kicker{color:var(--gold)}
+.navy .sec-label::after{background:var(--gold)}
 .navy .contact-info a{color:var(--gold);border-bottom-color:var(--gold)}
 
 /* ---- hero ---- */
@@ -410,13 +409,13 @@ header.home::after,header.home::before{display:none}
 
 /* ---- inner-page hero ---- */
 header.page{background:transparent}
-header.page::after{background:var(--gold);opacity:.10}
+header.page::after{background:var(--gold);opacity:.08}
 
 /* ---- buttons (uniform 1px outline) ---- */
 .btn{border:1px solid var(--gold);color:var(--gold)}
-.btn:hover{background:var(--gold);color:#001120}
+.btn:hover{background:var(--gold);color:#fff}
 .navy .btn{border:1px solid var(--gold);color:var(--gold)}
-.navy .btn:hover{background:var(--gold);color:#001120}
+.navy .btn:hover{background:var(--gold);color:#fff}
 
 /* ---- pillars / quote / topline ---- */
 .pillars{border-top-color:var(--pline)}
@@ -427,12 +426,12 @@ header.page::after{background:var(--gold);opacity:.10}
 .topline .step{color:var(--gold)}
 .sec-label::after{height:1px}
 
-/* ---- impact cells & company tiles -> glass ---- */
+/* ---- impact cells & company tiles ---- */
 .grid-4,.companies-grid{background:var(--pline);border-color:var(--pline)}
-.cell{background:rgba(255,255,255,.02)}
-.cell:hover{background:rgba(255,255,255,.05)}
-.logo-tile{background:rgba(255,255,255,.02)}
-.logo-tile:hover{background:rgba(255,255,255,.05)}
+.cell{background:#ffffff}
+.cell:hover{background:#fbf9f2}
+.logo-tile{background:#ffffff}
+.logo-tile:hover{background:#fbf9f2}
 .logo-tile .logo-word{color:var(--tx)}
 .logo-tile .logo-cap{color:var(--mut)}
 
@@ -445,12 +444,12 @@ header.page::after{background:var(--gold);opacity:.10}
 .sector{
   display:flex;flex-direction:column;align-items:flex-start;gap:.7rem;
   padding:2.3rem 1.7rem 2rem;border:0;border-radius:0;
-  background:rgba(255,255,255,.022);
+  background:#ffffff;
   position:relative;overflow:hidden;min-height:380px;
   transition:background .4s;
 }
-.sector::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(201,162,74,.10),transparent 42%);opacity:0;transition:opacity .45s;pointer-events:none}
-.sector:hover{background:rgba(255,255,255,.05);padding-left:1.7rem}
+.sector::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(201,162,74,.12),transparent 42%);opacity:0;transition:opacity .45s;pointer-events:none}
+.sector:hover{background:#fbf9f2;padding-left:1.7rem}
 .sector:hover::before{opacity:1}
 .sector .idx{color:var(--gold);font-size:.72rem;letter-spacing:.22em;padding-top:0;font-weight:600}
 .sector .name{color:var(--tx);font-size:clamp(1.2rem,1.5vw,1.55rem);line-height:1.18;margin-top:.2rem;max-width:none}
@@ -474,7 +473,7 @@ header.page::after{background:var(--gold);opacity:.10}
 .presence-band{border-color:var(--pline)}
 .presence-cell{border-right-color:var(--pline)}
 .presence-cell .mode{color:var(--gold)}
-.presence-cell.hq{background:rgba(201,162,74,.08)}
+.presence-cell.hq{background:rgba(168,132,47,.07)}
 @media(max-width:860px){.presence-cell{border-bottom-color:var(--pline)}}
 .market{border-bottom-color:var(--pline)}
 .market .mode{color:var(--gold)}
@@ -489,16 +488,16 @@ header.page::after{background:var(--gold);opacity:.10}
 .contact-block .mode{color:var(--gold)}
 .contact-block a{color:var(--gold);border-bottom-color:var(--gold)}
 .form label{color:var(--gold)}
-.form input,.form select,.form textarea{background:rgba(255,255,255,.04);border-color:var(--pline);color:var(--tx)}
+.form input,.form select,.form textarea{background:#ffffff;border-color:var(--pline);color:var(--tx)}
 .form input:focus,.form select:focus,.form textarea:focus{border-color:var(--gold)}
-.form input::placeholder,.form textarea::placeholder{color:rgba(234,241,248,.35)}
-.form button{background:var(--gold);border:1px solid var(--gold);color:#001120}
+.form input::placeholder,.form textarea::placeholder{color:rgba(16,32,46,.4)}
+.form button{background:var(--gold);border:1px solid var(--gold);color:#fff}
 .form button:hover{background:transparent;color:var(--gold)}
 .form-note,.pub-empty,.pos-empty{color:var(--mut)}
 .form-ok{color:var(--gold)}
 
 /* ---- footer ---- */
-footer{background:rgba(0,12,22,.6);border-top:1px solid var(--pline);color:var(--mut)}
+footer{background:#fbfaf6;border-top:1px solid var(--pline);color:var(--mut)}
 footer .tagline{color:var(--gold)}
 
 /* ---- insights / publications ---- */
@@ -518,12 +517,12 @@ footer .tagline{color:var(--gold)}
 .pos-list{border-top-color:var(--pline)}
 .pos .pos-dept{color:var(--gold)}
 .pos .btn-sm{color:var(--gold);border-color:var(--gold)}
-.pos .btn-sm:hover{background:var(--gold);color:#001120}
+.pos .btn-sm:hover{background:var(--gold);color:#fff}
 
-/* ---- image placeholders -> premium dark/gold gradients (swappable via admin) ---- */
-.hero-cover{background:linear-gradient(150deg,#03283f,#001321);border:1px solid rgba(255,255,255,.08)}
-.sector-img,.pub-card .pub-cover,.article-cover{background:linear-gradient(150deg,#06314c,#001321);border-radius:0}
-.sector-img .img-tag,.hero-cover .cover-tag{color:var(--gold)}
+/* ---- image placeholders -> light premium gradients (swappable via admin) ---- */
+.hero-cover{background:linear-gradient(150deg,#eef2f6,#fbfaf6);border:1px solid var(--pline)}
+.sector-img,.pub-card .pub-cover,.article-cover{background:linear-gradient(150deg,#eef2f6,#e4e9ef);border-radius:0}
+.sector-img .img-tag,.hero-cover .cover-tag{color:var(--mut)}
 </style>
 </head>
 <body>

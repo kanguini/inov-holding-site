@@ -332,15 +332,18 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 .pub-card .pub-more{font-family:var(--head);font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--navy);margin-top:.9rem;text-transform:uppercase}
 .pub-empty{color:var(--grey);margin-top:2rem}
 
-/* ---------- ARTICLE MODAL ---------- */
-.modal{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;padding:6vh 4vw;overflow:auto;background:rgba(0,34,62,.55);backdrop-filter:blur(4px)}
-.modal.open{display:flex}
-.modal-box{background:var(--white);max-width:760px;width:100%;padding:3rem clamp(1.4rem,4vw,3.4rem) 3.4rem;position:relative}
-.modal-close{position:absolute;top:1rem;right:1rem;width:40px;height:40px;border:1px solid var(--line);background:var(--white);cursor:pointer;font-size:1.2rem;color:var(--navy);line-height:1}
-.modal-cover{width:100%;aspect-ratio:21/9;background:linear-gradient(135deg,#e7eaee,#cfd7df);background-size:cover;background-position:center;margin-bottom:1.6rem}
-.modal-box .pub-meta{margin-bottom:1rem}
-.modal-box h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:1.4rem}
-.modal-body p{color:var(--grey);margin-bottom:1.1rem;max-width:62ch}
+/* ---------- ARTICLE PAGE ---------- */
+.article-page header.page{padding-bottom:2.6rem}
+.article-back{display:inline-block;font-family:var(--head);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--steel);text-decoration:none;margin-bottom:1.8rem;position:relative;z-index:2;transition:color .3s}
+.article-back:hover{color:var(--navy)}
+.article-back::before{content:"\2190";margin-right:.5rem}
+.article-head .pub-meta{margin-bottom:.9rem}
+.article-head h1{font-size:clamp(2rem,4.6vw,3.2rem);max-width:22ch;animation-delay:.05s}
+.article-page section{max-width:780px;margin:0 auto;padding-top:3.4rem}
+.article-cover{width:100%;aspect-ratio:21/9;background:linear-gradient(135deg,#e7eaee,#cfd7df);background-size:cover;background-position:center;margin-bottom:2.6rem}
+.article-body p{color:var(--grey);font-size:1.05rem;line-height:1.8;margin-top:1.4rem;max-width:none}
+.article-body p:first-child{margin-top:0}
+.article-foot{margin-top:3.2rem;padding-top:2.2rem;border-top:1px solid var(--line)}
 
 /* ---------- POSITIONS / CAREERS ---------- */
 .pos-list{display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:1rem}
@@ -359,7 +362,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 <body>
 <a class="skip-link" href="#main-content">Skip to content · Saltar para o conteúdo</a>
 <noscript>
-  <style>.site-page{display:block!important}.hero-cover,.sector-img,.nav-toggle{display:none!important}#wrap-pt{display:none!important}</style>
+  <style>.site-page{display:block!important}.article-page{display:none!important}.hero-cover,.sector-img,.nav-toggle{display:none!important}#wrap-pt{display:none!important}</style>
   <div style="background:#002F55;color:#fff;padding:.8rem 1.2rem;text-align:center;font-size:.9rem">For the full interactive experience, please enable JavaScript. · Para a experiência completa, active o JavaScript.</div>
 </noscript>
 <nav>
@@ -795,6 +798,19 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 <section>
   <p class="sec-label">Latest</p>
   <div class="pub-grid" id="insights-en"></div>
+</section>
+</div>
+
+<div class="site-page article-page" id="en-page-article">
+<header class="page article-head">
+  <a class="article-back" href="#insights">All insights</a>
+  <div class="pub-meta" id="article-meta-en"></div>
+  <h1 id="article-title-en"></h1>
+</header>
+<section>
+  <div class="article-cover" id="article-cover-en"></div>
+  <div class="prose article-body" id="article-body-en"></div>
+  <div class="article-foot"><a class="btn" href="#insights">Back to all insights</a></div>
 </section>
 </div>
 
@@ -1286,6 +1302,19 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 </section>
 </div>
 
+<div class="site-page article-page" id="pt-page-article">
+<header class="page article-head">
+  <a class="article-back" href="#insights">Todos os insights</a>
+  <div class="pub-meta" id="article-meta-pt"></div>
+  <h1 id="article-title-pt"></h1>
+</header>
+<section>
+  <div class="article-cover" id="article-cover-pt"></div>
+  <div class="prose article-body" id="article-body-pt"></div>
+  <div class="article-foot"><a class="btn" href="#insights">Voltar a todos os insights</a></div>
+</section>
+</div>
+
 <div class="site-page" id="pt-page-careers">
 <header class="page"><p class="kicker">Carreiras</p><h1>Construa o que <span class="lt">vem a seguir.</span></h1><p class="hero-sub">Estamos a construir empresas feitas para durar gerações — e procuramos pessoas que queiram construir connosco. Disciplina, ambição e integridade contam aqui mais do que qualquer linha de um currículo.</p></header>
 <section>
@@ -1366,16 +1395,6 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 
 </main>
 
-<div class="modal" id="article-modal" aria-hidden="true">
-  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
-    <div class="modal-cover" id="modal-cover"></div>
-    <div class="pub-meta" id="modal-meta"></div>
-    <h2 id="modal-title"></h2>
-    <div class="modal-body" id="modal-body"></div>
-  </div>
-</div>
-
 <footer>
   <span>© 2026 INOV Holding Corporate</span>
   <span class="tagline">Intelligent Management, Sustainable Growth.</span>
@@ -1386,6 +1405,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 const PAGES = ['home', 'group', 'sectors', 'presence', 'governance', 'sustainability', 'insights', 'careers', 'contact'];
 let LANG = 'en';
 let currentPage = 'home';
+let currentArticle = null;
 let io;
 
 /* =========================================================================
@@ -1501,15 +1521,32 @@ function decorateMedia(page){
     else { im.style.backgroundImage=''; im.classList.remove('set'); }
   });
 }
-function openArticle(id){
-  const p = INOV.publications.find(x=>x.id===id); if(!p) return;
-  document.getElementById('modal-cover').style.backgroundImage = p.cover ? `url('${p.cover}')` : '';
-  document.getElementById('modal-meta').innerHTML = `<span>${tLang(p.cat)}</span><span>${fmtDate(p.date,LANG)}</span>`;
-  document.getElementById('modal-title').textContent = tLang(p.title);
-  document.getElementById('modal-body').innerHTML = (p.body[LANG]||p.body.en||[]).map(t=>`<p>${t}</p>`).join('');
-  const m = document.getElementById('article-modal'); m.classList.add('open'); m.setAttribute('aria-hidden','false');
+/* Fill the dedicated article page for the active language. */
+function renderArticle(id){
+  const lg = LANG;
+  const cover = document.getElementById('article-cover-'+lg);
+  const meta  = document.getElementById('article-meta-'+lg);
+  const title = document.getElementById('article-title-'+lg);
+  const body  = document.getElementById('article-body-'+lg);
+  if(!title) return;
+  const p = INOV.publications.find(x=>x.id===id);
+  if(!p){
+    title.textContent = lg==='pt' ? 'Artigo não encontrado' : 'Article not found';
+    if(meta) meta.innerHTML = '';
+    if(body) body.innerHTML = `<p>${lg==='pt'?'Esta publicação já não está disponível.':'This publication is no longer available.'}</p>`;
+    if(cover){ cover.style.backgroundImage=''; cover.classList.remove('set'); }
+    document.title = (lg==='pt'?'Insights':'Insights')+' — INOV Holding';
+    return;
+  }
+  if(cover){
+    if(p.cover){ cover.style.backgroundImage=`url('${p.cover}')`; cover.classList.add('set'); }
+    else { cover.style.backgroundImage=''; cover.classList.remove('set'); }
+  }
+  if(meta) meta.innerHTML = `<span>${pick(p.cat,lg)}</span><span>${fmtDate(p.date,lg)}</span>`;
+  title.textContent = pick(p.title,lg);
+  if(body) body.innerHTML = ((p.body && (p.body[lg]||p.body.en)) || []).map(t=>`<p>${t}</p>`).join('');
+  document.title = pick(p.title,lg)+' — INOV Holding';
 }
-function closeArticle(){ const m=document.getElementById('article-modal'); m.classList.remove('open'); m.setAttribute('aria-hidden','true'); }
 async function submitForm(ev, type, lang){
   ev.preventDefault();
   const f = ev.target;
@@ -1549,13 +1586,22 @@ function render(){
   document.querySelectorAll('.site-page').forEach(p=>p.classList.remove('active'));
   const page = document.getElementById(LANG+'-page-'+currentPage);
   page.classList.add('active');
-  document.querySelectorAll('#nav-'+LANG+' a').forEach(a=>a.classList.toggle('active', a.dataset.nav===currentPage));
+  if(currentPage==='article') renderArticle(currentArticle);
+  const navKey = currentPage==='article' ? 'insights' : currentPage;
+  document.querySelectorAll('#nav-'+LANG+' a').forEach(a=>a.classList.toggle('active', a.dataset.nav===navKey));
   window.scrollTo(0,0);
-  try{ history.replaceState(null,'','#'+currentPage); }catch(e){}
+  const hash = currentPage==='article' && currentArticle ? 'article/'+currentArticle : currentPage;
+  try{ history.replaceState(null,'','#'+hash); }catch(e){}
   decorateMedia(page);
   observeReveals(page);
 }
 function showPage(pid){
+  if(pid && pid.indexOf('article/')===0){
+    currentArticle = decodeURIComponent(pid.slice('article/'.length));
+    currentPage = 'article';
+    render();
+    return;
+  }
   if(!PAGES.includes(pid)) pid='home';
   currentPage = pid;
   render();
@@ -1569,10 +1615,9 @@ document.addEventListener('click', function(ev){
   if(tgl){ const open = navEl.classList.toggle('open'); navToggle.setAttribute('aria-expanded', open?'true':'false'); return; }
   const btn = ev.target.closest('.lang-toggle button');
   if(btn){ LANG = btn.dataset.lang; render(); return; }
-  /* article modal */
+  /* open a publication as its own article page */
   const pub = ev.target.closest('[data-pub]');
-  if(pub){ openArticle(pub.getAttribute('data-pub')); return; }
-  if(ev.target.closest('#modal-close') || ev.target.id==='article-modal'){ closeArticle(); return; }
+  if(pub){ ev.preventDefault(); closeMenu(); showPage('article/'+pub.getAttribute('data-pub')); return; }
   /* apply to a specific position */
   const ap = ev.target.closest('[data-apply]');
   if(ap){
@@ -1588,7 +1633,7 @@ document.addEventListener('click', function(ev){
   closeMenu();
   showPage(a.getAttribute('href').slice(1));
 }, true);
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeArticle(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && currentPage==='article') showPage('insights'); });
 window.addEventListener('hashchange', ()=>showPage((location.hash||'#home').slice(1)));
 /* Render with whatever data we currently have, then route. */
 function bootRender(){

@@ -20,7 +20,7 @@
 <meta name="twitter:title" content="INOV Holding">
 <meta name="twitter:description" content="Intelligent Management, Sustainable Growth — an Angolan holding active on three continents.">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"INOV Holding","url":"https://inovholding.ao/","email":"geral@inovholding.ao","description":"An Angolan holding company with global activity, headquartered in Luanda and active on three continents.","foundingLocation":{"@type":"Place","name":"Luanda, Angola"},"areaServed":["Africa","Europe","South America"]}
+{"@context":"https://schema.org","@type":"Organization","name":"INOV Holding","url":"https://inovholding.ao/","email":"geral@inovholding.com","sameAs":["https://www.linkedin.com/company/inov-holding/"],"description":"An Angolan holding company with global activity, headquartered in Luanda and active on three continents.","foundingLocation":{"@type":"Place","name":"Luanda, Angola"},"areaServed":["Africa","Europe","South America"]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -376,7 +376,8 @@ body{
 ::selection{background:var(--gold);color:#fff}
 
 /* ---- nav ---- */
-nav{background:rgba(255,255,255,.78);backdrop-filter:blur(14px);border-bottom:none}
+nav{background:transparent;backdrop-filter:none;border-bottom:none;transition:background .35s ease,backdrop-filter .35s ease,box-shadow .35s ease}
+nav.scrolled{background:rgba(255,255,255,.78);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(0,34,62,.06)}
 .nav-links a{color:rgba(16,32,46,.62)}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
 .nav-toggle span{background:var(--tx)}
@@ -499,6 +500,8 @@ header.page::after{background:var(--gold);opacity:.08}
 /* ---- footer ---- */
 footer{background:#fbfaf6;border-top:1px solid var(--pline);color:var(--mut)}
 footer .tagline{color:var(--gold)}
+footer .foot-social{color:var(--mut);text-decoration:none;transition:color .25s}
+footer .foot-social:hover{color:var(--gold)}
 
 /* ---- insights / publications ---- */
 .pub-card h3{color:var(--tx)}
@@ -590,12 +593,6 @@ header.home.has-cover .hero-cover::after{
     <p class="kicker">INOV Holding</p>
     <h1>Intelligent Management, <span class="lt">Sustainable Growth.</span></h1>
     <p class="hero-sub">Business platforms in the sectors where economies are decided — run with the discipline of an institution and the ambition of a generation that never treated borders as limits.</p>
-  </div>
-  <div class="hero-meta">
-    <div><span class="num">04</span>Strategic sectors</div>
-    <div><span class="num">06</span>Operating platforms</div>
-    <div><span class="num">03</span>Continents of activity</div>
-    <div><span class="num">HQ</span>Luanda, Angola</div>
   </div>
 </header>
 
@@ -699,8 +696,9 @@ header.home.has-cover .hero-cover::after{
     </div>
     <div class="contact-info reveal">
       <span>INOV Holding, S.A.</span>
-      <span>Luanda, Angola</span>
-      <span><a href="mailto:geral@inovholding.ao">geral@inovholding.ao</a></span>
+      <span>Avenida Comandante Gika, 241, 1C, Luanda - Angola</span>
+      <span><a href="tel:+244925029985">+244 925 029 985</a></span>
+      <span><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></span>
     </div>
   </div>
 </section>
@@ -1066,9 +1064,10 @@ header.home.has-cover .hero-cover::after{
 <section>
   <div class="contact-grid">
     <div class="reveal">
-      <div class="contact-block"><span class="mode">Headquarters</span><p>INOV Holding, S.A.<br>Luanda, Angola</p></div>
-      <div class="contact-block"><span class="mode">General Enquiries</span><p><a href="mailto:geral@inovholding.ao">geral@inovholding.ao</a></p></div>
-      <div class="contact-block"><span class="mode">Partnerships</span><p><a href="mailto:parcerias@inovholding.ao">parcerias@inovholding.ao</a></p></div>
+      <div class="contact-block"><span class="mode">Headquarters</span><p>INOV Holding, S.A.<br>Avenida Comandante Gika, 241, 1C, Luanda - Angola</p></div>
+      <div class="contact-block"><span class="mode">Phone</span><p><a href="tel:+244925029985">+244 925 029 985</a></p></div>
+      <div class="contact-block"><span class="mode">General Enquiries</span><p><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></p></div>
+      <div class="contact-block"><span class="mode">Partnerships</span><p><a href="mailto:parcerias@inovholding.com">parcerias@inovholding.com</a></p></div>
       <div class="contact-block"><span class="mode">Group Platforms</span><p>Meteoro · Adventure · Factory Ideas · Andala · Hexa · Publink</p></div>
     </div>
     <div class="reveal">
@@ -1095,12 +1094,6 @@ header.home.has-cover .hero-cover::after{
     <p class="kicker">INOV Holding</p>
     <h1>Gestão Inteligente, <span class="lt">Crescimento Sustentável.</span></h1>
     <p class="hero-sub">Plataformas empresariais nos sectores onde as economias se decidem — geridas com a disciplina de uma instituição e a ambição de uma geração que nunca tratou fronteiras como limite.</p>
-  </div>
-  <div class="hero-meta">
-    <div><span class="num">04</span>Sectores estratégicos</div>
-    <div><span class="num">06</span>Plataformas operacionais</div>
-    <div><span class="num">03</span>Continentes de actuação</div>
-    <div><span class="num">HQ</span>Luanda, Angola</div>
   </div>
 </header>
 
@@ -1200,8 +1193,9 @@ header.home.has-cover .hero-cover::after{
     </div>
     <div class="contact-info reveal">
       <span>INOV Holding, S.A.</span>
-      <span>Luanda, Angola</span>
-      <span><a href="mailto:geral@inovholding.ao">geral@inovholding.ao</a></span>
+      <span>Avenida Comandante Gika, 241, 1C, Luanda - Angola</span>
+      <span><a href="tel:+244925029985">+244 925 029 985</a></span>
+      <span><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></span>
     </div>
   </div>
 </section>
@@ -1567,9 +1561,10 @@ header.home.has-cover .hero-cover::after{
 <section>
   <div class="contact-grid">
     <div class="reveal">
-      <div class="contact-block"><span class="mode">Sede</span><p>INOV Holding, S.A.<br>Luanda, Angola</p></div>
-      <div class="contact-block"><span class="mode">E-mail Geral</span><p><a href="mailto:geral@inovholding.ao">geral@inovholding.ao</a></p></div>
-      <div class="contact-block"><span class="mode">Parcerias</span><p><a href="mailto:parcerias@inovholding.ao">parcerias@inovholding.ao</a></p></div>
+      <div class="contact-block"><span class="mode">Sede</span><p>INOV Holding, S.A.<br>Avenida Comandante Gika, 241, 1C, Luanda - Angola</p></div>
+      <div class="contact-block"><span class="mode">Telefone</span><p><a href="tel:+244925029985">+244 925 029 985</a></p></div>
+      <div class="contact-block"><span class="mode">E-mail Geral</span><p><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></p></div>
+      <div class="contact-block"><span class="mode">Parcerias</span><p><a href="mailto:parcerias@inovholding.com">parcerias@inovholding.com</a></p></div>
       <div class="contact-block"><span class="mode">Plataformas do Grupo</span><p>Meteoro · Adventure · Factory Ideas · Andala · Hexa · Publink</p></div>
     </div>
     <div class="reveal">
@@ -1595,7 +1590,7 @@ header.home.has-cover .hero-cover::after{
 <footer>
   <span>© 2026 INOV Holding</span>
   <span class="tagline">Intelligent Management, Sustainable Growth.</span>
-  <span>Luanda · Joanesburgo · Nairobi · Maputo · Lisboa · Madrid · São Paulo</span>
+  <a class="foot-social" href="https://www.linkedin.com/company/inov-holding/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
 
 <script>
@@ -1751,8 +1746,8 @@ async function submitForm(ev, type, lang){
   const label = btn ? btn.textContent : '';
   const ok  = { en:{contact:'Message received — thank you', application:'Application received — thank you'},
                 pt:{contact:'Mensagem registada — obrigado', application:'Candidatura registada — obrigado'} };
-  const err = { en:'Could not send — please e-mail geral@inovholding.ao',
-                pt:'Não foi possível enviar — escreva para geral@inovholding.ao' };
+  const err = { en:'Could not send — please e-mail geral@inovholding.com',
+                pt:'Não foi possível enviar — escreva para geral@inovholding.com' };
   const sending = { en:'Sending…', pt:'A enviar…' };
   const endpoint = '/api/'+(type==='application'?'applications':'messages');
   if(btn){ btn.disabled=true; btn.textContent = sending[lang]||sending.en; }
@@ -1807,6 +1802,12 @@ function showPage(pid){
 const navEl = document.querySelector('nav');
 const navToggle = document.getElementById('navToggle');
 function closeMenu(){ navEl.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); }
+/* Transparent nav at the top; glass effect once the page scrolls. */
+function navScrollY(){ return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0; }
+function onNavScroll(){ navEl.classList.toggle('scrolled', navScrollY() > 24); }
+window.addEventListener('scroll', onNavScroll, { passive:true, capture:true });
+document.addEventListener('scroll', onNavScroll, { passive:true, capture:true });
+onNavScroll();
 document.addEventListener('click', function(ev){
   const tgl = ev.target.closest('#navToggle');
   if(tgl){ const open = navEl.classList.toggle('open'); navToggle.setAttribute('aria-expanded', open?'true':'false'); return; }

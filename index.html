@@ -68,7 +68,7 @@ nav{
 .nav-links a{color:var(--grey);text-decoration:none;font-size:.74rem;font-weight:400;letter-spacing:.13em;text-transform:uppercase;transition:color .3s;font-family:var(--head)}
 .nav-links a:hover,.nav-links a.active{color:var(--navy)}
 .nav-links a.active{font-weight:600}
-.nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;background:none;border:0;cursor:pointer;padding:8px;margin-left:.6rem}
+.nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;background:none;border:0;cursor:pointer;padding:10px;margin-left:.4rem}
 .nav-toggle span{display:block;width:100%;height:2px;background:var(--navy);transition:transform .3s,opacity .3s}
 nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 nav.open .nav-toggle span:nth-child(2){opacity:0}
@@ -266,7 +266,8 @@ footer .tagline{color:var(--navy)}
 .lang-toggle button{
   font-family:var(--head);font-weight:600;font-size:.72rem;letter-spacing:.12em;
   background:none;border:1px solid var(--line);color:var(--grey);
-  padding:.42rem .8rem;cursor:pointer;transition:all .3s;
+  min-height:40px;display:inline-flex;align-items:center;justify-content:center;
+  padding:.4rem .85rem;cursor:pointer;transition:all .3s;
 }
 .lang-toggle button.active{background:var(--navy);border-color:var(--navy);color:var(--cream)}
 .nav-right{display:flex;align-items:center}
@@ -362,12 +363,16 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
    Pure CSS: applies to EN + PT and every page; keeps the AKFA layout.
    ═══════════════════════════════════════════════════════════════════════ */
 :root{
-  --gold:#A8842F;                       /* accent — deep gold, reads on white */
-  --gold-soft:#C9A24A;                  /* brighter gold for washes/hover */
+  --gold:#8C6B1E;                       /* accent — deepened to ~5:1 on white (WCAG AA for text) */
+  --gold-soft:#C9A24A;                  /* brighter gold for washes/hover only (large/decorative) */
   --line:rgba(0,47,85,.12);             /* separators */
   --tx:#10202E;                          /* primary text */
   --mut:#5a6672;                         /* muted text */
   --pline:rgba(0,47,85,.13);            /* panel borders / hairlines */
+  /* spacing scale (4px base) — use for new work to keep rhythm consistent */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px;
+  --sp-8:32px; --sp-12:48px; --sp-16:64px; --sp-20:80px; --sp-24:96px;
+  --container:1320px;
 }
 body{
   background:linear-gradient(180deg,#ffffff 0%,#fbfaf6 100%) no-repeat;
@@ -388,12 +393,12 @@ nav.scrolled{background:rgba(255,255,255,.78);backdrop-filter:blur(14px);box-sha
 
 /* ---- generic text & surfaces ---- */
 h1,h2,h3,h4{color:var(--tx)}
-h1 .lt,h2 .lt{color:rgba(16,32,46,.34)}
+h1 .lt,h2 .lt{color:rgba(16,32,46,.52)}
 .kicker,.sec-label{color:var(--gold)}
 .sec-label::after{background:var(--gold)}
 .lead,.prose p,.cell p,.pillar p,.topline p,.t-item p,.market p,.pos .pos-tags{color:var(--mut)}
 .lead strong,.prose strong{color:var(--tx)}
-section{background:transparent}
+section{background:transparent;max-width:var(--container);margin-inline:auto;padding-inline:clamp(20px,4vw,56px)}
 .cream{background:transparent}
 .navy{background:transparent;color:var(--tx)}
 .navy .sec-label,.navy .kicker{color:var(--gold)}
@@ -401,7 +406,8 @@ section{background:transparent}
 .navy .contact-info a{color:var(--gold);border-bottom-color:var(--gold)}
 
 /* ---- hero ---- */
-header.home{background:transparent}
+header.home{background:transparent;min-height:88vh;justify-content:flex-start;padding:clamp(7.5rem,16vh,11rem) 0 4rem}
+.hero-inner{max-width:var(--container);margin-inline:auto;width:100%;padding-inline:clamp(20px,4vw,56px)}
 /* hero placeholder objects removed — a background image will go here */
 header.home::after,header.home::before{display:none}
 .hero-sub{color:var(--mut)}
@@ -409,8 +415,10 @@ header.home::after,header.home::before{display:none}
 .hero-meta .num{color:var(--gold)}
 
 /* ---- inner-page hero ---- */
-header.page{background:transparent}
-header.page::after{background:var(--gold);opacity:.08}
+header.page{background:transparent;max-width:var(--container);margin-inline:auto;padding:9.5rem 0 2.5rem;padding-inline:clamp(20px,4vw,56px)}
+header.page + section{padding-top:3.5rem}
+/* decorative mark: complete glyph, not a clipped fragment */
+header.page::after{background:var(--gold);opacity:.06;right:-2vw;bottom:-12%;width:18vw;max-width:240px}
 
 /* ---- buttons (uniform 1px outline) ---- */
 .btn{border:1px solid var(--gold);color:var(--gold)}
@@ -529,7 +537,7 @@ footer .foot-social:hover{color:var(--gold)}
 
 /* ---- fix: dark text on former .navy sections (base set them cream → invisible on white) ---- */
 .navy h2,.navy h3{color:var(--tx)}
-.navy h2 .lt{color:rgba(16,32,46,.34)}
+.navy h2 .lt{color:rgba(16,32,46,.52)}
 .navy p,.navy .lead,.navy .contact-info{color:var(--mut)}
 .navy .topline{border-top-color:var(--gold)}
 .navy .topline .step{color:var(--gold)}
@@ -590,7 +598,7 @@ header.home.has-cover .hero-cover::after{
 <div class="site-page" id="en-page-home">
 <header class="home">
   <div class="hero-inner">
-    <p class="kicker">INOV Holding</p>
+    <p class="kicker">Angolan Holding · Global Reach</p>
     <h1>Intelligent Management, <span class="lt">Sustainable Growth.</span></h1>
     <p class="hero-sub">Business platforms in the sectors where economies are decided — run with the discipline of an institution and the ambition of a generation that never treated borders as limits.</p>
   </div>
@@ -695,10 +703,8 @@ header.home.has-cover .hero-cover::after{
       <a class="btn" href="#sustainability">Our sustainability approach</a>
     </div>
     <div class="contact-info reveal">
-      <span>INOV Holding, S.A.</span>
-      <span>Avenida Comandante Gika, 241, 1C, Luanda - Angola</span>
-      <span><a href="tel:+244925029985">+244 925 029 985</a></span>
-      <span><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></span>
+      <span>For partnerships, press or institutional matters, the INOV team responds from Luanda.</span>
+      <span><a href="#contact">Contact the group &rarr;</a></span>
     </div>
   </div>
 </section>
@@ -1068,7 +1074,6 @@ header.home.has-cover .hero-cover::after{
       <div class="contact-block"><span class="mode">Phone</span><p><a href="tel:+244925029985">+244 925 029 985</a></p></div>
       <div class="contact-block"><span class="mode">General Enquiries</span><p><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></p></div>
       <div class="contact-block"><span class="mode">Partnerships</span><p><a href="mailto:parcerias@inovholding.com">parcerias@inovholding.com</a></p></div>
-      <div class="contact-block"><span class="mode">Group Platforms</span><p>Meteoro · Adventure · Factory Ideas · Andala · Hexa · Publink</p></div>
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'contact','en')">
@@ -1091,7 +1096,7 @@ header.home.has-cover .hero-cover::after{
 <div class="site-page" id="pt-page-home">
 <header class="home">
   <div class="hero-inner">
-    <p class="kicker">INOV Holding</p>
+    <p class="kicker">Holding Angolana · Alcance Global</p>
     <h1>Gestão Inteligente, <span class="lt">Crescimento Sustentável.</span></h1>
     <p class="hero-sub">Plataformas empresariais nos sectores onde as economias se decidem — geridas com a disciplina de uma instituição e a ambição de uma geração que nunca tratou fronteiras como limite.</p>
   </div>
@@ -1192,10 +1197,8 @@ header.home.has-cover .hero-cover::after{
       <a class="btn" href="#sustainability">A nossa abordagem</a>
     </div>
     <div class="contact-info reveal">
-      <span>INOV Holding, S.A.</span>
-      <span>Avenida Comandante Gika, 241, 1C, Luanda - Angola</span>
-      <span><a href="tel:+244925029985">+244 925 029 985</a></span>
-      <span><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></span>
+      <span>Para parcerias, imprensa ou assuntos institucionais, a equipa da INOV responde a partir de Luanda.</span>
+      <span><a href="#contact">Contactar o grupo &rarr;</a></span>
     </div>
   </div>
 </section>
@@ -1565,7 +1568,6 @@ header.home.has-cover .hero-cover::after{
       <div class="contact-block"><span class="mode">Telefone</span><p><a href="tel:+244925029985">+244 925 029 985</a></p></div>
       <div class="contact-block"><span class="mode">E-mail Geral</span><p><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></p></div>
       <div class="contact-block"><span class="mode">Parcerias</span><p><a href="mailto:parcerias@inovholding.com">parcerias@inovholding.com</a></p></div>
-      <div class="contact-block"><span class="mode">Plataformas do Grupo</span><p>Meteoro · Adventure · Factory Ideas · Andala · Hexa · Publink</p></div>
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'contact','pt')">

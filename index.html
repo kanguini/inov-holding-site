@@ -537,6 +537,23 @@ footer .tagline{color:var(--gold)}
 .nav-links{gap:1.8rem}
 .nav-links a{text-transform:capitalize;letter-spacing:.01em;font-size:.9rem;font-weight:400}
 .nav-links a.active{font-weight:600}
+
+/* ---- HERO: full-bleed cover image (background of the whole section, up to the menu) ---- */
+header.home{overflow:hidden}
+header.home.has-cover .hero-cover{
+  position:absolute;inset:0;width:auto;max-width:none;z-index:0;
+}
+header.home.has-cover .hero-cover::after{
+  inset:0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.66) 42%, rgba(255,255,255,.20) 72%, rgba(255,255,255,0) 100%),
+    linear-gradient(0deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 22%);
+}
+.hero-inner,.hero-meta{position:relative;z-index:2}
+@media(max-width:920px){
+  header.home.has-cover .hero-cover{display:block}
+  header.home.has-cover .hero-cover::after{background:rgba(255,255,255,.84)}
+}
 </style>
 </head>
 <body>

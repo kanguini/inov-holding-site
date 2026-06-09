@@ -378,7 +378,7 @@ body{
 ::selection{background:var(--gold);color:#001120}
 
 /* ---- nav ---- */
-nav{background:rgba(0,17,30,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--pline)}
+nav{background:transparent;backdrop-filter:blur(14px);border-bottom:none}
 .nav-links a{color:rgba(234,241,248,.62)}
 .nav-links a:hover,.nav-links a.active{color:var(--gold)}
 .nav-toggle span{background:var(--tx)}
@@ -402,18 +402,8 @@ section{background:transparent}
 
 /* ---- hero ---- */
 header.home{background:transparent}
-header.home::after{
-  right:4vw;top:14vh;bottom:14vh;width:34vw;max-width:480px;
-  background:
-    radial-gradient(120% 90% at 72% 18%, rgba(201,162,74,.30), transparent 58%),
-    radial-gradient(110% 80% at 25% 92%, rgba(0,96,168,.45), transparent 55%),
-    linear-gradient(150deg,#03283f 0%,#001321 100%);
-  border:1px solid rgba(255,255,255,.09);
-  box-shadow:0 40px 90px -24px rgba(0,0,0,.7);
-  animation:floatPanel 9s ease-in-out infinite;
-}
-header.home::before{background:rgba(255,255,255,.16)}
-@keyframes floatPanel{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+/* hero placeholder objects removed — a background image will go here */
+header.home::after,header.home::before{display:none}
 .hero-sub{color:var(--mut)}
 .hero-meta{border-top:1px solid var(--pline);color:var(--mut)}
 .hero-meta .num{color:var(--gold)}

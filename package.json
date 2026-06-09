@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "INOV Holding Corporate — bilingual institutional website with admin backend (Vite frontend + Express/MySQL API).",
+  "description": "INOV Holding — bilingual institutional website with admin backend (Vite frontend + Express/MySQL API).",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

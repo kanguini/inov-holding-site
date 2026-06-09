@@ -1,6 +1,6 @@
-# INOV Holding Corporate — Institutional Website + Admin
+# INOV Holding — Institutional Website + Admin
 
-Bilingual (EN/PT) institutional website for **INOV Holding Corporate**, an Angolan
+Bilingual (EN/PT) institutional website for **INOV Holding**, an Angolan
 holding company headquartered in Luanda and active on three continents, now with a
 self-hosted content/admin backend.
 
@@ -81,4 +81,4 @@ Forms require the backend, so the live site should be the Hostinger deployment.
 
 ---
 
-© 2026 INOV Holding Corporate. All rights reserved.
+© 2026 INOV Holding. All rights reserved.

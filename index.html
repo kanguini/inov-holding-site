@@ -523,6 +523,22 @@ footer .tagline{color:var(--gold)}
 .hero-cover{background:linear-gradient(150deg,#eef2f6,#fbfaf6);border:1px solid var(--pline)}
 .sector-img,.pub-card .pub-cover,.article-cover{background:linear-gradient(150deg,#eef2f6,#e4e9ef);border-radius:0}
 .sector-img .img-tag,.hero-cover .cover-tag{color:var(--mut)}
+
+/* ---- fix: dark text on former .navy sections (base set them cream → invisible on white) ---- */
+.navy h2,.navy h3{color:var(--tx)}
+.navy h2 .lt{color:rgba(16,32,46,.34)}
+.navy p,.navy .lead,.navy .contact-info{color:var(--mut)}
+.navy .topline{border-top-color:var(--gold)}
+.navy .topline .step{color:var(--gold)}
+.presence-cell .country{color:var(--tx)}
+.presence-cell p{color:var(--mut)}
+
+/* ---- simpler menu: lowercase, left-aligned by the logo, tighter tracking ---- */
+.nav-right{flex:1}
+.nav-links{margin-left:2.4rem;gap:1.7rem}
+.nav-links a{text-transform:lowercase;letter-spacing:.01em;font-size:.82rem;font-weight:400}
+.nav-links a.active{font-weight:600}
+.lang-toggle{margin-left:auto}
 </style>
 </head>
 <body>

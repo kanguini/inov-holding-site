@@ -24,7 +24,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#002F55;
@@ -36,8 +36,8 @@
   --grey:#5a6672;
   --line:#e6e3da;
   --line-navy:rgba(251,250,245,.16);
-  --head:'Archivo',sans-serif;
-  --body:'Hanken Grotesk',sans-serif;
+  --head:'Inter',sans-serif;
+  --body:'Inter',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -533,12 +533,10 @@ footer .tagline{color:var(--gold)}
 .presence-cell .country{color:var(--tx)}
 .presence-cell p{color:var(--mut)}
 
-/* ---- simpler menu: lowercase, left-aligned by the logo, tighter tracking ---- */
-.nav-right{flex:1}
-.nav-links{margin-left:2.4rem;gap:1.7rem}
-.nav-links a{text-transform:lowercase;letter-spacing:.01em;font-size:.82rem;font-weight:400}
+/* ---- simpler menu: lowercase, right-aligned, tighter tracking ---- */
+.nav-links{gap:1.8rem}
+.nav-links a{text-transform:lowercase;letter-spacing:.01em;font-size:.9rem;font-weight:400}
 .nav-links a.active{font-weight:600}
-.lang-toggle{margin-left:auto}
 </style>
 </head>
 <body>

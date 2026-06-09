@@ -389,6 +389,17 @@ nav.scrolled{background:rgba(255,255,255,.78);backdrop-filter:blur(14px);box-sha
 .brand .names .top{color:var(--tx)}
 .lang-toggle button{border-color:var(--pline);color:var(--mut)}
 .lang-toggle button.active{background:var(--gold);border-color:var(--gold);color:#fff}
+/* Home hero: the nav overlays a full-bleed image. A top scrim + light text
+   keeps the menu legible over ANY cover (light or dark). On scroll the glass
+   theme takes over; on inner pages the nav stays dark-on-light. */
+nav.on-home:not(.scrolled){background:linear-gradient(180deg,rgba(10,22,33,.58) 0%,rgba(10,22,33,.24) 55%,rgba(10,22,33,0) 100%)}
+nav.on-home:not(.scrolled):not(.open) .nav-links a{color:rgba(255,255,255,.86)}
+nav.on-home:not(.scrolled):not(.open) .nav-links a:hover,
+nav.on-home:not(.scrolled):not(.open) .nav-links a.active{color:#fff}
+nav.on-home:not(.scrolled) .brand .names .top{color:#fff}
+nav.on-home:not(.scrolled) .nav-toggle span{background:#fff}
+nav.on-home:not(.scrolled) .lang-toggle button{border-color:rgba(255,255,255,.5);color:#fff}
+nav.on-home:not(.scrolled) .lang-toggle button.active{background:var(--gold);border-color:var(--gold);color:#fff}
 @media(max-width:920px){nav.open .nav-links{background:#ffffff;border-bottom:1px solid var(--pline);box-shadow:0 20px 40px rgba(0,34,62,.12)}nav.open .nav-links li{border-top:1px solid var(--pline)}}
 
 /* ---- generic text & surfaces ---- */
@@ -406,7 +417,7 @@ section{background:transparent;max-width:var(--container);margin-inline:auto;pad
 .navy .contact-info a{color:var(--gold);border-bottom-color:var(--gold)}
 
 /* ---- hero ---- */
-header.home{background:transparent;min-height:88vh;justify-content:flex-start;padding:clamp(7.5rem,16vh,11rem) 0 4rem}
+header.home{background:transparent;min-height:100vh;justify-content:flex-start;padding:clamp(7.5rem,16vh,11rem) 0 5rem}
 .hero-inner{max-width:var(--container);margin-inline:auto;width:100%;padding-inline:clamp(20px,4vw,56px)}
 /* hero placeholder objects removed — a background image will go here */
 header.home::after,header.home::before{display:none}
@@ -1794,11 +1805,13 @@ function showPage(pid){
     currentArticle = decodeURIComponent(pid.slice('article/'.length));
     currentPage = 'article';
     render();
+    setNavMode();
     return;
   }
   if(!PAGES.includes(pid)) pid='home';
   currentPage = pid;
   render();
+  setNavMode();
 }
 /* Intercepta cliques — funciona mesmo quando a navegação por hash é bloqueada. */
 const navEl = document.querySelector('nav');
@@ -1806,6 +1819,9 @@ const navToggle = document.getElementById('navToggle');
 function closeMenu(){ navEl.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); }
 /* Transparent nav at the top; glass effect once the page scrolls. */
 function navScrollY(){ return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0; }
+/* Overlay (light) nav only when the home hero shows a full-bleed cover image;
+   without an image the hero is light, so the nav keeps its dark-on-light theme. */
+function setNavMode(){ if(navEl) navEl.classList.toggle('on-home', currentPage==='home' && !!(INOV.media && INOV.media.cover)); }
 function onNavScroll(){ navEl.classList.toggle('scrolled', navScrollY() > 24); }
 window.addEventListener('scroll', onNavScroll, { passive:true, capture:true });
 document.addEventListener('scroll', onNavScroll, { passive:true, capture:true });

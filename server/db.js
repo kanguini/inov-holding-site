@@ -129,7 +129,7 @@ async function migrate() {
 
 async function seed() {
   // Admin from env (created once; password changes are done in-app afterwards).
-  const email = (process.env.ADMIN_EMAIL || 'admin@inovholding.ao').toLowerCase();
+  const email = (process.env.ADMIN_EMAIL || 'admin@inovholding.com').toLowerCase();
   const existing = await one('SELECT id FROM admins WHERE email = ?', [email]);
   if (!existing) {
     const hash = bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'change-me-now', 10);

@@ -154,8 +154,10 @@ function toast(msg,bad){ const t=$('#toast'); t.textContent=msg; t.className='to
 
 async function api(path, opts={}){
   const res = await fetch('/api'+path, {credentials:'same-origin', headers: opts.body && !(opts.body instanceof FormData) ? {'Content-Type':'application/json'} : undefined, ...opts});
-  if(res.status===401){ show('login'); throw new Error('unauth'); }
   const data = res.headers.get('content-type')?.includes('json') ? await res.json() : null;
+  // A 401 on the login route means bad credentials — surface that. A 401 on any
+  // other (authenticated) route means the session expired → back to login.
+  if(res.status===401 && !path.endsWith('/admin/login')){ show('login'); throw new Error('unauth'); }
   if(!res.ok) throw new Error((data&&data.error)||('http_'+res.status));
   return data;
 }

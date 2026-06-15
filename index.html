@@ -580,7 +580,16 @@ header.home.has-cover .hero-cover::after{
 .hero-inner,.hero-meta{position:relative;z-index:2}
 @media(max-width:920px){
   header.home.has-cover .hero-cover{display:block}
-  header.home.has-cover .hero-cover::after{background:rgba(255,255,255,.84)}
+  /* Vertical scrim: opaque white behind the headline at the top, fading to
+     transparent so the cover image is visible in the lower half on phones. */
+  header.home.has-cover .hero-cover::after{
+    background:linear-gradient(180deg,
+      rgba(255,255,255,.95) 0%,
+      rgba(255,255,255,.90) 34%,
+      rgba(255,255,255,.58) 56%,
+      rgba(255,255,255,.16) 80%,
+      rgba(255,255,255,0) 100%);
+  }
 }
 </style>
 </head>

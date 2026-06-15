@@ -217,7 +217,7 @@ async function seed() {
   // Default media settings.
   const media = await one('SELECT svalue FROM settings WHERE skey = ?', ['media']);
   if (!media) {
-    const def = { cover: null, sectors: { infrastructure: null, finance: null, digital: null, creative: null } };
+    const def = { cover: null, coverFit: 'cover', coverPos: '50% 50%', sectors: { infrastructure: null, finance: null, digital: null, creative: null } };
     await setSetting('media', def);
   }
 }

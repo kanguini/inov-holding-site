@@ -163,8 +163,14 @@ router.get('/media', async (req, res) => {
 
 router.put('/media', async (req, res) => {
   const b = req.body || {};
+  // Hero framing controls (admin-managed): how the cover fills the hero and
+  // which part stays in view. Kept permissive but sanitised.
+  const fit = b.coverFit === 'contain' ? 'contain' : 'cover';
+  const pos = /^\d{1,3}% \d{1,3}%$/.test(String(b.coverPos || '')) ? b.coverPos : '50% 50%';
   const media = {
     cover: b.cover || null,
+    coverFit: fit,
+    coverPos: pos,
     sectors: {
       infrastructure: b?.sectors?.infrastructure || null,
       finance: b?.sectors?.finance || null,

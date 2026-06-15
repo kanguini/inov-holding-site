@@ -352,18 +352,48 @@ function editCompany(r){
 async function renderMedia(v){
   const m = await api('/admin/media');
   const s=m.sectors||{};
+  const pos=String(m.coverPos||'50% 50%').split(/\s+/);
+  const px=Math.min(100,Math.max(0,parseInt(pos[0])||50));
+  const py=Math.min(100,Math.max(0,parseInt(pos[1])||50));
+  const fit=m.coverFit==='contain'?'contain':'cover';
   v.innerHTML=`<div class="head"><div><h1>Imagens do site</h1><div class="sub">Capa do hero e imagem de cada sector</div></div><button class="btn" id="save">Guardar alterações</button></div>
     <div class="field-group" style="max-width:560px">
       <div class="gl">Capa (hero)</div>${imgField('m-cover','Imagem de capa', m.cover)}
-      <div class="gl">Sectores</div>
+      <div style="margin-top:12px">
+        <label>Enquadramento</label>
+        <select id="m-coverfit">
+          <option value="cover"${fit!=='contain'?' selected':''}>Preencher — corta para encher o ecrã</option>
+          <option value="contain"${fit==='contain'?' selected':''}>Mostrar imagem inteira — sem corte nem zoom</option>
+        </select>
+        <label style="margin-top:10px">Ponto focal horizontal — <span id="m-px-val">${px}%</span></label>
+        <input type="range" id="m-px" min="0" max="100" value="${px}" style="width:100%">
+        <label>Ponto focal vertical — <span id="m-py-val">${py}%</span></label>
+        <input type="range" id="m-py" min="0" max="100" value="${py}" style="width:100%">
+        <div class="sub" style="margin:2px 0 10px">O ponto focal escolhe a parte visível quando está em modo "Preencher".</div>
+        <label>Pré-visualização (proporção do ecrã)</label>
+        <div id="m-cover-prev2" style="width:100%;aspect-ratio:16/9;border:1px solid var(--line);border-radius:8px;background:#eef1f4 no-repeat"></div>
+      </div>
+      <div class="gl" style="margin-top:18px">Sectores</div>
       ${imgField('m-infrastructure','Infra-estrutura', s.infrastructure)}
       ${imgField('m-finance','Finanças / Risco', s.finance)}
       ${imgField('m-digital','Digital', s.digital)}
       ${imgField('m-creative','Criatividade', s.creative)}
     </div>`;
   ['m-cover','m-infrastructure','m-finance','m-digital','m-creative'].forEach(wireImg);
+  function updateCoverPrev(){
+    const url=val('m-cover'); const box=$('#m-cover-prev2'); if(!box) return;
+    box.style.backgroundImage = url?`url('${url}')`:'none';
+    box.style.backgroundSize = val('m-coverfit')==='contain'?'contain':'cover';
+    box.style.backgroundPosition = `${val('m-px')}% ${val('m-py')}%`;
+    $('#m-px-val').textContent = val('m-px')+'%';
+    $('#m-py-val').textContent = val('m-py')+'%';
+  }
+  ['m-coverfit','m-px','m-py'].forEach(id=>{ const e=$('#'+id); if(e) e.addEventListener('input',updateCoverPrev); });
+  // Refresh the preview once a freshly uploaded cover URL lands in the hidden input.
+  const cf=$('#m-cover-file'); if(cf) cf.addEventListener('change',()=>{ const t=setInterval(()=>{ if(val('m-cover')){ updateCoverPrev(); clearInterval(t); } },300); setTimeout(()=>clearInterval(t),6000); });
+  updateCoverPrev();
   $('#save').onclick=async()=>{
-    const body={cover:val('m-cover'),sectors:{infrastructure:val('m-infrastructure'),finance:val('m-finance'),digital:val('m-digital'),creative:val('m-creative')}};
+    const body={cover:val('m-cover'),coverFit:val('m-coverfit'),coverPos:`${val('m-px')}% ${val('m-py')}%`,sectors:{infrastructure:val('m-infrastructure'),finance:val('m-finance'),digital:val('m-digital'),creative:val('m-creative')}};
     try{ await api('/admin/media',{method:'PUT',body:JSON.stringify(body)}); toast('Imagens guardadas'); }catch{ toast('Erro ao guardar',true); }
   };
 }

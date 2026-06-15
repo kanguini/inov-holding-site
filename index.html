@@ -283,7 +283,7 @@ header.home.has-cover::before{display:none}
 .hero-cover{
   position:absolute;right:4vw;top:14vh;bottom:14vh;width:34vw;max-width:480px;z-index:0;
   background:linear-gradient(135deg,#e9ece9,#d7dde2 55%,#c4ccd4);
-  background-size:cover;background-position:center;
+  background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#eef1f4;
 }
 .hero-cover::after{
   content:"";position:absolute;inset:0;
@@ -389,17 +389,16 @@ nav.scrolled{background:rgba(255,255,255,.78);backdrop-filter:blur(14px);box-sha
 .brand .names .top{color:var(--tx)}
 .lang-toggle button{border-color:var(--pline);color:var(--mut)}
 .lang-toggle button.active{background:var(--gold);border-color:var(--gold);color:#fff}
-/* Home hero: the nav overlays a full-bleed image. A top scrim + light text
-   keeps the menu legible over ANY cover (light or dark). On scroll the glass
-   theme takes over; on inner pages the nav stays dark-on-light. */
-nav.on-home:not(.scrolled){background:linear-gradient(180deg,rgba(10,22,33,.58) 0%,rgba(10,22,33,.24) 55%,rgba(10,22,33,0) 100%)}
-nav.on-home:not(.scrolled):not(.open) .nav-links a{color:rgba(255,255,255,.86)}
+/* Home hero: the nav overlays a full-bleed cover image. The hero keeps a light
+   wash on the left (so the dark headline reads), so the menu always uses DARK
+   text — consistent across the bar. A light top scrim guarantees legibility,
+   and a JS luminance probe strengthens it on darker covers (.scrim-strong). On
+   scroll the glass theme takes over; inner pages stay dark-on-light. */
+nav.on-home:not(.scrolled){background:linear-gradient(180deg,rgba(248,249,251,.85) 0%,rgba(248,249,251,.42) 55%,rgba(248,249,251,0) 100%)}
+nav.on-home.scrim-strong:not(.scrolled){background:linear-gradient(180deg,rgba(248,249,251,.97) 0%,rgba(248,249,251,.74) 48%,rgba(248,249,251,.20) 100%)}
+nav.on-home:not(.scrolled):not(.open) .nav-links a{color:rgba(16,32,46,.86)}
 nav.on-home:not(.scrolled):not(.open) .nav-links a:hover,
-nav.on-home:not(.scrolled):not(.open) .nav-links a.active{color:#fff}
-nav.on-home:not(.scrolled) .brand .names .top{color:#fff}
-nav.on-home:not(.scrolled) .nav-toggle span{background:#fff}
-nav.on-home:not(.scrolled) .lang-toggle button{border-color:rgba(255,255,255,.5);color:#fff}
-nav.on-home:not(.scrolled) .lang-toggle button.active{background:var(--gold);border-color:var(--gold);color:#fff}
+nav.on-home:not(.scrolled):not(.open) .nav-links a.active{color:var(--gold)}
 @media(max-width:920px){nav.open .nav-links{background:#ffffff;border-bottom:1px solid var(--pline);box-shadow:0 20px 40px rgba(0,34,62,.12)}nav.open .nav-links li{border-top:1px solid var(--pline)}}
 
 /* ---- generic text & surfaces ---- */
@@ -1712,8 +1711,18 @@ function decorateMedia(page){
     let cv = hero.querySelector('.hero-cover');
     if(!cv){ cv=document.createElement('div'); cv.className='hero-cover'; cv.innerHTML='<span class="cover-tag"></span>'; hero.appendChild(cv); }
     cv.querySelector('.cover-tag').textContent = LANG==='pt' ? 'Imagem de capa' : 'Cover image';
-    if(INOV.media.cover){ cv.style.backgroundImage=`url('${INOV.media.cover}')`; hero.classList.add('has-cover'); }
-    else { cv.style.backgroundImage=''; hero.classList.remove('has-cover'); }
+    if(INOV.media.cover){
+      cv.style.backgroundImage=`url('${INOV.media.cover}')`;
+      cv.style.backgroundSize = INOV.media.coverFit==='contain' ? 'contain' : 'cover';
+      cv.style.backgroundPosition = INOV.media.coverPos || '50% 50%';
+      cv.style.backgroundRepeat='no-repeat';          // inline wins over the themed .hero-cover shorthand
+      cv.style.backgroundColor='#eef1f4';              // letterbox fill for "contain" mode
+      hero.classList.add('has-cover');
+    } else {
+      cv.style.backgroundImage=''; cv.style.backgroundSize=''; cv.style.backgroundPosition='';
+      cv.style.backgroundRepeat=''; cv.style.backgroundColor='';
+      hero.classList.remove('has-cover');
+    }
   }
   const keys = Object.keys(INOV.media.sectors);
   page.querySelectorAll('.sector-detail').forEach((sd,i)=>{
@@ -1819,9 +1828,33 @@ const navToggle = document.getElementById('navToggle');
 function closeMenu(){ navEl.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); }
 /* Transparent nav at the top; glass effect once the page scrolls. */
 function navScrollY(){ return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0; }
-/* Overlay (light) nav only when the home hero shows a full-bleed cover image;
-   without an image the hero is light, so the nav keeps its dark-on-light theme. */
-function setNavMode(){ if(navEl) navEl.classList.toggle('on-home', currentPage==='home' && !!(INOV.media && INOV.media.cover)); }
+/* The home hero shows a full-bleed cover. The menu stays dark-on-light with a
+   light scrim; we probe the cover's brightness and, on darker images, thicken
+   the scrim (.scrim-strong) so the dark menu keeps enough contrast — automatic,
+   no manual tuning per image. */
+function setNavMode(){
+  if(!navEl) return;
+  const cover = INOV.media && INOV.media.cover;
+  const onHome = currentPage==='home' && !!cover;
+  navEl.classList.toggle('on-home', onHome);
+  if(!onHome){ navEl.classList.remove('scrim-strong'); return; }
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    try{
+      const c = document.createElement('canvas'); c.width = 40; c.height = 10;
+      const ctx = c.getContext('2d');
+      // Sample only the top strip of the cover — that's what sits behind the nav.
+      ctx.drawImage(img, 0, 0, img.naturalWidth, Math.max(1, Math.round(img.naturalHeight*0.18)), 0, 0, 40, 10);
+      const d = ctx.getImageData(0,0,40,10).data; let sum=0, n=0;
+      for(let i=0;i<d.length;i+=4){ sum += 0.2126*d[i] + 0.7152*d[i+1] + 0.0722*d[i+2]; n++; }
+      const avg = sum / n; // 0 (black) .. 255 (white)
+      navEl.classList.toggle('scrim-strong', avg < 165);
+    }catch(e){ navEl.classList.remove('scrim-strong'); } // tainted/CORS → subtle scrim, dark text stays legible on light covers
+  };
+  img.onerror = () => navEl.classList.remove('scrim-strong');
+  img.src = cover;
+}
 function onNavScroll(){ navEl.classList.toggle('scrolled', navScrollY() > 24); }
 window.addEventListener('scroll', onNavScroll, { passive:true, capture:true });
 document.addEventListener('scroll', onNavScroll, { passive:true, capture:true });

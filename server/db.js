@@ -125,7 +125,55 @@ async function migrate() {
      )`,
   ];
   for (const ddl of tables) await q(ddl);
+
+  // Additive migrations: columns added after a table already shipped.
+  await addColumnIfMissing('companies', 'desc_en', 'TEXT');
+  await addColumnIfMissing('companies', 'desc_pt', 'TEXT');
 }
+
+// Adds a column only when it is missing — safe to run on every boot, on a
+// fresh DB or one created before the column existed (MySQL and SQLite).
+async function addColumnIfMissing(table, col, type) {
+  if (USE_MYSQL) {
+    const rows = await q(
+      'SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ?',
+      [table, col]
+    );
+    if (!rows.length) await q(`ALTER TABLE ${table} ADD COLUMN ${col} ${type}`);
+  } else {
+    const rows = await q(`PRAGMA table_info(${table})`);
+    if (!rows.some((r) => r.name === col)) await q(`ALTER TABLE ${table} ADD COLUMN ${col} ${type}`);
+  }
+}
+
+// Short, factual descriptions per company — used to seed a fresh DB and to
+// backfill installations that predate the description field. Editable in admin.
+const COMPANY_DESCS = {
+  'Meteoro': {
+    en: 'Integrated construction, logistics, transport and facilities management — serving the group’s own platforms and external clients with the scale and cadence that long-term infrastructure demands.',
+    pt: 'Construção, logística, transporte e gestão de instalações integradas — ao serviço das próprias plataformas do grupo e de clientes externos, com a escala e a cadência que a infra-estrutura de longo prazo exige.',
+  },
+  'Hexa': {
+    en: 'A licensed insurance broker supervised by ARSEG, acting as its clients’ risk-intelligence partner: it analyses, structures and negotiates cover — and widens the market through insurance literacy.',
+    pt: 'Corretora de seguros licenciada e supervisionada pela ARSEG, parceira de inteligência de risco dos seus clientes: analisa, estrutura e negoceia coberturas — e alarga o mercado através da literacia seguradora.',
+  },
+  'Andala': {
+    en: 'The group’s digital marketplace — connecting sellers and buyers, lowering transaction costs and widening market access for businesses otherwise confined by geography.',
+    pt: 'O marketplace digital do grupo — liga vendedores e compradores, reduz custos de transacção e alarga o acesso ao mercado a negócios antes limitados pela geografia.',
+  },
+  'Adventure': {
+    en: 'Communication and corporate events — strategy, brand activations and event production, with reach across the African continent.',
+    pt: 'Comunicação e eventos corporativos — estratégia, activações de marca e produção de eventos, com alcance em todo o continente africano.',
+  },
+  'Factory Ideas': {
+    en: 'Graphic production and stand construction — turning ideas into physical brand presence, from print to built environments.',
+    pt: 'Produção gráfica e construção de stands — transforma ideias em presença física de marca, do impresso aos ambientes construídos.',
+  },
+  'Publink': {
+    en: 'Digital out-of-home media — billboard and screen rental in high-traffic locations that amplify brands across the city.',
+    pt: 'Media exterior digital — aluguer de outdoors e ecrãs em locais de grande tráfego que amplificam as marcas pela cidade.',
+  },
+};
 
 async function seed() {
   // Admin from env (created once; password changes are done in-app afterwards).
@@ -186,13 +234,23 @@ async function seed() {
     ];
     let ord = 0;
     for (const c of comps) {
+      const d = COMPANY_DESCS[c[0]] || { en: '', pt: '' };
       await q(
-        `INSERT INTO companies (name, word, color, url, cap_en, cap_pt, sort_order)
-         VALUES (?,?,?,?,?,?,?)`,
-        [c[0], c[1], c[2], '#', c[3], c[4], ord++]
+        `INSERT INTO companies (name, word, color, url, cap_en, cap_pt, desc_en, desc_pt, sort_order)
+         VALUES (?,?,?,?,?,?,?,?,?)`,
+        [c[0], c[1], c[2], '#', c[3], c[4], d.en, d.pt, ord++]
       );
     }
     console.log('[db] seeded companies');
+  }
+
+  // Backfill descriptions for companies seeded before the field existed.
+  // Only fills empties — never clobbers a description edited in admin.
+  for (const [name, d] of Object.entries(COMPANY_DESCS)) {
+    await q(
+      `UPDATE companies SET desc_en=?, desc_pt=? WHERE name=? AND (desc_en IS NULL OR desc_en='')`,
+      [d.en, d.pt, name]
+    );
   }
 
   const posCount = await one('SELECT COUNT(*) AS n FROM positions');

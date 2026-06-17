@@ -29,6 +29,7 @@ export function shapeCompany(r) {
     url: r.url || '#',
     logo: r.logo || null,
     cap: { en: r.cap_en || '', pt: r.cap_pt || '' },
+    desc: { en: r.desc_en || '', pt: r.desc_pt || '' },
   };
 }
 

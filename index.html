@@ -325,6 +325,22 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 .logo-tile .logo-word{font-family:var(--head);font-weight:700;font-size:1.35rem;letter-spacing:-.01em;color:var(--brand,var(--navy))}
 .logo-tile .logo-cap{font-family:var(--head);font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);opacity:0;transition:opacity .35s}
 .logo-tile:hover .logo-cap{opacity:1}
+/* Company showcase cards (Companies page) */
+.company-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:3rem}
+@media(max-width:860px){.company-cards{grid-template-columns:1fr}}
+.company-card{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--white);overflow:hidden;transition:border-color .35s,box-shadow .35s,transform .35s}
+.company-card:hover{border-color:var(--brand);box-shadow:0 18px 40px rgba(0,0,0,.06);transform:translateY(-3px)}
+.cc-media{height:180px;display:flex;align-items:center;justify-content:center;background:var(--cream);border-bottom:1px solid var(--line);overflow:hidden}
+.cc-media img{max-width:70%;max-height:64%;width:auto;height:auto;object-fit:contain}
+.cc-media--placeholder{background:linear-gradient(135deg,var(--brand) 0%,rgba(0,0,0,.78) 100%)}
+.cc-media--placeholder span{font-family:var(--head);font-weight:700;font-size:1.7rem;letter-spacing:-.01em;color:#fff}
+.cc-body{display:flex;flex-direction:column;gap:.9rem;padding:1.8rem}
+.cc-head{display:flex;flex-direction:column;gap:.35rem}
+.cc-head h3{font-size:clamp(1.3rem,2.2vw,1.6rem);line-height:1.1}
+.cc-cap{font-family:var(--head);font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--brand)}
+.cc-desc{color:var(--grey);font-size:.95rem;line-height:1.6;max-width:54ch}
+.cc-link{align-self:flex-start;margin-top:.2rem;font-family:var(--head);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px;transition:opacity .3s}
+.cc-link:hover{opacity:.65}
 
 /* ---------- INSIGHTS / PUBLICATIONS ---------- */
 .pub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2vw;margin-top:1rem}
@@ -460,6 +476,9 @@ header.page::after{background:var(--gold);opacity:.06;right:-2vw;bottom:-12%;wid
 .logo-tile:hover{background:#fbf9f2}
 .logo-tile .logo-word{color:var(--tx)}
 .logo-tile .logo-cap{color:var(--mut)}
+.company-card{background:#ffffff;border-color:var(--pline)}
+.cc-media{background:#faf7f0;border-bottom-color:var(--pline)}
+.cc-desc{color:var(--mut)}
 
 /* ---- STRATEGIC SECTORS — AKFA-style 4-column row ----
    Single row of equal columns separated by uniform 1px dividers,
@@ -609,8 +628,8 @@ header.home.has-cover .hero-cover::after{
     <span class="names"><span class="top">INOV Holding</span></span>
   </a>
   <div class="nav-right">
-    <ul class="nav-links" id="nav-en"><li><a href="#home" data-nav="home">Home</a></li><li><a href="#group" data-nav="group">The Group</a></li><li><a href="#sectors" data-nav="sectors">Sectors</a></li><li><a href="#presence" data-nav="presence">Presence</a></li><li><a href="#sustainability" data-nav="sustainability">Sustainability</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Careers</a></li><li><a href="#contact" data-nav="contact">Contact</a></li></ul>
-    <ul class="nav-links" id="nav-pt" style="display:none"><li><a href="#home" data-nav="home">Início</a></li><li><a href="#group" data-nav="group">O Grupo</a></li><li><a href="#sectors" data-nav="sectors">Sectores</a></li><li><a href="#presence" data-nav="presence">Presença</a></li><li><a href="#sustainability" data-nav="sustainability">Sustentabilidade</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Carreiras</a></li><li><a href="#contact" data-nav="contact">Contacto</a></li></ul>
+    <ul class="nav-links" id="nav-en"><li><a href="#home" data-nav="home">Home</a></li><li><a href="#group" data-nav="group">About</a></li><li><a href="#companies" data-nav="companies">Companies</a></li><li><a href="#sustainability" data-nav="sustainability">Sustainability</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Careers</a></li><li><a href="#contact" data-nav="contact">Contact</a></li></ul>
+    <ul class="nav-links" id="nav-pt" style="display:none"><li><a href="#home" data-nav="home">Início</a></li><li><a href="#group" data-nav="group">Sobre Nós</a></li><li><a href="#companies" data-nav="companies">Empresas</a></li><li><a href="#sustainability" data-nav="sustainability">Sustentabilidade</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Carreiras</a></li><li><a href="#contact" data-nav="contact">Contacto</a></li></ul>
     <div class="lang-toggle">
       <button data-lang="en" class="active">EN</button>
       <button data-lang="pt">PT</button>
@@ -654,28 +673,28 @@ header.home.has-cover .hero-cover::after{
   <p class="sec-label">Strategic Sectors</p>
   <h2 class="reveal">Present where the economy <span class="lt">is decided.</span></h2>
   <div class="sector-list">
-    <a class="sector reveal" href="#sectors">
+    <a class="sector reveal" href="#companies">
       <span class="idx">01</span>
       <span class="name">Infrastructure, Logistics &amp; Integrated Services</span>
       <span class="body">The physical backbone of the economy: construction, transport, logistics and facilities management sustaining productive activity and urban growth.
         <span class="ops">Operating platform · Meteoro</span></span>
       <span class="tag">Real Economy</span>
     </a>
-    <a class="sector reveal" href="#sectors">
+    <a class="sector reveal" href="#companies">
       <span class="idx">02</span>
       <span class="name">Financial Services &amp; Risk Management</span>
       <span class="body">Protecting corporate and family wealth: licensed insurance brokerage and risk advisory deepening insurance penetration in the market.
         <span class="ops">Operating platform · Hexa Insurance Brokers</span></span>
       <span class="tag">Financial Sector</span>
     </a>
-    <a class="sector reveal" href="#sectors">
+    <a class="sector reveal" href="#companies">
       <span class="idx">03</span>
       <span class="name">Digital Economy &amp; E-commerce</span>
       <span class="body">Formalising commerce through technology: digital marketplace infrastructure connecting sellers and buyers and widening market access.
         <span class="ops">Operating platform · Andala</span></span>
       <span class="tag">Technology</span>
     </a>
-    <a class="sector reveal" href="#sectors">
+    <a class="sector reveal" href="#companies">
       <span class="idx">04</span>
       <span class="name">Communication, Media &amp; Creative Industries</span>
       <span class="body">The economy of attention and brands: corporate events with international reach, graphic and structural production, and digital out-of-home media — a complete creative value chain, from Southern Africa to Europe.
@@ -695,7 +714,7 @@ header.home.has-cover .hero-cover::after{
     <div class="presence-cell"><span class="mode">Advisory</span><span class="country">Portugal · Spain</span><p>Business advisory across the Iberian Peninsula, bridging European and African markets.</p></div>
     <div class="presence-cell"><span class="mode">Advisory</span><span class="country">Brazil</span><p>Business advisory in the world's largest Portuguese-speaking market, with deep cultural and linguistic affinity.</p></div>
   </div>
-  <a class="btn reveal" href="#presence">Explore our presence</a>
+  <a class="btn reveal" href="#group">Where we operate</a>
 </section>
 
 <section>
@@ -737,7 +756,7 @@ header.home.has-cover .hero-cover::after{
 </div>
 
 <div class="site-page" id="en-page-group">
-<header class="page"><p class="kicker">The Group</p><h1>A holding built <span class="lt">by hand.</span></h1><p class="hero-sub">INOV Holding did not inherit assets — it built them. Platform by platform, sector by sector, with its own capital, institutional discipline and the conviction that the next companies of global reference will also be born in Africa.</p></header>
+<header class="page"><p class="kicker">About</p><h1>A holding built <span class="lt">by hand.</span></h1><p class="hero-sub">INOV Holding did not inherit assets — it built them. Platform by platform, sector by sector, with its own capital, institutional discipline and the conviction that the next companies of global reference will also be born in Africa.</p></header>
 
 <section>
   <p class="sec-label">Who We Are</p>
@@ -769,6 +788,31 @@ header.home.has-cover .hero-cover::after{
     <div class="t-item"><span class="when">Diversification</span><h3>Financial services and the digital economy</h3><p>The group enters licensed insurance brokerage and e-commerce — sectors of structural growth where trust and compliance are the barrier to entry.</p></div>
     <div class="t-item"><span class="when">Internationalisation</span><h3>Three continents</h3><p>Representation in South Africa, operations in African markets such as Kenya, Mozambique and Ethiopia, and business advisory in the Iberian Peninsula and Brazil.</p></div>
     <div class="t-item"><span class="when">Today</span><h3>Institutional consolidation</h3><p>Corporate restructuring, consolidated financial reporting and reinforced governance — deliberate preparation for the next decade of growth.</p></div>
+  </div>
+</section>
+
+<section>
+  <p class="sec-label">Where We Operate</p>
+  <h2 class="reveal">Decisions in Luanda. Value across <span class="lt">three continents.</span></h2>
+  <div class="market reveal"><div><span class="mode">Group Headquarters</span><h3>Angola</h3></div>
+    <p>Luanda is the centre of decision-making, governance and operations for every platform in the group. It is home to our companies' head offices, our core teams and the Legal Directorate that keeps the whole structure rigorous. Angola is not just our origin — it is the proof of concept for everything we export.</p></div>
+  <div class="market reveal"><div><span class="mode">Representation</span><h3>South Africa</h3></div>
+    <p>Permanent representation of our communication and corporate events platform in the continent's most sophisticated market — a bridge to multinational clients with operations across Southern Africa.</p></div>
+  <div class="market reveal"><div><span class="mode">Operations</span><h3>Africa</h3></div>
+    <p>We deliver corporate events and brand activations for international clients in markets such as Kenya, Mozambique and Ethiopia — taking the execution standard built in Luanda to the continent's main economic centres.</p></div>
+  <div class="market reveal"><div><span class="mode">Advisory</span><h3>Portugal &amp; Spain</h3></div>
+    <p>We provide business advisory across the Iberian Peninsula, supporting European companies looking at African markets — and African companies looking at Europe. Our position on both sides of the relationship is our advantage.</p></div>
+  <div class="market reveal"><div><span class="mode">Advisory</span><h3>Brazil</h3></div>
+    <p>Business advisory in the world's largest Portuguese-speaking market. The cultural and linguistic affinity between Angola and Brazil creates a natural business corridor — and INOV is positioned on both shores of the Atlantic.</p></div>
+</section>
+
+<section class="cream">
+  <p class="sec-label">Our Internationalisation Model</p>
+  <h2 class="reveal">Growing outward <span class="lt">without losing the centre.</span></h2>
+  <div class="grid-3">
+    <div class="topline reveal"><span class="step">I — Prove</span><h3>Excellence at home</h3><p>No platform leaves Angola before mastering its home market. Domestic reputation is the boarding pass.</p></div>
+    <div class="topline reveal"><span class="step">II — Follow</span><h3>Follow the clients</h3><p>We expand to where our clients need us — first on individual projects, then with established presence.</p></div>
+    <div class="topline reveal"><span class="step">III — Root</span><h3>Presence with substance</h3><p>Representations and operations with local teams and partnerships — not flags on a map. We grow at the pace of our ability to deliver.</p></div>
   </div>
 </section>
 
@@ -816,64 +860,17 @@ header.home.has-cover .hero-cover::after{
 
 <section class="navy">
   <div class="cta-band">
-    <div class="reveal"><p class="sec-label">Get To Know Us</p><h2>Four sectors. <span class="lt">One conviction.</span></h2></div>
-    <div class="reveal"><a class="btn" href="#sectors">Explore the sectors</a></div>
+    <div class="reveal"><p class="sec-label">Get To Know Us</p><h2>Six companies. <span class="lt">One conviction.</span></h2></div>
+    <div class="reveal"><a class="btn" href="#companies">Explore the companies</a></div>
   </div>
 </section>
 </div>
 
-<div class="site-page" id="en-page-sectors">
-<header class="page"><p class="kicker">Strategic Sectors</p><h1>Present where the economy <span class="lt">is decided.</span></h1><p class="hero-sub">Four sectors chosen with conviction — for their centrality to the economy, their potential for structural growth, and the advantage that integration between them gives us.</p></header>
+<div class="site-page" id="en-page-companies">
+<header class="page"><p class="kicker">Companies</p><h1>The companies we <span class="lt">build.</span></h1><p class="hero-sub">Independent platforms, one shared standard — each operating in its own market with its own team, together forming the group's integrated value chain.</p></header>
 
 <section>
-  <div class="sector-detail reveal">
-    <div class="side"><span class="idx">Sector 01</span><h3>Infrastructure, Logistics &amp; Integrated Services</h3>
-      <div class="platforms"><span class="platform">Meteoro</span></div></div>
-    <div class="main">
-      <p>No economy grows faster than its physical base allows. Infrastructure, transport and logistics are the circulatory system of productive activity — and demand for these services grows with urbanisation, economic diversification and the rising standards of corporate clients.</p>
-      <h4>What we do</h4>
-      <p>Through Meteoro, the group delivers integrated construction, logistics, transport and facilities management — with the advantage of serving both external clients and the group's own platforms, which guarantee scale and operational cadence.</p>
-      <h4>Why we believe in this sector</h4>
-      <p>Demand is structural, contracts are long-term, and disciplined execution is scarce in the market. Those who deliver reliably, stay.</p>
-    </div>
-  </div>
-  <div class="sector-detail reveal">
-    <div class="side"><span class="idx">Sector 02</span><h3>Financial Services &amp; Risk Management</h3>
-      <div class="platforms"><span class="platform">Hexa Insurance Brokers</span></div></div>
-    <div class="main">
-      <p>Insurance penetration across African markets remains far below potential — which means millions of families and thousands of businesses operate without adequate protection. That gap is both a social risk and one of the financial sector's greatest opportunities.</p>
-      <h4>What we do</h4>
-      <p>Hexa is a licensed insurance broker supervised by ARSEG, positioned as its clients' risk-intelligence partner: it analyses, structures and negotiates cover — and invests in insurance literacy to expand the very market in which it operates.</p>
-      <h4>Why we believe in this sector</h4>
-      <p>In a sector where trust and regulatory compliance are the barrier to entry, our institutional discipline is a direct advantage.</p>
-    </div>
-  </div>
-  <div class="sector-detail reveal">
-    <div class="side"><span class="idx">Sector 03</span><h3>Digital Economy &amp; E-commerce</h3>
-      <div class="platforms"><span class="platform">Andala</span></div></div>
-    <div class="main">
-      <p>Commerce in emerging markets is formalising through technology — leapfrogging stages other economies took decades to complete. The digital platforms that organise this transition capture value durably.</p>
-      <h4>What we do</h4>
-      <p>Andala is the group's digital marketplace infrastructure: it connects sellers and buyers, lowers transaction costs and widens market access for businesses that would otherwise remain confined by geography.</p>
-      <h4>Why we believe in this sector</h4>
-      <p>Demographics work in our favour: a young, urban, increasingly connected population needs commercial infrastructure to match.</p>
-    </div>
-  </div>
-  <div class="sector-detail reveal">
-    <div class="side"><span class="idx">Sector 04</span><h3>Communication, Media &amp; Creative Industries</h3>
-      <div class="platforms">
-        <span class="platform">Adventure — Communication &amp; Events</span>
-        <span class="platform">Factory Ideas — Graphic Production &amp; Stands</span>
-        <span class="platform">Publink — Digital Out-of-Home Media</span>
-      </div></div>
-    <div class="main">
-      <p>The economy of attention has no borders — and this is the sector where the group was born and where its internationalisation has gone furthest, with representation in South Africa and events delivered in markets such as Kenya, Mozambique and Ethiopia.</p>
-      <h4>What we do</h4>
-      <p>Three platforms form a complete creative value chain: Adventure designs strategy and produces corporate events and brand activations; Factory Ideas materialises — graphic production and stand construction; Publink amplifies, through digital billboard rental in high-traffic locations.</p>
-      <h4>Why we believe in this sector</h4>
-      <p>Global brands entering Africa need partners who command the terrain; African brands going global need partners with international standards. We are positioned to serve both.</p>
-    </div>
-  </div>
+  <div class="company-cards reveal" id="companies-en"></div>
 </section>
 
 <section class="navy">
@@ -881,55 +878,9 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">The Integration Advantage</p>
       <h2>Each platform extends <span class="lt">the reach of the others.</span></h2>
-      <p class="lead">Infrastructure serves the brands. Risk protects the operations. Digital scales the commerce. Creativity gives voice to it all. It is an ecosystem that reinforces itself — and that is INOV's thesis.</p>
+      <p class="lead">Infrastructure serves the brands. Risk protects the operations. Digital scales the commerce. Creativity gives voice to it all — an ecosystem that reinforces itself.</p>
     </div>
-    <div class="reveal"><a class="btn" href="#presence">See where we operate</a></div>
-  </div>
-</section>
-
-<section class="cream">
-  <p class="sec-label">The Group</p>
-  <h2 class="reveal">The companies that <span class="lt">make up INOV.</span></h2>
-  <p class="lead reveal">Independent platforms, one shared standard. Each operates in its own market with its own team — together they form the group's integrated value chain.</p>
-  <div class="companies-grid reveal" id="companies-en"></div>
-</section>
-</div>
-
-<div class="site-page" id="en-page-presence">
-<header class="page"><p class="kicker">Global Presence</p><h1>Decisions in Luanda. Value across <span class="lt">three continents.</span></h1><p class="hero-sub">INOV's internationalisation was not a leap — it was a sequence. First excellence at home, then representation across the continent, then the markets that speak our language.</p></header>
-
-<section>
-  <p class="sec-label">Our Markets</p>
-  <div class="market reveal"><div><span class="mode">Group Headquarters</span><h3>Angola</h3></div>
-    <p>Luanda is the centre of decision-making, governance and operations for every platform in the group. It is home to our companies' head offices, our core teams and the Legal Directorate that keeps the whole structure rigorous. Angola is not just our origin — it is the proof of concept for everything we export.</p></div>
-  <div class="market reveal"><div><span class="mode">Representation</span><h3>South Africa</h3></div>
-    <p>Permanent representation of our communication and corporate events platform in the continent's most sophisticated market — a bridge to multinational clients with operations across Southern Africa.</p></div>
-  <div class="market reveal"><div><span class="mode">Operations</span><h3>Africa</h3></div>
-    <p>We deliver corporate events and brand activations for international clients in markets such as Kenya, Mozambique and Ethiopia — taking the execution standard built in Luanda to the continent's main economic centres.</p></div>
-  <div class="market reveal"><div><span class="mode">Advisory</span><h3>Portugal &amp; Spain</h3></div>
-    <p>We provide business advisory across the Iberian Peninsula, supporting European companies looking at African markets — and African companies looking at Europe. Our position on both sides of the relationship is our advantage.</p></div>
-  <div class="market reveal"><div><span class="mode">Advisory</span><h3>Brazil</h3></div>
-    <p>Business advisory in the world's largest Portuguese-speaking market. The cultural and linguistic affinity between Angola and Brazil creates a natural business corridor — and INOV is positioned on both shores of the Atlantic.</p></div>
-</section>
-
-<section class="cream">
-  <p class="sec-label">Our Internationalisation Model</p>
-  <h2 class="reveal">Growing outward <span class="lt">without losing the centre.</span></h2>
-  <div class="grid-3">
-    <div class="topline reveal"><span class="step">I — Prove</span><h3>Excellence at home</h3><p>No platform leaves Angola before mastering its home market. Domestic reputation is the boarding pass.</p></div>
-    <div class="topline reveal"><span class="step">II — Follow</span><h3>Follow the clients</h3><p>We expand to where our clients need us — first on individual projects, then with established presence.</p></div>
-    <div class="topline reveal"><span class="step">III — Root</span><h3>Presence with substance</h3><p>Representations and operations with local teams and partnerships — not flags on a map. We grow at the pace of our ability to deliver.</p></div>
-  </div>
-</section>
-
-<section class="navy">
-  <div class="cta-band">
-    <div class="reveal">
-      <p class="sec-label">Next Destination</p>
-      <h2>The map is <span class="lt">not finished yet.</span></h2>
-      <p class="lead">We continuously evaluate new markets — with the same discipline we apply to new sectors. If your organisation is looking for a partner with feet in Africa and global standards, let's talk.</p>
-    </div>
-    <div class="reveal"><a class="btn" href="#contact">Contact INOV</a></div>
+    <div class="reveal"><a class="btn" href="#contact">Talk to the group</a></div>
   </div>
 </section>
 </div>
@@ -1131,25 +1082,25 @@ header.home.has-cover .hero-cover::after{
   <p class="sec-label">Sectores Estratégicos</p>
   <h2 class="reveal">Presença onde a economia <span class="lt">se decide.</span></h2>
   <div class="sector-list">
-    <a class="sector reveal" href="#sectors">
+    <a class="sector reveal" href="#companies">
       <span class="idx">01</span><span class="name">Infra-estruturas, Logística &amp; Serviços Integrados</span>
       <span class="body">A base física da economia: construção, transporte, logística e gestão de facilities que sustentam a actividade produtiva e a expansão urbana.
         <span class="ops">Plataforma operacional · Meteoro</span></span>
       <span class="tag">Economia Real</span>
     </a>
-    <a class="sector reveal" href="#sectors">
+    <a class="sector reveal" href="#companies">
       <span class="idx">02</span><span class="name">Serviços Financeiros &amp; Gestão de Risco</span>
       <span class="body">A protecção do património empresarial e familiar: corretagem de seguros licenciada e consultoria de risco que aprofundam a penetração seguradora no mercado.
         <span class="ops">Plataforma operacional · Hexa Corretora de Seguros</span></span>
       <span class="tag">Sector Financeiro</span>
     </a>
-    <a class="sector reveal" href="#sectors">
+    <a class="sector reveal" href="#companies">
       <span class="idx">03</span><span class="name">Economia Digital &amp; Comércio Electrónico</span>
       <span class="body">A formalização do comércio através da tecnologia: infra-estrutura digital de marketplace que liga vendedores e compradores e expande o acesso ao mercado.
         <span class="ops">Plataforma operacional · Andala</span></span>
       <span class="tag">Tecnologia</span>
     </a>
-    <a class="sector reveal" href="#sectors">
+    <a class="sector reveal" href="#companies">
       <span class="idx">04</span><span class="name">Comunicação, Media &amp; Indústrias Criativas</span>
       <span class="body">A economia da atenção e da marca: estratégia e eventos corporativos com alcance internacional, produção gráfica e de estruturas, e media exterior digital — uma cadeia de valor criativa completa, da África Austral à Europa.
         <span class="ops">Plataformas operacionais · Adventure · Factory Ideas · Publink</span></span>
@@ -1168,7 +1119,7 @@ header.home.has-cover .hero-cover::after{
     <div class="presence-cell"><span class="mode">Consultoria</span><span class="country">Portugal · Espanha</span><p>Consultoria a negócios na Península Ibérica, ligando mercados europeus e africanos.</p></div>
     <div class="presence-cell"><span class="mode">Consultoria</span><span class="country">Brasil</span><p>Consultoria a negócios no maior mercado lusófono, com afinidade cultural e linguística.</p></div>
   </div>
-  <a class="btn reveal" href="#presence">Explorar a nossa presença</a>
+  <a class="btn reveal" href="#group">Onde actuamos</a>
 </section>
 
 <section>
@@ -1210,7 +1161,7 @@ header.home.has-cover .hero-cover::after{
 </div>
 
 <div class="site-page" id="pt-page-group">
-<header class="page"><p class="kicker">O Grupo</p><h1>Uma holding construída <span class="lt">à mão.</span></h1><p class="hero-sub">A INOV Holding não herdou activos — construiu-os. Plataforma a plataforma, sector a sector, com capital próprio, disciplina institucional e a convicção de que as próximas empresas de referência global também nascerão em África.</p></header>
+<header class="page"><p class="kicker">Sobre Nós</p><h1>Uma holding construída <span class="lt">à mão.</span></h1><p class="hero-sub">A INOV Holding não herdou activos — construiu-os. Plataforma a plataforma, sector a sector, com capital próprio, disciplina institucional e a convicção de que as próximas empresas de referência global também nascerão em África.</p></header>
 
 <section>
   <p class="sec-label">Quem Somos</p>
@@ -1242,6 +1193,31 @@ header.home.has-cover .hero-cover::after{
     <div class="t-item"><span class="when">Diversificação</span><h3>Serviços financeiros e economia digital</h3><p>O grupo entra na corretagem de seguros licenciada e no comércio electrónico — sectores de crescimento estrutural onde a confiança e a conformidade são a barreira de entrada.</p></div>
     <div class="t-item"><span class="when">Internacionalização</span><h3>Três continentes</h3><p>Representação na África do Sul, operações em mercados africanos como o Quénia, Moçambique e a Etiópia, e consultoria a negócios na Península Ibérica e no Brasil.</p></div>
     <div class="t-item"><span class="when">Hoje</span><h3>Consolidação institucional</h3><p>Reestruturação societária, reporte financeiro consolidado e governação reforçada — a preparação deliberada para a próxima década de crescimento.</p></div>
+  </div>
+</section>
+
+<section>
+  <p class="sec-label">Os Nossos Mercados</p>
+  <h2 class="reveal">Decisões em Luanda. Valor em <span class="lt">três continentes.</span></h2>
+  <div class="market reveal"><div><span class="mode">Sede do Grupo</span><h3>Angola</h3></div>
+    <p>Luanda é o centro de decisão, governação e operações de todas as plataformas do grupo. É aqui que estão as sedes das nossas empresas, as nossas equipas nucleares e a Direcção Jurídica que assegura o rigor de toda a estrutura. Angola não é apenas a nossa origem — é a prova de conceito de tudo o que exportamos.</p></div>
+  <div class="market reveal"><div><span class="mode">Representação</span><h3>África do Sul</h3></div>
+    <p>Representação permanente da nossa plataforma de comunicação e eventos corporativos no mercado mais sofisticado do continente — uma ponte para clientes multinacionais com operações em toda a África Austral.</p></div>
+  <div class="market reveal"><div><span class="mode">Operações</span><h3>África</h3></div>
+    <p>Realizamos eventos corporativos e activações de marca para clientes internacionais em mercados como o Quénia, Moçambique e a Etiópia — levando o padrão de execução construído em Luanda aos principais centros económicos do continente.</p></div>
+  <div class="market reveal"><div><span class="mode">Consultoria</span><h3>Portugal &amp; Espanha</h3></div>
+    <p>Prestamos consultoria a negócios na Península Ibérica, apoiando empresas europeias que olham para os mercados africanos — e empresas africanas que procuram a Europa. A nossa posição em ambos os lados da relação é a nossa vantagem.</p></div>
+  <div class="market reveal"><div><span class="mode">Consultoria</span><h3>Brasil</h3></div>
+    <p>Consultoria a negócios no maior mercado lusófono do mundo. A afinidade cultural e linguística entre Angola e o Brasil cria um corredor natural de negócios — e a INOV está posicionada nas duas margens do Atlântico.</p></div>
+</section>
+
+<section class="cream">
+  <p class="sec-label">O Nosso Modelo de Internacionalização</p>
+  <h2 class="reveal">Crescer para fora <span class="lt">sem perder o centro.</span></h2>
+  <div class="grid-3">
+    <div class="topline reveal"><span class="step">I — Provar</span><h3>Excelência em casa</h3><p>Nenhuma plataforma sai de Angola antes de dominar o seu mercado de origem. A reputação doméstica é o bilhete de embarque.</p></div>
+    <div class="topline reveal"><span class="step">II — Seguir</span><h3>Acompanhar os clientes</h3><p>Expandimos para onde os nossos clientes precisam de nós — primeiro em projectos pontuais, depois com presença estabelecida.</p></div>
+    <div class="topline reveal"><span class="step">III — Enraizar</span><h3>Presença com substância</h3><p>Representações e operações com equipas e parcerias locais — não bandeiras num mapa. Crescemos ao ritmo da nossa capacidade de entregar.</p></div>
   </div>
 </section>
 
@@ -1289,64 +1265,17 @@ header.home.has-cover .hero-cover::after{
 
 <section class="navy">
   <div class="cta-band">
-    <div class="reveal"><p class="sec-label">Conheça-nos Melhor</p><h2>Quatro sectores. <span class="lt">Uma só convicção.</span></h2></div>
-    <div class="reveal"><a class="btn" href="#sectors">Explorar os sectores</a></div>
+    <div class="reveal"><p class="sec-label">Conheça-nos Melhor</p><h2>Seis empresas. <span class="lt">Uma só convicção.</span></h2></div>
+    <div class="reveal"><a class="btn" href="#companies">Explorar as empresas</a></div>
   </div>
 </section>
 </div>
 
-<div class="site-page" id="pt-page-sectors">
-<header class="page"><p class="kicker">Sectores Estratégicos</p><h1>Presença onde a economia <span class="lt">se decide.</span></h1><p class="hero-sub">Quatro sectores escolhidos com convicção — pela sua centralidade na economia, pelo seu potencial de crescimento estrutural e pela vantagem que a integração entre eles nos confere.</p></header>
+<div class="site-page" id="pt-page-companies">
+<header class="page"><p class="kicker">Empresas</p><h1>As empresas que <span class="lt">construímos.</span></h1><p class="hero-sub">Plataformas independentes, um padrão comum — cada uma a operar no seu mercado com a sua equipa, juntas formando a cadeia de valor integrada do grupo.</p></header>
 
 <section>
-  <div class="sector-detail reveal">
-    <div class="side"><span class="idx">Sector 01</span><h3>Infra-estruturas, Logística &amp; Serviços Integrados</h3>
-      <div class="platforms"><span class="platform">Meteoro</span></div></div>
-    <div class="main">
-      <p>Nenhuma economia cresce mais depressa do que a sua base física permite. As infra-estruturas, o transporte e a logística são o sistema circulatório da actividade produtiva — e a procura por estes serviços cresce com a urbanização, com a diversificação económica e com a exigência crescente dos clientes corporativos.</p>
-      <h4>A nossa actuação</h4>
-      <p>Através da Meteoro, o grupo entrega serviços integrados de construção, logística, transporte e gestão de facilities — com a vantagem de servir tanto clientes externos como as restantes plataformas do grupo, que lhe garantem escala e cadência operacional.</p>
-      <h4>Porque acreditamos neste sector</h4>
-      <p>A procura é estrutural, os contratos são de longo prazo e a execução disciplinada é escassa no mercado. Quem entrega com fiabilidade, fica.</p>
-    </div>
-  </div>
-  <div class="sector-detail reveal">
-    <div class="side"><span class="idx">Sector 02</span><h3>Serviços Financeiros &amp; Gestão de Risco</h3>
-      <div class="platforms"><span class="platform">Hexa Corretora de Seguros</span></div></div>
-    <div class="main">
-      <p>A penetração seguradora nos mercados africanos permanece muito abaixo do potencial — o que significa que milhões de famílias e milhares de empresas operam sem protecção adequada. Esse desfasamento é, ao mesmo tempo, um risco social e uma das maiores oportunidades do sector financeiro.</p>
-      <h4>A nossa actuação</h4>
-      <p>A Hexa é uma corretora de seguros licenciada e supervisionada pela ARSEG, posicionada como parceira de inteligência de risco dos seus clientes: analisa, estrutura e negoceia coberturas — e investe em literacia seguradora para expandir o próprio mercado em que actua.</p>
-      <h4>Porque acreditamos neste sector</h4>
-      <p>Num sector onde a confiança e a conformidade regulatória são a barreira de entrada, a nossa disciplina institucional é uma vantagem directa.</p>
-    </div>
-  </div>
-  <div class="sector-detail reveal">
-    <div class="side"><span class="idx">Sector 03</span><h3>Economia Digital &amp; Comércio Electrónico</h3>
-      <div class="platforms"><span class="platform">Andala</span></div></div>
-    <div class="main">
-      <p>O comércio nos mercados emergentes está a formalizar-se através da tecnologia — saltando etapas que outras economias levaram décadas a percorrer. As plataformas digitais que organizam essa transição capturam valor de forma duradoura.</p>
-      <h4>A nossa actuação</h4>
-      <p>A Andala é a infra-estrutura digital de marketplace do grupo: liga vendedores e compradores, reduz custos de transacção e expande o acesso ao mercado para negócios que, de outra forma, ficariam confinados à geografia.</p>
-      <h4>Porque acreditamos neste sector</h4>
-      <p>A demografia joga a nosso favor: uma população jovem, urbana e cada vez mais conectada precisa de infra-estrutura comercial à altura.</p>
-    </div>
-  </div>
-  <div class="sector-detail reveal">
-    <div class="side"><span class="idx">Sector 04</span><h3>Comunicação, Media &amp; Indústrias Criativas</h3>
-      <div class="platforms">
-        <span class="platform">Adventure — Comunicação &amp; Eventos</span>
-        <span class="platform">Factory Ideas — Produção Gráfica &amp; Stands</span>
-        <span class="platform">Publink — Media Exterior Digital</span>
-      </div></div>
-    <div class="main">
-      <p>A economia da atenção não tem fronteiras — e é o sector onde o grupo nasceu e onde a sua internacionalização foi mais longe, com representação na África do Sul e eventos realizados em mercados como o Quénia, Moçambique e a Etiópia.</p>
-      <h4>A nossa actuação</h4>
-      <p>Três plataformas formam uma cadeia de valor criativa completa: a Adventure concebe a estratégia e produz eventos corporativos e activações de marca; a Factory Ideas materializa — produção gráfica e construção de stands; a Publink amplifica, através do aluguer de painéis digitais em localizações de elevado tráfego.</p>
-      <h4>Porque acreditamos neste sector</h4>
-      <p>As marcas globais que entram em África precisam de parceiros que dominem o terreno; as marcas africanas que crescem precisam de parceiros com padrão internacional. Estamos posicionados para servir ambas.</p>
-    </div>
-  </div>
+  <div class="company-cards reveal" id="companies-pt"></div>
 </section>
 
 <section class="navy">
@@ -1354,55 +1283,9 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">A Vantagem da Integração</p>
       <h2>Cada plataforma amplia <span class="lt">o alcance das outras.</span></h2>
-      <p class="lead">A infra-estrutura serve as marcas. O risco protege as operações. O digital escala o comércio. A criatividade dá voz a tudo. É um ecossistema que se reforça a si próprio — e essa é a tese da INOV.</p>
+      <p class="lead">A infra-estrutura serve as marcas. O risco protege as operações. O digital escala o comércio. A criatividade dá voz a tudo — um ecossistema que se reforça a si próprio.</p>
     </div>
-    <div class="reveal"><a class="btn" href="#presence">Ver onde actuamos</a></div>
-  </div>
-</section>
-
-<section class="cream">
-  <p class="sec-label">O Grupo</p>
-  <h2 class="reveal">As empresas que <span class="lt">formam a INOV.</span></h2>
-  <p class="lead reveal">Plataformas independentes, um padrão comum. Cada uma actua no seu mercado com a sua equipa — juntas formam a cadeia de valor integrada do grupo.</p>
-  <div class="companies-grid reveal" id="companies-pt"></div>
-</section>
-</div>
-
-<div class="site-page" id="pt-page-presence">
-<header class="page"><p class="kicker">Presença Global</p><h1>Decisões em Luanda. Valor em <span class="lt">três continentes.</span></h1><p class="hero-sub">A internacionalização da INOV não foi um salto — foi uma sequência. Primeiro a excelência em casa, depois a representação no continente, depois os mercados que falam a nossa língua.</p></header>
-
-<section>
-  <p class="sec-label">Os Nossos Mercados</p>
-  <div class="market reveal"><div><span class="mode">Sede do Grupo</span><h3>Angola</h3></div>
-    <p>Luanda é o centro de decisão, governação e operações de todas as plataformas do grupo. É aqui que estão as sedes das nossas empresas, as nossas equipas nucleares e a Direcção Jurídica que assegura o rigor de toda a estrutura. Angola não é apenas a nossa origem — é a prova de conceito de tudo o que exportamos.</p></div>
-  <div class="market reveal"><div><span class="mode">Representação</span><h3>África do Sul</h3></div>
-    <p>Representação permanente da nossa plataforma de comunicação e eventos corporativos no mercado mais sofisticado do continente — uma ponte para clientes multinacionais com operações em toda a África Austral.</p></div>
-  <div class="market reveal"><div><span class="mode">Operações</span><h3>África</h3></div>
-    <p>Realizamos eventos corporativos e activações de marca para clientes internacionais em mercados como o Quénia, Moçambique e a Etiópia — levando o padrão de execução construído em Luanda aos principais centros económicos do continente.</p></div>
-  <div class="market reveal"><div><span class="mode">Consultoria</span><h3>Portugal &amp; Espanha</h3></div>
-    <p>Prestamos consultoria a negócios na Península Ibérica, apoiando empresas europeias que olham para os mercados africanos — e empresas africanas que procuram a Europa. A nossa posição em ambos os lados da relação é a nossa vantagem.</p></div>
-  <div class="market reveal"><div><span class="mode">Consultoria</span><h3>Brasil</h3></div>
-    <p>Consultoria a negócios no maior mercado lusófono do mundo. A afinidade cultural e linguística entre Angola e o Brasil cria um corredor natural de negócios — e a INOV está posicionada nas duas margens do Atlântico.</p></div>
-</section>
-
-<section class="cream">
-  <p class="sec-label">O Nosso Modelo de Internacionalização</p>
-  <h2 class="reveal">Crescer para fora <span class="lt">sem perder o centro.</span></h2>
-  <div class="grid-3">
-    <div class="topline reveal"><span class="step">I — Provar</span><h3>Excelência em casa</h3><p>Nenhuma plataforma sai de Angola antes de dominar o seu mercado de origem. A reputação doméstica é o bilhete de embarque.</p></div>
-    <div class="topline reveal"><span class="step">II — Seguir</span><h3>Acompanhar os clientes</h3><p>Expandimos para onde os nossos clientes precisam de nós — primeiro em projectos pontuais, depois com presença estabelecida.</p></div>
-    <div class="topline reveal"><span class="step">III — Enraizar</span><h3>Presença com substância</h3><p>Representações e operações com equipas e parcerias locais — não bandeiras num mapa. Crescemos ao ritmo da nossa capacidade de entregar.</p></div>
-  </div>
-</section>
-
-<section class="navy">
-  <div class="cta-band">
-    <div class="reveal">
-      <p class="sec-label">Próximo Destino</p>
-      <h2>O mapa ainda <span class="lt">não está completo.</span></h2>
-      <p class="lead">Avaliamos continuamente novos mercados — com a mesma disciplina com que avaliamos novos sectores. Se a sua organização procura um parceiro com pé em África e padrão global, falemos.</p>
-    </div>
-    <div class="reveal"><a class="btn" href="#contact">Contactar a INOV</a></div>
+    <div class="reveal"><a class="btn" href="#contact">Falar com o grupo</a></div>
   </div>
 </section>
 </div>
@@ -1580,7 +1463,7 @@ header.home.has-cover .hero-cover::after{
 </footer>
 
 <script>
-const PAGES = ['home', 'group', 'sectors', 'presence', 'sustainability', 'insights', 'careers', 'contact'];
+const PAGES = ['home', 'group', 'companies', 'sustainability', 'insights', 'careers', 'contact'];
 let LANG = 'en';
 let currentPage = 'home';
 let currentArticle = null;
@@ -1598,12 +1481,18 @@ const INOV = {
     sectors: { infrastructure:null, finance:null, digital:null, creative:null } // by sector order
   },
   companies: [
-    { name:'Meteoro',       word:'Meteoro',      color:'#C8102E', url:'#', cap:{en:'Infrastructure & Logistics', pt:'Infra-estrutura & Logística'} },
-    { name:'Hexa',          word:'Hexa',         color:'#1D4ED8', url:'#', cap:{en:'Insurance Brokerage', pt:'Corretagem de Seguros'} },
-    { name:'Andala',        word:'Andala',       color:'#7C3AED', url:'#', cap:{en:'Digital Marketplace', pt:'Marketplace Digital'} },
-    { name:'Adventure',     word:'Adventure',    color:'#0EA5A4', url:'#', cap:{en:'Communication & Events', pt:'Comunicação & Eventos'} },
-    { name:'Factory Ideas', word:'Factory Ideas',color:'#F59E0B', url:'#', cap:{en:'Graphic Production', pt:'Produção Gráfica'} },
-    { name:'Publink',       word:'Publink',      color:'#10B981', url:'#', cap:{en:'Out-of-Home Media', pt:'Media Exterior'} }
+    { name:'Meteoro',       word:'Meteoro',      color:'#C8102E', url:'#', cap:{en:'Infrastructure & Logistics', pt:'Infra-estrutura & Logística'},
+      desc:{en:'Integrated construction, logistics, transport and facilities management — serving the group’s own platforms and external clients with the scale and cadence that long-term infrastructure demands.', pt:'Construção, logística, transporte e gestão de instalações integradas — ao serviço das próprias plataformas do grupo e de clientes externos, com a escala e a cadência que a infra-estrutura de longo prazo exige.'} },
+    { name:'Hexa',          word:'Hexa',         color:'#1D4ED8', url:'#', cap:{en:'Insurance Brokerage', pt:'Corretagem de Seguros'},
+      desc:{en:'A licensed insurance broker supervised by ARSEG, acting as its clients’ risk-intelligence partner: it analyses, structures and negotiates cover — and widens the market through insurance literacy.', pt:'Corretora de seguros licenciada e supervisionada pela ARSEG, parceira de inteligência de risco dos seus clientes: analisa, estrutura e negoceia coberturas — e alarga o mercado através da literacia seguradora.'} },
+    { name:'Andala',        word:'Andala',       color:'#7C3AED', url:'#', cap:{en:'Digital Marketplace', pt:'Marketplace Digital'},
+      desc:{en:'The group’s digital marketplace — connecting sellers and buyers, lowering transaction costs and widening market access for businesses otherwise confined by geography.', pt:'O marketplace digital do grupo — liga vendedores e compradores, reduz custos de transacção e alarga o acesso ao mercado a negócios antes limitados pela geografia.'} },
+    { name:'Adventure',     word:'Adventure',    color:'#0EA5A4', url:'#', cap:{en:'Communication & Events', pt:'Comunicação & Eventos'},
+      desc:{en:'Communication and corporate events — strategy, brand activations and event production, with reach across the African continent.', pt:'Comunicação e eventos corporativos — estratégia, activações de marca e produção de eventos, com alcance em todo o continente africano.'} },
+    { name:'Factory Ideas', word:'Factory Ideas',color:'#F59E0B', url:'#', cap:{en:'Graphic Production', pt:'Produção Gráfica'},
+      desc:{en:'Graphic production and stand construction — turning ideas into physical brand presence, from print to built environments.', pt:'Produção gráfica e construção de stands — transforma ideias em presença física de marca, do impresso aos ambientes construídos.'} },
+    { name:'Publink',       word:'Publink',      color:'#10B981', url:'#', cap:{en:'Out-of-Home Media', pt:'Media Exterior'},
+      desc:{en:'Digital out-of-home media — billboard and screen rental in high-traffic locations that amplify brands across the city.', pt:'Media exterior digital — aluguer de outdoors e ecrãs em locais de grande tráfego que amplificam as marcas pela cidade.'} }
   ],
   publications: [
     { id:'p1', date:'2026-05-20', cover:null,
@@ -1648,12 +1537,15 @@ function renderCompanies(){
   ['en','pt'].forEach(lg=>{
     const el = document.getElementById('companies-'+lg); if(!el) return;
     el.innerHTML = INOV.companies.map(c=>{
-      const inner = c.logo ? `<img src="${c.logo}" alt="${c.name}">` : `<span class="logo-word">${c.word||c.name}</span>`;
-      const cap = c.cap ? `<span class="logo-cap">${pick(c.cap,lg)}</span>` : '';
+      const brand = c.color||'#002F55';
+      const media = c.logo
+        ? `<div class="cc-media"><img src="${c.logo}" alt="${c.name}"></div>`
+        : `<div class="cc-media cc-media--placeholder" style="--brand:${brand}"><span>${c.word||c.name}</span></div>`;
+      const cap = c.cap ? `<span class="cc-cap">${pick(c.cap,lg)}</span>` : '';
+      const desc = (c.desc && pick(c.desc,lg)) ? `<p class="cc-desc">${pick(c.desc,lg)}</p>` : '';
       const real = c.url && c.url !== '#';
-      return real
-        ? `<a class="logo-tile" href="${c.url}" target="_blank" rel="noopener" style="--brand:${c.color||'#002F55'}">${inner}${cap}</a>`
-        : `<div class="logo-tile" style="--brand:${c.color||'#002F55'}">${inner}${cap}</div>`;
+      const link = real ? `<a class="cc-link" href="${c.url}" target="_blank" rel="noopener">${lg==='pt'?'Visitar website':'Visit website'} →</a>` : '';
+      return `<article class="company-card reveal" style="--brand:${brand}">${media}<div class="cc-body"><div class="cc-head"><h3>${c.name}</h3>${cap}</div>${desc}${link}</div></article>`;
     }).join('');
   });
 }
@@ -1801,6 +1693,8 @@ function showPage(pid){
     return;
   }
   if(pid==='governance') pid='group'; // governance was merged into The Group
+  if(pid==='presence') pid='group'; // presence was merged into About
+  if(pid==='sectors') pid='companies'; // sectors renamed to Companies
   if(!PAGES.includes(pid)) pid='home';
   currentPage = pid;
   render();

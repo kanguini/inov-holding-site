@@ -5,7 +5,13 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const UPLOAD_DIR = path.join(__dirname, '..', 'uploads');
+// Where uploaded files live. By default this is <repo>/uploads, but that path
+// is inside the git-deployed tree and gets wiped on every deploy. Set UPLOAD_DIR
+// (an absolute path OUTSIDE the deployed repo, e.g. a sibling of public_html) in
+// production so uploaded images/CVs persist across deploys.
+export const UPLOAD_DIR = process.env.UPLOAD_DIR
+  ? path.resolve(process.env.UPLOAD_DIR)
+  : path.join(__dirname, '..', 'uploads');
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 const storage = multer.diskStorage({

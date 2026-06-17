@@ -1721,23 +1721,32 @@ function renderPositions(){
     if(sel){ const base = sel.querySelector('option').cloneNode(true); sel.innerHTML=''; sel.appendChild(base); INOV.positions.forEach(p=>{ const o=document.createElement('option'); o.textContent=pick(p.title,lg); sel.appendChild(o); }); }
   });
 }
+// Committed default hero cover — ships with the build, so it survives deploys
+// and the hero is never blank, even if an admin-uploaded image is missing.
+const HERO_FALLBACK = 'hero-cover.jpg';
 function decorateMedia(page){
   const hero = page.querySelector('header.home');
   if(hero){
     let cv = hero.querySelector('.hero-cover');
     if(!cv){ cv=document.createElement('div'); cv.className='hero-cover'; cv.innerHTML='<span class="cover-tag"></span>'; hero.appendChild(cv); }
     cv.querySelector('.cover-tag').textContent = LANG==='pt' ? 'Imagem de capa' : 'Cover image';
-    if(INOV.media.cover){
-      cv.style.backgroundImage=`url('${INOV.media.cover}')`;
-      cv.style.backgroundSize = INOV.media.coverFit==='contain' ? 'contain' : 'cover';
-      cv.style.backgroundPosition = INOV.media.coverPos || '50% 50%';
+    // Always render a cover: the admin-managed image when set, otherwise the
+    // committed default. If the configured file is missing (e.g. an upload that
+    // didn't persist across a deploy), fall back to the default too.
+    const applyCover = (url, fit, pos) => {
+      cv.style.backgroundImage=`url('${url}')`;
+      cv.style.backgroundSize = fit==='contain' ? 'contain' : 'cover';
+      cv.style.backgroundPosition = pos || '50% 50%';
       cv.style.backgroundRepeat='no-repeat';          // inline wins over the themed .hero-cover shorthand
       cv.style.backgroundColor='#eef1f4';              // letterbox fill for "contain" mode
       hero.classList.add('has-cover');
-    } else {
-      cv.style.backgroundImage=''; cv.style.backgroundSize=''; cv.style.backgroundPosition='';
-      cv.style.backgroundRepeat=''; cv.style.backgroundColor='';
-      hero.classList.remove('has-cover');
+    };
+    const configured = INOV.media.cover;
+    applyCover(configured || HERO_FALLBACK, INOV.media.coverFit, INOV.media.coverPos);
+    if(configured){
+      const probe = new Image();
+      probe.onerror = () => applyCover(HERO_FALLBACK, INOV.media.coverFit, INOV.media.coverPos);
+      probe.src = configured;
     }
   }
   const keys = Object.keys(INOV.media.sectors);
@@ -1850,26 +1859,30 @@ function navScrollY(){ return window.scrollY || document.documentElement.scrollT
    no manual tuning per image. */
 function setNavMode(){
   if(!navEl) return;
-  const cover = INOV.media && INOV.media.cover;
-  const onHome = currentPage==='home' && !!cover;
+  const cover = (INOV.media && INOV.media.cover) || HERO_FALLBACK;
+  const onHome = currentPage==='home';
   navEl.classList.toggle('on-home', onHome);
   if(!onHome){ navEl.classList.remove('scrim-strong'); return; }
-  const img = new Image();
-  img.crossOrigin = 'anonymous';
-  img.onload = () => {
-    try{
-      const c = document.createElement('canvas'); c.width = 40; c.height = 10;
-      const ctx = c.getContext('2d');
-      // Sample only the top strip of the cover — that's what sits behind the nav.
-      ctx.drawImage(img, 0, 0, img.naturalWidth, Math.max(1, Math.round(img.naturalHeight*0.18)), 0, 0, 40, 10);
-      const d = ctx.getImageData(0,0,40,10).data; let sum=0, n=0;
-      for(let i=0;i<d.length;i+=4){ sum += 0.2126*d[i] + 0.7152*d[i+1] + 0.0722*d[i+2]; n++; }
-      const avg = sum / n; // 0 (black) .. 255 (white)
-      navEl.classList.toggle('scrim-strong', avg < 165);
-    }catch(e){ navEl.classList.remove('scrim-strong'); } // tainted/CORS → subtle scrim, dark text stays legible on light covers
+  const probe = (src, allowFallback) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try{
+        const c = document.createElement('canvas'); c.width = 40; c.height = 10;
+        const ctx = c.getContext('2d');
+        // Sample only the top strip of the cover — that's what sits behind the nav.
+        ctx.drawImage(img, 0, 0, img.naturalWidth, Math.max(1, Math.round(img.naturalHeight*0.18)), 0, 0, 40, 10);
+        const d = ctx.getImageData(0,0,40,10).data; let sum=0, n=0;
+        for(let i=0;i<d.length;i+=4){ sum += 0.2126*d[i] + 0.7152*d[i+1] + 0.0722*d[i+2]; n++; }
+        const avg = sum / n; // 0 (black) .. 255 (white)
+        navEl.classList.toggle('scrim-strong', avg < 165);
+      }catch(e){ navEl.classList.remove('scrim-strong'); } // tainted/CORS → subtle scrim, dark text stays legible on light covers
+    };
+    // If the admin-configured image is gone, probe the committed fallback instead.
+    img.onerror = () => { if(allowFallback && src!==HERO_FALLBACK) probe(HERO_FALLBACK, false); else navEl.classList.remove('scrim-strong'); };
+    img.src = src;
   };
-  img.onerror = () => navEl.classList.remove('scrim-strong');
-  img.src = cover;
+  probe(cover, true);
 }
 function onNavScroll(){ navEl.classList.toggle('scrolled', navScrollY() > 24); }
 window.addEventListener('scroll', onNavScroll, { passive:true, capture:true });

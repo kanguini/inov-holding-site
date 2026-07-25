@@ -479,6 +479,16 @@ header.page::after{background:var(--gold);opacity:.06;right:-2vw;bottom:-12%;wid
 .company-card{background:#ffffff;border-color:var(--pline)}
 .cc-media{background:#faf7f0;border-bottom-color:var(--pline)}
 .cc-desc{color:var(--mut)}
+.navy--force{background:var(--navy)!important;color:var(--cream)!important;max-width:none!important;width:100vw;margin-left:calc(50% - 50vw)!important;padding-inline:clamp(20px,4vw,56px)!important;box-sizing:border-box}
+.navy--force .sec-label{color:rgba(251,250,245,.65)}.navy--force .sec-label::after{background:var(--cream)}
+.navy--force h2,.navy--force h3{color:var(--cream)}.navy--force h2 .lt{color:rgba(251,250,245,.55)}
+.navy--force p,.navy--force .lead{color:rgba(251,250,245,.75)}
+.navy--force .grid-4{background:transparent!important;border:none!important}
+.navy--force .cell{background:rgba(255,255,255,.06)!important;border-color:rgba(251,250,245,.12)!important}
+.navy--force .cell h3{color:var(--cream)!important}
+.navy--force .cell p{color:rgba(251,250,245,.75)!important}
+.navy--force .cell:hover{background:rgba(255,255,255,.10)!important}
+.navy--force .btn{border-color:var(--cream)!important;color:var(--cream)!important}.navy--force .btn:hover{background:var(--cream)!important;color:var(--navy)!important}
 
 /* ---- STRATEGIC SECTORS — AKFA-style 4-column row ----
    Single row of equal columns separated by uniform 1px dividers,
@@ -669,7 +679,7 @@ header.home.has-cover .hero-cover::after{
   </div>
 </section>
 
-<section class="cream">
+<section class="navy navy--force">
   <p class="sec-label">Strategic Sectors</p>
   <h2 class="reveal">Present where the economy <span class="lt">is decided.</span></h2>
   <div class="grid-4">
@@ -1031,7 +1041,7 @@ header.home.has-cover .hero-cover::after{
   </div>
 </section>
 
-<section class="cream">
+<section class="navy navy--force">
   <p class="sec-label">Sectores Estratégicos</p>
   <h2 class="reveal">Presença onde a economia <span class="lt">se decide.</span></h2>
   <div class="grid-4">

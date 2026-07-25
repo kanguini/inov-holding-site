@@ -27,7 +27,7 @@
 <meta name="twitter:description" content="Intelligent Management, Sustainable Growth — an Angolan holding active on three continents.">
 <meta name="twitter:image" content="https://inovholding.com/og-image.jpg">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"INOV Holding","url":"https://inovholding.com/","email":"geral@inovholding.com","sameAs":["https://www.linkedin.com/company/inov-holding/"],"description":"An Angolan holding company with global activity, headquartered in Luanda and active on three continents.","foundingLocation":{"@type":"Place","name":"Luanda, Angola"},"areaServed":["Africa","Europe","South America"]}
+{"@context":"https://schema.org","@type":"Organization","name":"INOV Holding","legalName":"INOV Holding, Lda","url":"https://inovholding.com/","email":"geral@inovholding.com","sameAs":["https://www.linkedin.com/company/inov-holding/"],"description":"An Angolan holding company with global activity, headquartered in Luanda and active on three continents.","foundingLocation":{"@type":"Place","name":"Luanda, Angola"},"address":{"@type":"PostalAddress","addressLocality":"Luanda","addressCountry":"AO"},"areaServed":["Africa","Europe","South America"],"numberOfEmployees":{"@type":"QuantitativeValue","value":"50+"}}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -169,49 +169,6 @@ h3{font-family:var(--head);font-weight:600;color:var(--navy);letter-spacing:-.01
 .pillar h3 span{color:var(--steel);margin-right:.7rem;font-weight:400;font-size:.85rem}
 .pillar p{font-size:.9rem;color:var(--grey)}
 
-/* sector rows */
-.sector-list{border-top:1px solid var(--line);margin-top:1rem}
-.sector{display:grid;grid-template-columns:70px 1.1fr 1.5fr auto;gap:2.5vw;align-items:start;padding:2.6rem 0;border-bottom:1px solid var(--line);transition:background .35s,padding-left .35s}
-a.sector{text-decoration:none;cursor:pointer}
-.sector:hover{background:var(--white);padding-left:1.2rem}
-.white-bg .sector:hover{background:var(--cream)}
-.sector .idx{font-family:var(--head);font-weight:600;font-size:.9rem;color:var(--steel);padding-top:.5rem}
-.sector .name{font-family:var(--head);font-weight:600;font-size:clamp(1.25rem,2.3vw,1.7rem);line-height:1.2;letter-spacing:-.015em;color:var(--navy)}
-.sector .body{color:var(--grey);font-size:.95rem;max-width:52ch}
-.sector .body .ops{display:block;margin-top:.9rem;font-family:var(--head);font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--navy)}
-.sector .tag{font-family:var(--head);font-size:.66rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);border:1px solid var(--line);border-radius:99px;padding:.35rem .9rem;white-space:nowrap;margin-top:.4rem;background:var(--white)}
-.sector:hover .tag{border-color:var(--navy);color:var(--navy)}
-@media(max-width:860px){.sector{grid-template-columns:40px 1fr;gap:.6rem}.sector .body{grid-column:2}.sector .tag{grid-column:2;justify-self:start}}
-
-/* sector detail blocks */
-.sector-detail{display:grid;grid-template-columns:1fr 1.4fr;gap:4vw;padding:4rem 0;border-bottom:1px solid var(--line);align-items:start}
-.sector-detail:last-child{border-bottom:none}
-.sector-detail .side .idx{font-family:var(--head);font-weight:600;font-size:.85rem;color:var(--steel);display:block;margin-bottom:.8rem}
-.sector-detail .side h3{font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.2;max-width:18ch}
-.sector-detail .side .platforms{margin-top:1.6rem;display:flex;flex-direction:column;gap:.6rem}
-.sector-detail .side .platform{font-family:var(--head);font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);border-left:2px solid var(--navy);padding-left:.9rem}
-.sector-detail .main p{color:var(--grey);margin-bottom:1.2rem;max-width:60ch}
-.sector-detail .main h4{font-family:var(--head);font-weight:600;font-size:.95rem;color:var(--navy);margin:1.8rem 0 .5rem;letter-spacing:.02em}
-@media(max-width:860px){.sector-detail{grid-template-columns:1fr}}
-
-/* presence */
-.presence-band{display:flex;flex-wrap:wrap;border:1px solid var(--line-navy);margin-top:3rem}
-.presence-cell{flex:1 1 200px;padding:2rem 1.8rem;border-right:1px solid var(--line-navy);transition:background .35s}
-.presence-cell:last-child{border-right:none}
-.presence-cell:hover{background:rgba(251,250,245,.06)}
-.presence-cell .country{font-family:var(--head);font-weight:600;font-size:1.2rem;letter-spacing:-.01em;margin-bottom:.4rem;display:block;color:var(--cream)}
-.presence-cell .mode{font-family:var(--head);font-size:.66rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:.5rem}
-.presence-cell p{font-size:.85rem;color:rgba(251,250,245,.7)}
-.presence-cell.hq{background:rgba(251,250,245,.08)}
-@media(max-width:860px){.presence-cell{flex:1 1 100%;border-right:none;border-bottom:1px solid var(--line-navy)}.presence-cell:last-child{border-bottom:none}}
-
-/* presence detail (light) */
-.market{display:grid;grid-template-columns:1fr 1.6fr;gap:4vw;padding:3.2rem 0;border-bottom:1px solid var(--line);align-items:start}
-.market:last-child{border-bottom:none}
-.market .mode{font-family:var(--head);font-size:.68rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:.5rem}
-.market h3{font-size:clamp(1.4rem,2.4vw,1.8rem)}
-.market p{color:var(--grey);max-width:58ch}
-@media(max-width:860px){.market{grid-template-columns:1fr}}
 
 /* CTA band */
 .cta-band{display:grid;grid-template-columns:1.3fr 1fr;gap:5vw;align-items:end}
@@ -301,16 +258,6 @@ header.home.has-cover .hero-cover::after{background:linear-gradient(180deg,rgba(
 header.home.has-cover .hero-cover .cover-tag{display:none}
 @media(max-width:920px){.hero-cover{display:none}}
 
-/* ---------- SECTOR IMAGE (admin-managed) ---------- */
-.sector-img{
-  width:100%;aspect-ratio:16/10;margin-bottom:1.4rem;border-radius:2px;
-  background:linear-gradient(135deg,#eef0ee,#dfe4e9 60%,#cfd6dd);
-  background-size:cover;background-position:center;
-  display:flex;align-items:flex-end;padding:.7rem;
-}
-.sector-img .img-tag{font-family:var(--head);font-size:.58rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--steel)}
-.sector-img.set .img-tag{display:none}
-
 /* ---------- GROUP COMPANIES (grayscale -> colour on hover) ---------- */
 .companies-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:3rem}
 @media(max-width:860px){.companies-grid{grid-template-columns:repeat(2,1fr)}}
@@ -388,6 +335,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 :root{
   --gold:#8C6B1E;                       /* accent — deepened to ~5:1 on white (WCAG AA for text) */
   --gold-soft:#C9A24A;                  /* brighter gold for washes/hover only (large/decorative) */
+  --gold-light:#C9A227;                 /* gold with enough contrast on navy backgrounds */
   --line:rgba(0,47,85,.12);             /* separators */
   --tx:#10202E;                          /* primary text */
   --mut:#5a6672;                         /* muted text */
@@ -429,7 +377,7 @@ h1,h2,h3,h4{color:var(--tx)}
 h1 .lt,h2 .lt{color:rgba(16,32,46,.52)}
 .kicker,.sec-label{color:var(--gold)}
 .sec-label::after{background:var(--gold)}
-.lead,.prose p,.cell p,.pillar p,.topline p,.t-item p,.market p,.pos .pos-tags{color:var(--mut)}
+.lead,.prose p,.cell p,.pillar p,.topline p,.t-item p,.pos .pos-tags{color:var(--mut)}
 .lead strong,.prose strong{color:var(--tx)}
 section{background:transparent;max-width:var(--container);margin-inline:auto;padding-inline:clamp(20px,4vw,56px)}
 .cream{background:transparent}
@@ -480,58 +428,16 @@ header.page::after{background:var(--gold);opacity:.06;right:-2vw;bottom:-12%;wid
 .cc-media{background:#faf7f0;border-bottom-color:var(--pline)}
 .cc-desc{color:var(--mut)}
 .navy--force{background:var(--navy)!important;color:var(--cream)!important;max-width:none!important;width:100vw;margin-left:calc(50% - 50vw)!important;padding-inline:clamp(20px,4vw,56px)!important;box-sizing:border-box}
-.navy--force .sec-label{color:#C9A227}.navy--force .sec-label::after{background:#C9A227}
+.navy--force .sec-label{color:var(--gold-light)}.navy--force .sec-label::after{background:var(--gold-light)}
 .navy--force h2{color:#ffffff!important}.navy--force h2 .lt{color:rgba(255,255,255,.55)!important}
 .navy--force p,.navy--force .lead{color:rgba(251,250,245,.75)}
 .navy--force .grid-4{background:transparent!important;border:none!important}
 .navy--force .cell{background:rgba(255,255,255,.06)!important;border-color:rgba(251,250,245,.12)!important}
-.navy--force .cell h3{color:#C9A227!important}
+.navy--force .cell h3{color:var(--gold-light)!important}
 .navy--force .cell p{color:rgba(251,250,245,.75)!important}
 .navy--force .cell:hover{background:rgba(255,255,255,.10)!important}
 .navy--force .btn{border-color:var(--cream)!important;color:var(--cream)!important}.navy--force .btn:hover{background:var(--cream)!important;color:var(--navy)!important}
 
-/* ---- STRATEGIC SECTORS — AKFA-style 4-column row ----
-   Single row of equal columns separated by uniform 1px dividers,
-   sharp corners, "MORE/SABER MAIS ->" pinned to the bottom of each. */
-.sector-list{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--pline);border:1px solid var(--pline);margin-top:2.8rem;border-radius:0}
-@media(max-width:1100px){.sector-list{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.sector-list{grid-template-columns:1fr}}
-.sector{
-  display:flex;flex-direction:column;align-items:flex-start;gap:.7rem;
-  padding:2.3rem 1.7rem 2rem;border:0;border-radius:0;
-  background:#ffffff;
-  position:relative;overflow:hidden;min-height:380px;
-  transition:background .4s;
-}
-.sector::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(201,162,74,.12),transparent 42%);opacity:0;transition:opacity .45s;pointer-events:none}
-.sector:hover{background:#fbf9f2;padding-left:1.7rem}
-.sector:hover::before{opacity:1}
-.sector .idx{color:var(--gold);font-size:.72rem;letter-spacing:.22em;padding-top:0;font-weight:600}
-.sector .name{color:var(--tx);font-size:clamp(1.2rem,1.5vw,1.55rem);line-height:1.18;margin-top:.2rem;max-width:none}
-.sector .body{color:var(--mut);font-size:.9rem;max-width:none}
-.sector .body .ops{color:var(--gold);margin-top:.85rem}
-.sector .tag{display:none}
-.sector::after{
-  content:"MORE \2192";margin-top:auto;padding-top:1.6rem;
-  font-family:var(--head);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--gold);transition:letter-spacing .35s;
-}
-#wrap-pt .sector::after{content:"SABER MAIS \2192"}
-.sector:hover::after{letter-spacing:.24em}
-
-/* ---- sector detail page ---- */
-.sector-detail{border-bottom-color:var(--pline)}
-.sector-detail .side .idx{color:var(--gold)}
-.sector-detail .side .platform{color:var(--gold);border-left:1px solid var(--gold)}
-
-/* ---- presence band ---- */
-.presence-band{border-color:var(--pline)}
-.presence-cell{border-right-color:var(--pline)}
-.presence-cell .mode{color:var(--gold)}
-.presence-cell.hq{background:rgba(168,132,47,.07)}
-@media(max-width:860px){.presence-cell{border-bottom-color:var(--pline)}}
-.market{border-bottom-color:var(--pline)}
-.market .mode{color:var(--gold)}
 
 /* ---- timeline ---- */
 .timeline{border-left:1px solid var(--gold)}
@@ -550,6 +456,7 @@ header.page::after{background:var(--gold);opacity:.06;right:-2vw;bottom:-12%;wid
 .form button:hover{background:transparent;color:var(--gold)}
 .form-note,.pub-empty,.pos-empty{color:var(--mut)}
 .form-ok{color:var(--gold)}
+.form-feedback{color:#b91c1c;font-size:.85rem;margin-top:.8rem;font-weight:500}
 
 /* ---- footer ---- */
 footer{background:#fbfaf6;border-top:1px solid var(--pline);color:var(--mut)}
@@ -578,8 +485,8 @@ footer .foot-social:hover{color:var(--gold)}
 
 /* ---- image placeholders -> light premium gradients (swappable via admin) ---- */
 .hero-cover{background:linear-gradient(150deg,#eef2f6,#fbfaf6);border:1px solid var(--pline)}
-.sector-img,.pub-card .pub-cover,.article-cover{background:linear-gradient(150deg,#eef2f6,#e4e9ef);border-radius:0}
-.sector-img .img-tag,.hero-cover .cover-tag{color:var(--mut)}
+.pub-card .pub-cover,.article-cover{background:linear-gradient(150deg,#eef2f6,#e4e9ef);border-radius:0}
+.hero-cover .cover-tag{color:var(--mut)}
 
 /* ---- fix: dark text on former .navy sections (base set them cream → invisible on white) ---- */
 .navy h2,.navy h3{color:var(--tx)}
@@ -587,8 +494,6 @@ footer .foot-social:hover{color:var(--gold)}
 .navy p,.navy .lead,.navy .contact-info{color:var(--mut)}
 .navy .topline{border-top-color:var(--gold)}
 .navy .topline .step{color:var(--gold)}
-.presence-cell .country{color:var(--tx)}
-.presence-cell p{color:var(--mut)}
 
 /* ---- simpler menu: lowercase, right-aligned, tighter tracking ---- */
 .nav-links{gap:1.8rem}
@@ -623,7 +528,7 @@ header.home.has-cover .hero-cover::after{
 <body>
 <a class="skip-link" href="#main-content">Skip to content · Saltar para o conteúdo</a>
 <noscript>
-  <style>.site-page{display:block!important}.article-page{display:none!important}.hero-cover,.sector-img,.nav-toggle{display:none!important}#wrap-pt{display:none!important}</style>
+  <style>.site-page{display:block!important}.article-page{display:none!important}.hero-cover,.nav-toggle{display:none!important}#wrap-pt{display:none!important}</style>
   <div style="background:#002F55;color:#fff;padding:.8rem 1.2rem;text-align:center;font-size:.9rem">For the full interactive experience, please enable JavaScript. · Para a experiência completa, active o JavaScript.</div>
 </noscript>
 <nav>
@@ -799,7 +704,7 @@ header.home.has-cover .hero-cover::after{
       </div>
     </div>
     <div class="reveal">
-      <h2 style="visibility:hidden">.</h2>
+      <h2 style="visibility:hidden" aria-hidden="true">.</h2>
       <div class="prose">
         <p><strong>Why we do it:</strong> because trust is the asset that takes longest to build and least to destroy. The long-term contracts, regulatory licences and international partnerships that sustain our growth exist because the market knows who it is dealing with.</p>
         <p>In a group built to last generations, reputation is not a department — it is the balance sheet.</p>
@@ -821,7 +726,7 @@ header.home.has-cover .hero-cover::after{
 
 <section class="navy">
   <div class="cta-band">
-    <div class="reveal"><p class="sec-label">Get To Know Us</p><h2>Six companies. <span class="lt">One conviction.</span></h2></div>
+    <div class="reveal"><p class="sec-label">Get To Know Us</p><h2>Five companies. <span class="lt">One conviction.</span></h2></div>
     <div class="reveal"><a class="btn" href="#companies">Explore the companies</a></div>
   </div>
 </section>
@@ -889,7 +794,7 @@ header.home.has-cover .hero-cover::after{
       </div>
     </div>
     <div class="reveal">
-      <h2 style="visibility:hidden">.</h2>
+      <h2 style="visibility:hidden" aria-hidden="true">.</h2>
       <div class="grid-4" style="grid-template-columns:1fr;margin-top:0">
         <div class="cell"><h3>100-point ESG methodology</h3><p>A structured scoring framework covering environmental, social and governance criteria, applied consistently across candidates.</p></div>
         <div class="cell"><h3>Formal regulation</h3><p>A published set of rules governing eligibility, assessment and award — because credibility begins with process.</p></div>
@@ -946,7 +851,7 @@ header.home.has-cover .hero-cover::after{
     </div>
     <div class="pillars reveal">
       <div class="pillar"><h3><span>I</span>Ownership</h3><p>Real responsibility from day one, with accountability for outcomes.</p></div>
-      <div class="pillar"><h3><span>II</span>Mobility</h3><p>Grow across six platforms and three continents of activity.</p></div>
+      <div class="pillar"><h3><span>II</span>Mobility</h3><p>Grow across five platforms and three continents of activity.</p></div>
       <div class="pillar"><h3><span>III</span>Standards</h3><p>Institutional rigour and mentorship that raise the bar of your craft.</p></div>
     </div>
   </div>
@@ -990,7 +895,6 @@ header.home.has-cover .hero-cover::after{
       <div class="contact-block"><span class="mode">Headquarters</span><p>INOV Holding, S.A.<br>Avenida Comandante Gika, 241, 1C, Luanda - Angola</p></div>
       <div class="contact-block"><span class="mode">Phone</span><p><a href="tel:+244925029985">+244 925 029 985</a></p></div>
       <div class="contact-block"><span class="mode">General Enquiries</span><p><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></p></div>
-      <div class="contact-block"><span class="mode">Partnerships</span><p><a href="mailto:parcerias@inovholding.com">parcerias@inovholding.com</a></p></div>
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'contact','en')">
@@ -1161,7 +1065,7 @@ header.home.has-cover .hero-cover::after{
       </div>
     </div>
     <div class="reveal">
-      <h2 style="visibility:hidden">.</h2>
+      <h2 style="visibility:hidden" aria-hidden="true">.</h2>
       <div class="prose">
         <p><strong>Porque o fazemos:</strong> porque a confiança é o activo que demora mais a construir e menos a destruir. Os contratos de longo prazo, as licenças regulatórias e as parcerias internacionais que sustentam o nosso crescimento existem porque o mercado sabe com quem está a lidar.</p>
         <p>Num grupo que pretende durar gerações, a reputação não é um departamento — é o balanço.</p>
@@ -1183,7 +1087,7 @@ header.home.has-cover .hero-cover::after{
 
 <section class="navy">
   <div class="cta-band">
-    <div class="reveal"><p class="sec-label">Conheça-nos Melhor</p><h2>Seis empresas. <span class="lt">Uma só convicção.</span></h2></div>
+    <div class="reveal"><p class="sec-label">Conheça-nos Melhor</p><h2>Cinco empresas. <span class="lt">Uma só convicção.</span></h2></div>
     <div class="reveal"><a class="btn" href="#companies">Explorar as empresas</a></div>
   </div>
 </section>
@@ -1251,7 +1155,7 @@ header.home.has-cover .hero-cover::after{
       </div>
     </div>
     <div class="reveal">
-      <h2 style="visibility:hidden">.</h2>
+      <h2 style="visibility:hidden" aria-hidden="true">.</h2>
       <div class="grid-4" style="grid-template-columns:1fr;margin-top:0">
         <div class="cell"><h3>Metodologia ESG de 100 pontos</h3><p>Uma grelha de avaliação estruturada cobrindo critérios ambientais, sociais e de governação, aplicada de forma consistente a todos os candidatos.</p></div>
         <div class="cell"><h3>Regulamento formal</h3><p>Um conjunto de regras publicado que rege a elegibilidade, a avaliação e a atribuição — porque a credibilidade começa no processo.</p></div>
@@ -1308,7 +1212,7 @@ header.home.has-cover .hero-cover::after{
     </div>
     <div class="pillars reveal">
       <div class="pillar"><h3><span>I</span>Responsabilidade</h3><p>Responsabilidade real desde o primeiro dia, com prestação de contas pelos resultados.</p></div>
-      <div class="pillar"><h3><span>II</span>Mobilidade</h3><p>Cresça entre seis plataformas e três continentes de actividade.</p></div>
+      <div class="pillar"><h3><span>II</span>Mobilidade</h3><p>Cresça entre cinco plataformas e três continentes de actividade.</p></div>
       <div class="pillar"><h3><span>III</span>Exigência</h3><p>Rigor institucional e mentoria que elevam o nível do seu trabalho.</p></div>
     </div>
   </div>
@@ -1352,7 +1256,6 @@ header.home.has-cover .hero-cover::after{
       <div class="contact-block"><span class="mode">Sede</span><p>INOV Holding, S.A.<br>Avenida Comandante Gika, 241, 1C, Luanda - Angola</p></div>
       <div class="contact-block"><span class="mode">Telefone</span><p><a href="tel:+244925029985">+244 925 029 985</a></p></div>
       <div class="contact-block"><span class="mode">E-mail Geral</span><p><a href="mailto:geral@inovholding.com">geral@inovholding.com</a></p></div>
-      <div class="contact-block"><span class="mode">Parcerias</span><p><a href="mailto:parcerias@inovholding.com">parcerias@inovholding.com</a></p></div>
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'contact','pt')">
@@ -1375,7 +1278,7 @@ header.home.has-cover .hero-cover::after{
 </main>
 
 <footer>
-  <span>© 2026 INOV Holding</span>
+  <span class="foot-copy">© <span id="foot-year">2026</span> INOV Holding</span>
   <span class="tagline">Intelligent Management, Sustainable Growth.</span>
   <a class="foot-social" href="https://www.linkedin.com/company/inov-holding/" target="_blank" rel="noopener">LinkedIn</a>
 </footer>
@@ -1441,7 +1344,8 @@ const INOV = {
       summary:{en:'Run integrated logistics for Meteoro and group clients.', pt:'Gerir a logística integrada da Meteoro e clientes do grupo.'} },
   ]
 };
-function tLang(o){ return o ? (o[LANG] || o.en || o.pt || '') : ''; }
+function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function escUrl(u){ try{ const p=new URL(u,location.href); return ['http:','https:','mailto:'].includes(p.protocol)?p.href:'#'; }catch(e){ return '#'; } }
 function fmtDate(iso, lg){ try{ return new Date(iso+'T00:00:00').toLocaleDateString(lg==='pt'?'pt-PT':'en-GB',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return iso; } }
 function pick(o, lg){ return o ? (o[lg] || o.en || o.pt || '') : ''; }
 
@@ -1449,15 +1353,16 @@ function renderCompanies(){
   ['en','pt'].forEach(lg=>{
     const el = document.getElementById('companies-'+lg); if(!el) return;
     el.innerHTML = INOV.companies.map(c=>{
-      const brand = c.color||'#002F55';
+      const brand = esc(c.color||'#002F55');
+      const name = esc(c.name);
       const media = c.logo
-        ? `<div class="cc-media"><img src="${c.logo}" alt="${c.name}"></div>`
-        : `<div class="cc-media cc-media--placeholder" style="--brand:${brand}"><span>${c.word||c.name}</span></div>`;
-      const cap = c.cap ? `<span class="cc-cap">${pick(c.cap,lg)}</span>` : '';
-      const desc = (c.desc && pick(c.desc,lg)) ? `<p class="cc-desc">${pick(c.desc,lg)}</p>` : '';
+        ? `<div class="cc-media"><img src="${escUrl(c.logo)}" alt="${name}"></div>`
+        : `<div class="cc-media cc-media--placeholder" style="--brand:${brand}"><span>${esc(c.word||c.name)}</span></div>`;
+      const cap = c.cap ? `<span class="cc-cap">${esc(pick(c.cap,lg))}</span>` : '';
+      const desc = (c.desc && pick(c.desc,lg)) ? `<p class="cc-desc">${esc(pick(c.desc,lg))}</p>` : '';
       const real = c.url && c.url !== '#';
-      const link = real ? `<a class="cc-link" href="${c.url}" target="_blank" rel="noopener">${lg==='pt'?'Visitar website':'Visit website'} →</a>` : '';
-      return `<article class="company-card reveal" style="--brand:${brand}">${media}<div class="cc-body"><div class="cc-head"><h3>${c.name}</h3>${cap}</div>${desc}${link}</div></article>`;
+      const link = real ? `<a class="cc-link" href="${escUrl(c.url)}" target="_blank" rel="noopener">${lg==='pt'?'Visitar website':'Visit website'} →</a>` : '';
+      return `<article class="company-card reveal" style="--brand:${brand}">${media}<div class="cc-body"><div class="cc-head"><h3>${name}</h3>${cap}</div>${desc}${link}</div></article>`;
     }).join('');
   });
 }
@@ -1467,7 +1372,7 @@ function renderInsights(){
     if(!INOV.publications.length){ el.innerHTML = `<p class="pub-empty">${lg==='pt'?'Sem publicações por agora.':'No publications yet.'}</p>`; return; }
     el.innerHTML = INOV.publications.map(p=>{
       const cov = p.cover ? `style="background-image:url('${p.cover}')"` : '';
-      return `<button class="pub-card reveal" data-pub="${p.id}"><div class="pub-cover" ${cov}></div><div class="pub-meta"><span>${pick(p.cat,lg)}</span><span>${fmtDate(p.date,lg)}</span></div><h3>${pick(p.title,lg)}</h3><p>${pick(p.excerpt,lg)}</p><span class="pub-more">${lg==='pt'?'Ler mais':'Read more'} →</span></button>`;
+      return `<button class="pub-card reveal" data-pub="${esc(p.id)}"><div class="pub-cover" ${cov}></div><div class="pub-meta"><span>${esc(pick(p.cat,lg))}</span><span>${fmtDate(p.date,lg)}</span></div><h3>${esc(pick(p.title,lg))}</h3><p>${esc(pick(p.excerpt,lg))}</p><span class="pub-more">${lg==='pt'?'Ler mais':'Read more'} →</span></button>`;
     }).join('');
   });
 }
@@ -1476,7 +1381,7 @@ function renderPositions(){
     const el = document.getElementById('careers-'+lg);
     if(el){
       el.innerHTML = INOV.positions.length
-        ? INOV.positions.map(p=>`<div class="pos reveal"><div><span class="pos-dept">${pick(p.dept,lg)}</span><h3>${pick(p.title,lg)}</h3></div><div class="pos-tags">${p.location} · ${pick(p.type,lg)}</div><button class="btn-sm" data-apply="${pick(p.title,lg)}">${lg==='pt'?'Candidatar':'Apply'}</button></div>`).join('')
+        ? INOV.positions.map(p=>`<div class="pos reveal"><div><span class="pos-dept">${esc(pick(p.dept,lg))}</span><h3>${esc(pick(p.title,lg))}</h3></div><div class="pos-tags">${esc(p.location)} · ${esc(pick(p.type,lg))}</div><button class="btn-sm" data-apply="${esc(pick(p.title,lg))}">${lg==='pt'?'Candidatar':'Apply'}</button></div>`).join('')
         : `<p class="pos-empty">${lg==='pt'?'Sem vagas abertas neste momento — envie uma candidatura espontânea abaixo.':'No open roles right now — send a general application below.'}</p>`;
     }
     const sel = document.getElementById(lg+'-ap-pos');
@@ -1511,16 +1416,6 @@ function decorateMedia(page){
       probe.src = configured;
     }
   }
-  const keys = Object.keys(INOV.media.sectors);
-  page.querySelectorAll('.sector-detail').forEach((sd,i)=>{
-    const side = sd.querySelector('.side'); if(!side) return;
-    let im = side.querySelector('.sector-img');
-    if(!im){ im=document.createElement('div'); im.className='sector-img'; im.innerHTML='<span class="img-tag"></span>'; side.insertBefore(im, side.firstChild); }
-    im.querySelector('.img-tag').textContent = LANG==='pt' ? 'Imagem do sector' : 'Sector image';
-    const url = INOV.media.sectors[keys[i]];
-    if(url){ im.style.backgroundImage=`url('${url}')`; im.classList.add('set'); }
-    else { im.style.backgroundImage=''; im.classList.remove('set'); }
-  });
 }
 /* Fill the dedicated article page for the active language. */
 function renderArticle(id){
@@ -1540,12 +1435,12 @@ function renderArticle(id){
     return;
   }
   if(cover){
-    if(p.cover){ cover.style.backgroundImage=`url('${p.cover}')`; cover.classList.add('set'); }
+    if(p.cover){ cover.style.backgroundImage=`url('${escUrl(p.cover)}')`; cover.classList.add('set'); }
     else { cover.style.backgroundImage=''; cover.classList.remove('set'); }
   }
-  if(meta) meta.innerHTML = `<span>${pick(p.cat,lg)}</span><span>${fmtDate(p.date,lg)}</span>`;
+  if(meta) meta.innerHTML = `<span>${esc(pick(p.cat,lg))}</span><span>${fmtDate(p.date,lg)}</span>`;
   title.textContent = pick(p.title,lg);
-  if(body) body.innerHTML = ((p.body && (p.body[lg]||p.body.en)) || []).map(t=>`<p>${t}</p>`).join('');
+  if(body) body.innerHTML = ((p.body && (p.body[lg]||p.body.en)) || []).map(t=>`<p>${esc(t)}</p>`).join('');
   document.title = pick(p.title,lg)+' — INOV Holding';
 }
 async function submitForm(ev, type, lang){
@@ -1567,7 +1462,9 @@ async function submitForm(ev, type, lang){
     f.reset();
   }catch(e){
     if(btn){ btn.disabled=false; btn.textContent = label || ((lang==='pt'?'Enviar':'Send')); }
-    alert(err[lang]||err.en);
+    let fb = f.querySelector('.form-feedback');
+    if(!fb){ fb=document.createElement('p'); fb.className='form-feedback'; fb.setAttribute('role','alert'); f.appendChild(fb); }
+    fb.textContent = err[lang]||err.en;
   }
   return false;
 }
@@ -1589,12 +1486,20 @@ function render(){
   page.classList.add('active');
   if(currentPage==='article') renderArticle(currentArticle);
   const navKey = currentPage==='article' ? 'insights' : currentPage;
-  document.querySelectorAll('#nav-'+LANG+' a').forEach(a=>a.classList.toggle('active', a.dataset.nav===navKey));
+  document.querySelectorAll('#nav-'+LANG+' a').forEach(a=>{
+    const isCur = a.dataset.nav===navKey;
+    a.classList.toggle('active', isCur);
+    if(isCur) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+  });
+  const tl = document.querySelector('footer .tagline');
+  if(tl) tl.textContent = LANG==='pt' ? 'Gestão Inteligente, Crescimento Sustentável.' : 'Intelligent Management, Sustainable Growth.';
   window.scrollTo(0,0);
   const hash = currentPage==='article' && currentArticle ? 'article/'+currentArticle : currentPage;
   try{ history.replaceState(null,'','#'+hash); }catch(e){}
   decorateMedia(page);
   observeReveals(page);
+  const h = page.querySelector('h1,h2');
+  if(h){ h.setAttribute('tabindex','-1'); h.focus({preventScroll:true}); }
 }
 function showPage(pid){
   if(pid && pid.indexOf('article/')===0){
@@ -1650,9 +1555,9 @@ function setNavMode(){
   probe(cover, true);
 }
 function onNavScroll(){ navEl.classList.toggle('scrolled', navScrollY() > 24); }
-window.addEventListener('scroll', onNavScroll, { passive:true, capture:true });
-document.addEventListener('scroll', onNavScroll, { passive:true, capture:true });
+window.addEventListener('scroll', onNavScroll, { passive:true });
 onNavScroll();
+document.addEventListener('keydown', function(ev){ if(ev.key==='Escape' && navEl.classList.contains('open')){ closeMenu(); navToggle.focus(); } });
 document.addEventListener('click', function(ev){
   const tgl = ev.target.closest('#navToggle');
   if(tgl){ const open = navEl.classList.toggle('open'); navToggle.setAttribute('aria-expanded', open?'true':'false'); return; }
@@ -1680,6 +1585,8 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape' && currentPage==='
 window.addEventListener('hashchange', ()=>showPage((location.hash||'#home').slice(1)));
 /* Render with whatever data we currently have, then route. */
 function bootRender(){
+  const fy = document.getElementById('foot-year');
+  if(fy) fy.textContent = new Date().getFullYear();
   renderCompanies(); renderInsights(); renderPositions();
   showPage((location.hash||'#home').slice(1));
 }

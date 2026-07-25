@@ -157,10 +157,6 @@ const COMPANY_DESCS = {
     en: 'A licensed insurance broker supervised by ARSEG, acting as its clients’ risk-intelligence partner: it analyses, structures and negotiates cover — and widens the market through insurance literacy.',
     pt: 'Corretora de seguros licenciada e supervisionada pela ARSEG, parceira de inteligência de risco dos seus clientes: analisa, estrutura e negoceia coberturas — e alarga o mercado através da literacia seguradora.',
   },
-  'Andala': {
-    en: 'The group’s digital marketplace — connecting sellers and buyers, lowering transaction costs and widening market access for businesses otherwise confined by geography.',
-    pt: 'O marketplace digital do grupo — liga vendedores e compradores, reduz custos de transacção e alarga o acesso ao mercado a negócios antes limitados pela geografia.',
-  },
   'Adventure': {
     en: 'Communication and corporate events — strategy, brand activations and event production, with reach across the African continent.',
     pt: 'Comunicação e eventos corporativos — estratégia, activações de marca e produção de eventos, com alcance em todo o continente africano.',
@@ -227,7 +223,6 @@ async function seed() {
     const comps = [
       ['Meteoro', 'Meteoro', '#C8102E', 'Infrastructure & Logistics', 'Infra-estrutura & Logística'],
       ['Hexa', 'Hexa', '#1D4ED8', 'Insurance Brokerage', 'Corretagem de Seguros'],
-      ['Andala', 'Andala', '#7C3AED', 'Digital Marketplace', 'Marketplace Digital'],
       ['Adventure', 'Adventure', '#0EA5A4', 'Communication & Events', 'Comunicação & Eventos'],
       ['Factory Ideas', 'Factory Ideas', '#F59E0B', 'Graphic Production', 'Produção Gráfica'],
       ['Publink', 'Publink', '#10B981', 'Out-of-Home Media', 'Media Exterior'],
@@ -258,7 +253,6 @@ async function seed() {
     const pos = [
       ['Luanda, AO', 'Group Financial Controller', 'Controller Financeiro do Grupo', 'Finance', 'Finanças', 'Full-time', 'Tempo inteiro', 'Consolidated reporting across the group’s platforms.', 'Reporte consolidado das plataformas do grupo.'],
       ['Luanda, AO', 'Platform Operations Manager — Logistics', 'Gestor de Operações — Logística', 'Operations', 'Operações', 'Full-time', 'Tempo inteiro', 'Run integrated logistics for Meteoro and group clients.', 'Gerir a logística integrada da Meteoro e clientes do grupo.'],
-      ['Remote / Luanda', 'Product Designer — Digital', 'Product Designer — Digital', 'Digital', 'Digital', 'Hybrid', 'Híbrido', 'Shape the Andala marketplace experience.', 'Moldar a experiência do marketplace Andala.'],
     ];
     let ord = 0;
     for (const p of pos) {

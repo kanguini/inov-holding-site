@@ -670,10 +670,14 @@ header.home.has-cover .hero-cover::after{
 </section>
 
 <section class="cream">
-  <p class="sec-label">Our Companies</p>
-  <h2 class="reveal">Six platforms. <span class="lt">One integrated ecosystem.</span></h2>
-  <p class="lead reveal">Infrastructure, insurance, digital commerce, communication, production and media — independent companies, one shared standard.</p>
-  <div class="companies-grid reveal" id="companies-home-en"></div>
+  <p class="sec-label">Strategic Sectors</p>
+  <h2 class="reveal">Present where the economy <span class="lt">is decided.</span></h2>
+  <div class="grid-4">
+    <div class="cell reveal"><h3>Infrastructure &amp; Logistics</h3><p>Construction, transport, facilities management — the physical backbone of productive activity and urban growth.</p></div>
+    <div class="cell reveal"><h3>Financial Services</h3><p>Licensed insurance brokerage and risk advisory — protecting wealth and deepening market penetration.</p></div>
+    <div class="cell reveal"><h3>Digital Economy</h3><p>Marketplace infrastructure connecting sellers and buyers — formalising commerce through technology.</p></div>
+    <div class="cell reveal"><h3>Creative Industries</h3><p>Communication, events, graphic production and digital media — a complete creative value chain across continents.</p></div>
+  </div>
   <div style="text-align:center;margin-top:2.4rem"><a class="btn reveal" href="#companies">Meet the companies</a></div>
 </section>
 
@@ -1028,10 +1032,14 @@ header.home.has-cover .hero-cover::after{
 </section>
 
 <section class="cream">
-  <p class="sec-label">As Nossas Empresas</p>
-  <h2 class="reveal">Seis plataformas. <span class="lt">Um ecossistema integrado.</span></h2>
-  <p class="lead reveal">Infra-estrutura, seguros, comércio digital, comunicação, produção e media — empresas independentes, um padrão comum.</p>
-  <div class="companies-grid reveal" id="companies-home-pt"></div>
+  <p class="sec-label">Sectores Estratégicos</p>
+  <h2 class="reveal">Presença onde a economia <span class="lt">se decide.</span></h2>
+  <div class="grid-4">
+    <div class="cell reveal"><h3>Infra-estrutura &amp; Logística</h3><p>Construção, transporte, gestão de instalações — a base física da actividade produtiva e da expansão urbana.</p></div>
+    <div class="cell reveal"><h3>Serviços Financeiros</h3><p>Corretagem de seguros licenciada e consultoria de risco — protecção do património e aprofundamento do mercado.</p></div>
+    <div class="cell reveal"><h3>Economia Digital</h3><p>Infra-estrutura de marketplace que liga vendedores e compradores — formalização do comércio através da tecnologia.</p></div>
+    <div class="cell reveal"><h3>Indústrias Criativas</h3><p>Comunicação, eventos, produção gráfica e media digital — uma cadeia de valor criativa completa em vários continentes.</p></div>
+  </div>
   <div style="text-align:center;margin-top:2.4rem"><a class="btn reveal" href="#companies">Conheça as empresas</a></div>
 </section>
 
@@ -1448,12 +1456,6 @@ function renderCompanies(){
       const real = c.url && c.url !== '#';
       const link = real ? `<a class="cc-link" href="${c.url}" target="_blank" rel="noopener">${lg==='pt'?'Visitar website':'Visit website'} →</a>` : '';
       return `<article class="company-card reveal" style="--brand:${brand}">${media}<div class="cc-body"><div class="cc-head"><h3>${c.name}</h3>${cap}</div>${desc}${link}</div></article>`;
-    }).join('');
-    const home = document.getElementById('companies-home-'+lg); if(!home) return;
-    home.innerHTML = INOV.companies.map(c=>{
-      const inner = c.logo ? `<img src="${c.logo}" alt="${c.name}">` : `<span class="logo-word">${c.word||c.name}</span>`;
-      const cap = c.cap ? `<span class="logo-cap">${pick(c.cap,lg)}</span>` : '';
-      return `<div class="logo-tile" style="--brand:${c.color||'#002F55'}">${inner}${cap}</div>`;
     }).join('');
   });
 }

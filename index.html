@@ -417,15 +417,11 @@ nav.scrolled{background:rgba(255,255,255,.78);backdrop-filter:blur(14px);box-sha
    text — consistent across the bar. A light top scrim guarantees legibility,
    and a JS luminance probe strengthens it on darker covers (.scrim-strong). On
    scroll the glass theme takes over; inner pages stay dark-on-light. */
-nav.on-home:not(.scrolled){background:var(--navy);border-bottom:1px solid rgba(251,250,245,.08)}
-nav.on-home.scrim-strong:not(.scrolled){background:var(--navy)}
-nav.on-home:not(.scrolled) .brand .names .top{color:#ffffff}
-nav.on-home:not(.scrolled) .nav-toggle span{background:#ffffff}
-nav.on-home:not(.scrolled):not(.open) .nav-links a{color:rgba(251,250,245,.75)}
+nav.on-home:not(.scrolled){background:transparent;border-bottom:none}
+nav.on-home.scrim-strong:not(.scrolled){background:transparent}
+nav.on-home:not(.scrolled):not(.open) .nav-links a{color:rgba(16,32,46,.86)}
 nav.on-home:not(.scrolled):not(.open) .nav-links a:hover,
-nav.on-home:not(.scrolled):not(.open) .nav-links a.active{color:#C9A227}
-nav.on-home:not(.scrolled) .lang-toggle button{border-color:rgba(251,250,245,.25);color:rgba(251,250,245,.65)}
-nav.on-home:not(.scrolled) .lang-toggle button.active{background:#C9A227;border-color:#C9A227;color:#fff}
+nav.on-home:not(.scrolled):not(.open) .nav-links a.active{color:var(--gold)}
 @media(max-width:920px){nav.open .nav-links{background:#ffffff;border-bottom:1px solid var(--pline);box-shadow:0 20px 40px rgba(0,34,62,.12)}nav.open .nav-links li{border-top:1px solid var(--pline)}}
 
 /* ---- generic text & surfaces ---- */
@@ -443,16 +439,13 @@ section{background:transparent;max-width:var(--container);margin-inline:auto;pad
 .navy .contact-info a{color:var(--gold);border-bottom-color:var(--gold)}
 
 /* ---- hero ---- */
-header.home{background:var(--navy)!important;min-height:100vh;justify-content:flex-start;padding:clamp(7.5rem,16vh,11rem) 0 5rem}
+header.home{background:transparent;min-height:100vh;justify-content:flex-start;padding:clamp(7.5rem,16vh,11rem) 0 5rem}
 .hero-inner{max-width:var(--container);margin-inline:auto;width:100%;padding-inline:clamp(20px,4vw,56px)}
 /* hero placeholder objects removed — a background image will go here */
 header.home::after,header.home::before{display:none}
-header.home h1{color:#ffffff!important}
-header.home h1 .lt{color:rgba(255,255,255,.50)!important}
-header.home .kicker{color:#C9A227}
-.hero-sub{color:rgba(251,250,245,.70)}
-.hero-meta{border-top:1px solid rgba(251,250,245,.15);color:rgba(251,250,245,.65)}
-.hero-meta .num{color:#C9A227}
+.hero-sub{color:var(--mut)}
+.hero-meta{border-top:1px solid var(--pline);color:var(--mut)}
+.hero-meta .num{color:var(--gold)}
 
 /* ---- inner-page hero ---- */
 header.page{background:transparent;max-width:var(--container);margin-inline:auto;padding:9.5rem 0 2.5rem;padding-inline:clamp(20px,4vw,56px)}
@@ -584,7 +577,7 @@ footer .foot-social:hover{color:var(--gold)}
 .pos .btn-sm:hover{background:var(--gold);color:#fff}
 
 /* ---- image placeholders -> light premium gradients (swappable via admin) ---- */
-.hero-cover{background:var(--navy);border:none}
+.hero-cover{background:linear-gradient(150deg,#eef2f6,#fbfaf6);border:1px solid var(--pline)}
 .sector-img,.pub-card .pub-cover,.article-cover{background:linear-gradient(150deg,#eef2f6,#e4e9ef);border-radius:0}
 .sector-img .img-tag,.hero-cover .cover-tag{color:var(--mut)}
 
@@ -610,19 +603,19 @@ header.home.has-cover .hero-cover{
 header.home.has-cover .hero-cover::after{
   inset:0;
   background:
-    linear-gradient(90deg, rgba(0,47,85,.92) 0%, rgba(0,47,85,.60) 42%, rgba(0,47,85,.18) 72%, rgba(0,47,85,0) 100%),
-    linear-gradient(0deg, rgba(0,47,85,.45) 0%, rgba(0,47,85,0) 22%);
+    linear-gradient(90deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.66) 42%, rgba(255,255,255,.20) 72%, rgba(255,255,255,0) 100%),
+    linear-gradient(0deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 22%);
 }
 .hero-inner,.hero-meta{position:relative;z-index:2}
 @media(max-width:920px){
   header.home.has-cover .hero-cover{display:block}
   header.home.has-cover .hero-cover::after{
     background:linear-gradient(180deg,
-      rgba(0,47,85,.92) 0%,
-      rgba(0,47,85,.85) 34%,
-      rgba(0,47,85,.50) 56%,
-      rgba(0,47,85,.15) 80%,
-      rgba(0,47,85,0) 100%);
+      rgba(255,255,255,.95) 0%,
+      rgba(255,255,255,.90) 34%,
+      rgba(255,255,255,.58) 56%,
+      rgba(255,255,255,.16) 80%,
+      rgba(255,255,255,0) 100%);
   }
 }
 </style>
@@ -1410,8 +1403,6 @@ const INOV = {
       desc:{en:'Integrated construction, logistics, transport and facilities management — serving the group’s own platforms and external clients with the scale and cadence that long-term infrastructure demands.', pt:'Construção, logística, transporte e gestão de instalações integradas — ao serviço das próprias plataformas do grupo e de clientes externos, com a escala e a cadência que a infra-estrutura de longo prazo exige.'} },
     { name:'Hexa',          word:'Hexa',         color:'#1D4ED8', url:'#', cap:{en:'Insurance Brokerage', pt:'Corretagem de Seguros'},
       desc:{en:'A licensed insurance broker supervised by ARSEG, acting as its clients’ risk-intelligence partner: it analyses, structures and negotiates cover — and widens the market through insurance literacy.', pt:'Corretora de seguros licenciada e supervisionada pela ARSEG, parceira de inteligência de risco dos seus clientes: analisa, estrutura e negoceia coberturas — e alarga o mercado através da literacia seguradora.'} },
-    { name:'Andala',        word:'Andala',       color:'#7C3AED', url:'#', cap:{en:'Digital Marketplace', pt:'Marketplace Digital'},
-      desc:{en:'The group’s digital marketplace — connecting sellers and buyers, lowering transaction costs and widening market access for businesses otherwise confined by geography.', pt:'O marketplace digital do grupo — liga vendedores e compradores, reduz custos de transacção e alarga o acesso ao mercado a negócios antes limitados pela geografia.'} },
     { name:'Adventure',     word:'Adventure',    color:'#0EA5A4', url:'#', cap:{en:'Communication & Events', pt:'Comunicação & Eventos'},
       desc:{en:'Communication and corporate events — strategy, brand activations and event production, with reach across the African continent.', pt:'Comunicação e eventos corporativos — estratégia, activações de marca e produção de eventos, com alcance em todo o continente africano.'} },
     { name:'Factory Ideas', word:'Factory Ideas',color:'#F59E0B', url:'#', cap:{en:'Graphic Production', pt:'Produção Gráfica'},
@@ -1448,10 +1439,6 @@ const INOV = {
       title:{en:'Platform Operations Manager — Logistics', pt:'Gestor de Operações — Logística'},
       dept:{en:'Operations', pt:'Operações'}, type:{en:'Full-time', pt:'Tempo inteiro'},
       summary:{en:'Run integrated logistics for Meteoro and group clients.', pt:'Gerir a logística integrada da Meteoro e clientes do grupo.'} },
-    { id:'j3', location:'Remote / Luanda',
-      title:{en:'Product Designer — Digital', pt:'Product Designer — Digital'},
-      dept:{en:'Digital', pt:'Digital'}, type:{en:'Hybrid', pt:'Híbrido'},
-      summary:{en:'Shape the Andala marketplace experience.', pt:'Moldar a experiência do marketplace Andala.'} }
   ]
 };
 function tLang(o){ return o ? (o[LANG] || o.en || o.pt || '') : ''; }

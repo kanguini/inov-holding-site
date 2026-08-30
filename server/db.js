@@ -17,6 +17,32 @@ const USE_MYSQL = !!process.env.DB_HOST;
 let pool = null; // mysql2 pool
 let sdb = null; // better-sqlite3 instance
 
+// Boot state, so the HTTP layer can answer honestly while the database is
+// unreachable instead of the process dying and taking the whole app with it.
+let ready = false;
+let lastError = null;
+export function dbReady() { return ready; }
+export function dbLastError() { return lastError; }
+
+// Keep trying in the background: a shared-hosting MySQL that is briefly down
+// (maintenance, connection limits) used to kill the process permanently.
+export function initDbWithRetry({ onReady } = {}) {
+  let delay = 2000;
+  const attempt = async () => {
+    try {
+      await initDb();
+      ready = true; lastError = null;
+      if (onReady) onReady();
+    } catch (err) {
+      ready = false; lastError = err;
+      console.error(`[db] not ready (${err.code || err.name}: ${err.message}); retrying in ${Math.round(delay / 1000)}s`);
+      setTimeout(attempt, delay);
+      delay = Math.min(delay * 2, 60000);
+    }
+  };
+  attempt();
+}
+
 export async function initDb() {
   if (USE_MYSQL) {
     const mysql = await import('mysql2/promise');

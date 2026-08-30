@@ -8,7 +8,7 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-import { initDb } from './db.js';
+import { initDbWithRetry, dbReady, dbLastError } from './db.js';
 import publicRoutes from './routes/public.js';
 import adminRoutes from './routes/admin.js';
 import { UPLOAD_DIR } from './upload.js';
@@ -28,9 +28,28 @@ app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// The database comes up asynchronously. Until it does, answer API calls with a
+// clear 503 instead of throwing — the public site falls back to its built-in
+// content and keeps working.
+app.use('/api', (req, res, next) => {
+  if (dbReady()) return next();
+  res.status(503).json({ error: 'database_unavailable', detail: 'The service is starting up. Try again shortly.' });
+});
+
 // API
 app.use('/api', publicRoutes);
 app.use('/api/admin', adminRoutes);
+
+// Liveness/readiness, so an outage can be diagnosed without shell access.
+app.get('/healthz', (req, res) => {
+  const err = dbLastError();
+  res.status(dbReady() ? 200 : 503).json({
+    ok: dbReady(),
+    db: dbReady() ? 'ready' : 'unavailable',
+    ...(err ? { lastError: `${err.code || err.name}: ${err.message}` } : {}),
+    uptimeSeconds: Math.round(process.uptime()),
+  });
+});
 
 // Uploaded files
 app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '7d' }));
@@ -50,11 +69,15 @@ app.get('*', (req, res, next) => {
 });
 
 const PORT = Number(process.env.PORT || 4321);
-initDb()
-  .then(() => {
-    app.listen(PORT, () => console.log(`[inov] server listening on :${PORT} (static: ${STATIC === DIST ? 'dist' : 'src'})`));
-  })
-  .catch((err) => {
-    console.error('[inov] failed to start:', err);
-    process.exit(1);
-  });
+
+// Listen FIRST. Previously the process exited when the database was unreachable
+// at boot, which left the reverse proxy with no upstream — a permanent 503 on
+// /admin and /api that only a manual restart could clear.
+app.listen(PORT, () => {
+  console.log(`[inov] server listening on :${PORT} (static: ${STATIC === DIST ? 'dist' : 'src'})`);
+  initDbWithRetry({ onReady: () => console.log('[inov] database ready; API live') });
+});
+
+// A late failure should be logged, not fatal — the proxy keeps its upstream.
+process.on('unhandledRejection', (err) => console.error('[inov] unhandled rejection:', err));
+process.on('uncaughtException', (err) => console.error('[inov] uncaught exception:', err));

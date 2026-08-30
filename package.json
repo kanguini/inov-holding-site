@@ -6,9 +6,10 @@
   "description": "INOV Holding — bilingual institutional website with admin backend (Vite frontend + Express/MySQL API).",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "echo 'dist/ is pre-built and committed to git — run `npm run build:local` before pushing'",
+    "build:local": "vite build",
     "start": "node server/index.js",
-    "serve": "npm run build && npm start",
+    "serve": "npm run build:local && npm start",
     "preview": "vite preview"
   },
   "dependencies": {

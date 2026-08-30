@@ -2,7 +2,9 @@
 node_modules/
 
 # Build output
-dist/
+# dist/ IS committed: the Hostinger "Express" deployment installs dependencies
+# and starts the entry file — it does not build. Run `npm run build` before
+# pushing so the served assets match the source.
 out/
 build/
 .next/

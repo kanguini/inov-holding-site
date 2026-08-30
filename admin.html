@@ -342,11 +342,12 @@ function editCompany(r){
     <label>Website (deixe vazio se não houver)</label><input id="f-url" value="${esc(r.url&&r.url!=='#'?r.url:'')}" placeholder="https://">
     ${imgField('f-logo','Logótipo (PNG/SVG)', r.logo)}
     <div class="row2"><div><label>Legenda EN</label><input id="f-cap_en" value="${esc(r.cap_en)}"></div><div><label>Legenda PT</label><input id="f-cap_pt" value="${esc(r.cap_pt)}"></div></div>
-    <div class="row2"><div><label>Descrição EN</label><textarea id="f-desc_en" rows="3">${esc(r.desc_en)}</textarea></div><div><label>Descrição PT</label><textarea id="f-desc_pt" rows="3">${esc(r.desc_pt)}</textarea></div></div>`,
+    <div class="row2"><div><label>Descrição EN</label><textarea id="f-desc_en" rows="3">${esc(r.desc_en)}</textarea></div><div><label>Descrição PT</label><textarea id="f-desc_pt" rows="3">${esc(r.desc_pt)}</textarea></div></div>
+    <div class="row2"><div><label>Principais serviços EN (um por linha)</label><textarea id="f-services_en" rows="3" placeholder="Civil construction&#10;Logistics and transport">${esc(r.services_en||'')}</textarea></div><div><label>Principais serviços PT (um por linha)</label><textarea id="f-services_pt" rows="3" placeholder="Construção civil&#10;Logística e transporte">${esc(r.services_pt||'')}</textarea></div></div>`,
     `<button class="btn ghost" onclick="closeDrawer()">Cancelar</button><button class="btn" id="save">Guardar</button>`);
   wireImg('f-logo');
   $('#save').onclick=async()=>{
-    const body={name:val('f-name'),word:val('f-word'),color:val('f-color'),sort_order:val('f-sort_order'),url:val('f-url')||'#',logo:val('f-logo'),cap_en:val('f-cap_en'),cap_pt:val('f-cap_pt'),desc_en:val('f-desc_en'),desc_pt:val('f-desc_pt')};
+    const body={name:val('f-name'),word:val('f-word'),color:val('f-color'),sort_order:val('f-sort_order'),url:val('f-url')||'#',logo:val('f-logo'),cap_en:val('f-cap_en'),cap_pt:val('f-cap_pt'),desc_en:val('f-desc_en'),desc_pt:val('f-desc_pt'),services_en:val('f-services_en'),services_pt:val('f-services_pt')};
     try{ await api('/admin/companies'+(r.id?'/'+r.id:''),{method:r.id?'PUT':'POST',body:JSON.stringify(body)}); closeDrawer(); toast('Guardado'); renderTab(); }catch{ toast('Erro ao guardar',true); }
   };
 }
@@ -379,10 +380,9 @@ async function renderMedia(v){
       <div class="gl" style="margin-top:18px">Sectores</div>
       ${imgField('m-infrastructure','Infra-estrutura', s.infrastructure)}
       ${imgField('m-finance','Finanças / Risco', s.finance)}
-      ${imgField('m-digital','Digital', s.digital)}
       ${imgField('m-creative','Criatividade', s.creative)}
     </div>`;
-  ['m-cover','m-infrastructure','m-finance','m-digital','m-creative'].forEach(wireImg);
+  ['m-cover','m-infrastructure','m-finance','m-creative'].forEach(wireImg);
   function updateCoverPrev(){
     const url=val('m-cover'); const box=$('#m-cover-prev2'); if(!box) return;
     box.style.backgroundImage = url?`url('${url}')`:'none';
@@ -396,7 +396,7 @@ async function renderMedia(v){
   const cf=$('#m-cover-file'); if(cf) cf.addEventListener('change',()=>{ const t=setInterval(()=>{ if(val('m-cover')){ updateCoverPrev(); clearInterval(t); } },300); setTimeout(()=>clearInterval(t),6000); });
   updateCoverPrev();
   $('#save').onclick=async()=>{
-    const body={cover:val('m-cover'),coverFit:val('m-coverfit'),coverPos:`${val('m-px')}% ${val('m-py')}%`,sectors:{infrastructure:val('m-infrastructure'),finance:val('m-finance'),digital:val('m-digital'),creative:val('m-creative')}};
+    const body={cover:val('m-cover'),coverFit:val('m-coverfit'),coverPos:`${val('m-px')}% ${val('m-py')}%`,sectors:{infrastructure:val('m-infrastructure'),finance:val('m-finance'),creative:val('m-creative')}};
     try{ await api('/admin/media',{method:'PUT',body:JSON.stringify(body)}); toast('Imagens guardadas'); }catch{ toast('Erro ao guardar',true); }
   };
 }

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>INOV Holding — Intelligent Management, Sustainable Growth</title>
-<meta name="description" content="INOV Holding is an Angolan holding company with global activity: business platforms across the strategic sectors of the economy, headquartered in Luanda and active on three continents.">
+<meta name="description" content="INOV Holding is an Angolan holding company: business platforms across the strategic sectors of the economy, headquartered in Luanda — and the way in for international companies operating and building projects in Angola.">
 <meta name="theme-color" content="#002F55">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://inovholding.com/">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="INOV Holding">
 <meta property="og:title" content="INOV Holding — Intelligent Management, Sustainable Growth">
-<meta property="og:description" content="An Angolan holding company with global activity: business platforms across the strategic sectors of the economy, headquartered in Luanda and active on three continents.">
+<meta property="og:description" content="An Angolan holding company: business platforms across the strategic sectors of the economy, headquartered in Luanda — and the way in for international companies operating and building projects in Angola.">
 <meta property="og:url" content="https://inovholding.com/">
 <meta property="og:image" content="https://inovholding.com/og-image.jpg">
 <meta property="og:image:secure_url" content="https://inovholding.com/og-image.jpg">
@@ -24,10 +24,10 @@
 <meta property="og:locale:alternate" content="pt_AO">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="INOV Holding">
-<meta name="twitter:description" content="Intelligent Management, Sustainable Growth — an Angolan holding active on three continents.">
+<meta name="twitter:description" content="Intelligent Management, Sustainable Growth — an Angolan holding, and the way in for companies building in Angola.">
 <meta name="twitter:image" content="https://inovholding.com/og-image.jpg">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"INOV Holding","legalName":"INOV Holding, Lda","url":"https://inovholding.com/","email":"geral@inovholding.com","sameAs":["https://www.linkedin.com/company/inov-holding/"],"description":"An Angolan holding company with global activity, headquartered in Luanda and active on three continents.","foundingLocation":{"@type":"Place","name":"Luanda, Angola"},"address":{"@type":"PostalAddress","addressLocality":"Luanda","addressCountry":"AO"},"areaServed":["Africa","Europe","South America"],"numberOfEmployees":{"@type":"QuantitativeValue","value":"50+"}}
+{"@context":"https://schema.org","@type":"Organization","name":"INOV Holding","legalName":"INOV Holding, Lda","url":"https://inovholding.com/","email":"geral@inovholding.com","sameAs":["https://www.linkedin.com/company/inov-holding/"],"description":"An Angolan holding company headquartered in Luanda, operating business platforms across the strategic sectors of the economy and acting as the entry point for international companies establishing operations in Angola.","foundingLocation":{"@type":"Place","name":"Luanda, Angola"},"address":{"@type":"PostalAddress","addressLocality":"Luanda","addressCountry":"AO"},"areaServed":["Angola","Africa"],"numberOfEmployees":{"@type":"QuantitativeValue","value":"50+"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"INOV Advisory","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Project Management Outsourcing (PMO)"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Human Resources"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Accounting & Finance"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Taxation"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Market Research"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Strategy & Business Analysis"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Procurement"}}]}}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +80,7 @@ nav{
 nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 nav.open .nav-toggle span:nth-child(2){opacity:0}
 nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-@media(max-width:920px){
+@media(max-width:1240px){
   .nav-toggle{display:flex}
   .nav-links{display:none}
   nav.open .nav-links{
@@ -88,6 +88,11 @@ nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)
     position:absolute;top:100%;left:0;right:0;
     background:var(--white);
     border-bottom:1px solid var(--line);box-shadow:0 16px 30px rgba(0,47,85,.08);padding:.6rem 4vw 1.2rem;
+    /* The menu hangs off a position:fixed nav, so anything past the fold is
+       unreachable by scrolling the page — it has to scroll itself. */
+    max-height:calc(100vh - 5rem);
+    max-height:calc(100dvh - 5rem);
+    overflow-y:auto;overscroll-behavior:contain;
   }
   nav.open .nav-links li{border-top:1px solid var(--line)}
   nav.open .nav-links a{display:block;padding:1rem 0;font-size:.85rem}
@@ -146,8 +151,9 @@ h3{font-family:var(--head);font-weight:600;color:var(--navy);letter-spacing:-.01
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:start}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:3vw;margin-top:3rem}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:3rem}
-@media(max-width:1020px){.grid-4{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:860px){.grid-2,.grid-3{grid-template-columns:1fr}.grid-4{grid-template-columns:1fr}}
+.grid-4.cols-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1020px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-4.cols-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.grid-2,.grid-3{grid-template-columns:1fr}.grid-4,.grid-4.cols-3{grid-template-columns:1fr}}
 
 .cell{background:var(--white);padding:2.4rem 2rem;transition:background .35s}
 .cell:hover{background:var(--cream)}
@@ -286,6 +292,14 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 .cc-head h3{font-size:clamp(1.3rem,2.2vw,1.6rem);line-height:1.1}
 .cc-cap{font-family:var(--head);font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--brand)}
 .cc-desc{color:var(--grey);font-size:.95rem;line-height:1.6;max-width:54ch}
+.cc-body{flex:1}
+.cc-svc{border-top:1px solid var(--line);padding-top:.95rem}
+.cc-svc-t{display:block;font-family:var(--head);font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);margin-bottom:.6rem}
+.cc-svc ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem}
+.cc-svc li{font-size:.78rem;line-height:1.35;color:var(--grey);background:var(--cream);border:1px solid var(--line);padding:.28rem .62rem}
+.cc-foot{display:flex;align-items:baseline;justify-content:space-between;gap:.8rem 1.2rem;flex-wrap:wrap;margin-top:auto;padding-top:.5rem}
+.cc-host{font-size:.78rem;color:var(--steel);text-decoration:none;word-break:break-all}
+.cc-host:hover{color:var(--brand)}
 .cc-link{align-self:flex-start;margin-top:.2rem;font-family:var(--head);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px;transition:opacity .3s}
 .cc-link:hover{opacity:.65}
 
@@ -370,7 +384,7 @@ nav.on-home.scrim-strong:not(.scrolled){background:transparent}
 nav.on-home:not(.scrolled):not(.open) .nav-links a{color:rgba(16,32,46,.86)}
 nav.on-home:not(.scrolled):not(.open) .nav-links a:hover,
 nav.on-home:not(.scrolled):not(.open) .nav-links a.active{color:var(--gold)}
-@media(max-width:920px){nav.open .nav-links{background:#ffffff;border-bottom:1px solid var(--pline);box-shadow:0 20px 40px rgba(0,34,62,.12)}nav.open .nav-links li{border-top:1px solid var(--pline)}}
+@media(max-width:1240px){nav.open .nav-links{background:#ffffff;border-bottom:1px solid var(--pline);box-shadow:0 20px 40px rgba(0,34,62,.12)}nav.open .nav-links li{border-top:1px solid var(--pline)}}
 
 /* ---- generic text & surfaces ---- */
 h1,h2,h3,h4{color:var(--tx)}
@@ -427,6 +441,9 @@ header.page::after{background:var(--gold);opacity:.06;right:-2vw;bottom:-12%;wid
 .company-card{background:#ffffff;border-color:var(--pline)}
 .cc-media{background:#faf7f0;border-bottom-color:var(--pline)}
 .cc-desc{color:var(--mut)}
+.cc-svc{border-top-color:var(--pline)}
+.cc-svc li{background:#faf7f0;border-color:var(--pline);color:var(--mut)}
+.cc-svc-t,.cc-host{color:var(--mut)}
 .navy--force{background:var(--navy)!important;color:var(--cream)!important;max-width:none!important;width:100vw;margin-left:calc(50% - 50vw)!important;padding-inline:clamp(20px,4vw,56px)!important;box-sizing:border-box}
 .navy--force .sec-label{color:var(--gold-light)}.navy--force .sec-label::after{background:var(--gold-light)}
 .navy--force h2{color:#ffffff!important}.navy--force h2 .lt{color:rgba(255,255,255,.55)!important}
@@ -541,8 +558,8 @@ header.home.has-cover .hero-cover::after{
     <span class="names"><span class="top">INOV Holding</span></span>
   </a>
   <div class="nav-right">
-    <ul class="nav-links" id="nav-en"><li><a href="#home" data-nav="home">Home</a></li><li><a href="#group" data-nav="group">About</a></li><li><a href="#companies" data-nav="companies">Companies</a></li><li><a href="#sustainability" data-nav="sustainability">Sustainability</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Careers</a></li><li><a href="#contact" data-nav="contact">Contact</a></li></ul>
-    <ul class="nav-links" id="nav-pt" style="display:none"><li><a href="#home" data-nav="home">Início</a></li><li><a href="#group" data-nav="group">Sobre Nós</a></li><li><a href="#companies" data-nav="companies">Empresas</a></li><li><a href="#sustainability" data-nav="sustainability">Sustentabilidade</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Carreiras</a></li><li><a href="#contact" data-nav="contact">Contacto</a></li></ul>
+    <ul class="nav-links" id="nav-en"><li><a href="#home" data-nav="home">Home</a></li><li><a href="#group" data-nav="group">About</a></li><li><a href="#companies" data-nav="companies">Companies</a></li><li><a href="#advisory" data-nav="advisory">Advisory</a></li><li><a href="#sustainability" data-nav="sustainability">Sustainability</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Careers</a></li><li><a href="#contact" data-nav="contact">Contact</a></li></ul>
+    <ul class="nav-links" id="nav-pt" style="display:none"><li><a href="#home" data-nav="home">Início</a></li><li><a href="#group" data-nav="group">Sobre Nós</a></li><li><a href="#companies" data-nav="companies">Empresas</a></li><li><a href="#advisory" data-nav="advisory">Consultoria</a></li><li><a href="#sustainability" data-nav="sustainability">Sustentabilidade</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Carreiras</a></li><li><a href="#contact" data-nav="contact">Contacto</a></li></ul>
     <div class="lang-toggle">
       <button data-lang="en" class="active">EN</button>
       <button data-lang="pt">PT</button>
@@ -569,9 +586,8 @@ header.home.has-cover .hero-cover::after{
       <h2>Deep roots. <span class="lt">A horizon without borders.</span></h2>
       <div class="prose">
         <p>We were born of the conviction that economies are built sector by sector, company by company. INOV exists to accelerate that construction: we invest in, develop and operate businesses that <strong>formalise markets, retain value and export competence</strong>.</p>
-        <p>Headquartered in Luanda and active on three continents, we act as a long-term investor, a disciplined institution and a steward of the assets we manage.</p>
+        <p>Headquartered in Luanda and operating across the African continent, we act as a long-term investor, a disciplined institution and a steward of the assets we manage.</p>
       </div>
-      <p class="purpose-quote">"So that each generation builds more than the one before."</p>
       <a class="btn" href="#group">Meet the group</a>
     </div>
     <div class="pillars reveal">
@@ -585,13 +601,23 @@ header.home.has-cover .hero-cover::after{
 <section class="navy navy--force">
   <p class="sec-label">Strategic Sectors</p>
   <h2 class="reveal">Present where the economy <span class="lt">is decided.</span></h2>
-  <div class="grid-4">
-    <div class="cell reveal"><h3>Infrastructure &amp; Logistics</h3><p>Construction, transport, facilities management — the physical backbone of productive activity and urban growth.</p></div>
-    <div class="cell reveal"><h3>Financial Services</h3><p>Licensed insurance brokerage and risk advisory — protecting wealth and deepening market penetration.</p></div>
-    <div class="cell reveal"><h3>Digital Economy</h3><p>Marketplace infrastructure connecting sellers and buyers — formalising commerce through technology.</p></div>
-    <div class="cell reveal"><h3>Creative Industries</h3><p>Communication, events, graphic production and digital media — a complete creative value chain across continents.</p></div>
+  <div class="grid-4 cols-3">
+    <div class="cell reveal"><h3>Infrastructure &amp; Logistics</h3><p>Construction, transport and facilities management. The physical backbone of productive activity and urban growth.</p></div>
+    <div class="cell reveal"><h3>Financial Services</h3><p>Licensed insurance brokerage and risk advisory that protects wealth and widens the market.</p></div>
+    <div class="cell reveal"><h3>Creative Industries</h3><p>Communication, events, graphic production and digital media: a complete creative value chain.</p></div>
   </div>
   <div style="text-align:center;margin-top:2.4rem"><a class="btn reveal" href="#companies">Meet the companies</a></div>
+</section>
+
+<section>
+  <div class="cta-band">
+    <div class="reveal">
+      <p class="sec-label">Advisory</p>
+      <h2>We also put our own functions <span class="lt">at your service.</span></h2>
+      <p class="lead">Project management, human resources, accounting and finance, tax, market research, strategy and procurement. <strong>The seven functions that keep the group’s own companies running</strong> are available to businesses established in Angola, and to those preparing to enter it.</p>
+    </div>
+    <div class="reveal"><a class="btn" href="#advisory">Explore INOV Advisory</a></div>
+  </div>
 </section>
 
 <section class="navy">
@@ -599,7 +625,7 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">Sustainability</p>
       <h2>The other half of <span class="lt">our motto.</span></h2>
-      <p class="lead">Sustainability is not a chapter of our strategy — it is half of our motto. See how we embed it across every platform.</p>
+      <p class="lead">Half of our motto is sustainable growth. See what that commits us to, platform by platform.</p>
       <a class="btn" href="#sustainability">Our sustainability approach</a>
     </div>
     <div class="contact-info reveal">
@@ -621,7 +647,7 @@ header.home.has-cover .hero-cover::after{
       <div class="prose">
         <p>INOV Holding, S.A., headquartered in Luanda, owns and directs an integrated set of business platforms across the strategic sectors of the economy. But our identity is not that of a distant portfolio manager: <strong>we are founders and operators</strong>, present in the construction of every business from day one.</p>
         <p>The group was born in the communication sector and expanded with method — first into the production and infrastructure that served our own projects, then into the financial services and digital economy our clients asked for. Every platform answered a real market need before becoming a strategic bet.</p>
-        <p>Today that portfolio operates from Luanda with reach across three continents — and with a rare characteristic: <strong>complete value chains under one roof</strong>, from concept to execution, from production to risk protection.</p>
+        <p>Today that portfolio operates from Luanda with reach across the African continent — and with a rare characteristic: <strong>complete value chains under one roof</strong>, from concept to execution, from production to risk protection.</p>
       </div>
       <p class="purpose-quote">"So that each generation builds more than the one before."</p>
     </div>
@@ -640,25 +666,23 @@ header.home.has-cover .hero-cover::after{
   <div class="timeline reveal">
     <div class="t-item"><span class="when">Origin</span><h3>The first platform</h3><p>The group is born in communication and corporate events, building its reputation with reference brands in the Angolan market.</p></div>
     <div class="t-item"><span class="when">Vertical expansion</span><h3>From concept to execution</h3><p>Graphic production, stand construction, infrastructure and logistics join the group — internalising the value chain and raising quality control.</p></div>
-    <div class="t-item"><span class="when">Diversification</span><h3>Financial services and the digital economy</h3><p>The group enters licensed insurance brokerage and e-commerce — sectors of structural growth where trust and compliance are the barrier to entry.</p></div>
-    <div class="t-item"><span class="when">Internationalisation</span><h3>Three continents</h3><p>Representation in South Africa, operations in African markets such as Kenya, Mozambique and Ethiopia, and business advisory in the Iberian Peninsula and Brazil.</p></div>
+    <div class="t-item"><span class="when">Diversification</span><h3>Financial services</h3><p>The group enters licensed insurance brokerage, a sector of structural growth where trust and compliance are the barrier to entry.</p></div>
+    <div class="t-item"><span class="when">Internationalisation</span><h3>Across the continent</h3><p>Representation in South Africa and operations in African markets such as Kenya, Mozambique and Ethiopia — taking the Luanda standard to the continent's main economic centres.</p></div>
     <div class="t-item"><span class="when">Today</span><h3>Institutional consolidation</h3><p>Corporate restructuring, consolidated financial reporting and reinforced governance — deliberate preparation for the next decade of growth.</p></div>
   </div>
 </section>
 
 <section>
   <p class="sec-label">Where We Operate</p>
-  <h2 class="reveal">Decisions in Luanda. Value across <span class="lt">three continents.</span></h2>
+  <h2 class="reveal">Decisions in Luanda. Value across <span class="lt">the continent.</span></h2>
   <div class="market reveal"><div><span class="mode">Group Headquarters</span><h3>Angola</h3></div>
     <p>Luanda is the centre of decision-making, governance and operations for every platform in the group. It is home to our companies' head offices, our core teams and the Legal Directorate that keeps the whole structure rigorous. Angola is not just our origin — it is the proof of concept for everything we export.</p></div>
   <div class="market reveal"><div><span class="mode">Representation</span><h3>South Africa</h3></div>
     <p>Permanent representation of our communication and corporate events platform in the continent's most sophisticated market — a bridge to multinational clients with operations across Southern Africa.</p></div>
   <div class="market reveal"><div><span class="mode">Operations</span><h3>Africa</h3></div>
     <p>We deliver corporate events and brand activations for international clients in markets such as Kenya, Mozambique and Ethiopia — taking the execution standard built in Luanda to the continent's main economic centres.</p></div>
-  <div class="market reveal"><div><span class="mode">Advisory</span><h3>Portugal &amp; Spain</h3></div>
-    <p>We provide business advisory across the Iberian Peninsula, supporting European companies looking at African markets — and African companies looking at Europe. Our position on both sides of the relationship is our advantage.</p></div>
-  <div class="market reveal"><div><span class="mode">Advisory</span><h3>Brazil</h3></div>
-    <p>Business advisory in the world's largest Portuguese-speaking market. The cultural and linguistic affinity between Angola and Brazil creates a natural business corridor — and INOV is positioned on both shores of the Atlantic.</p></div>
+  <div class="market reveal"><div><span class="mode">Gateway</span><h3>International clients in Angola</h3></div>
+    <p>Angola rewards local knowledge and punishes its absence. For international groups setting up here, INOV provides the local partner that already has licences, teams and suppliers in place, and the advisory arm to run the corporate functions until theirs are ready.</p></div>
 </section>
 
 <section class="cream">
@@ -686,8 +710,8 @@ header.home.has-cover .hero-cover::after{
   <p class="sec-label">Pillars of Control</p>
   <h2 class="reveal">Four mechanisms, <span class="lt">one standard.</span></h2>
   <div class="grid-4">
-    <div class="cell reveal"><h3>Consolidated financial reporting</h3><p>Quarterly board reports with a consolidated view of performance, cash and risk across all platforms — prepared to audit standards.</p></div>
-    <div class="cell reveal"><h3>Internal control</h3><p>An internal control manual and formalised procedures in critical areas — from procurement to treasury to regulatory reporting.</p></div>
+    <div class="cell reveal"><h3>Consolidated financial reporting</h3><p>Quarterly board reports with a consolidated view of performance, cash and risk across all platforms, prepared to audit standards.</p></div>
+    <div class="cell reveal"><h3>Internal control</h3><p>An internal control manual and formalised procedures in critical areas, from procurement to treasury to regulatory reporting.</p></div>
     <div class="cell reveal"><h3>Regulatory compliance</h3><p>Licensed operations supervised by the competent authorities of each sector, including insurance activity under ARSEG, with timely periodic reporting.</p></div>
     <div class="cell reveal"><h3>Risk management</h3><p>Systematic identification and mitigation of operational, financial and legal risks — with the advantage of having an insurance broker in-house.</p></div>
   </div>
@@ -717,10 +741,10 @@ header.home.has-cover .hero-cover::after{
   <p class="sec-label">Our Impact</p>
   <h2 class="reveal">Impact that starts at home <span class="lt">and travels.</span></h2>
   <div class="grid-4">
-    <div class="cell reveal"><h3>Exporting competence</h3><p>Capability built in Luanda competing on three continents — because real competence needs no passport.</p></div>
+    <div class="cell reveal"><h3>Exporting competence</h3><p>Capability built in Luanda and held to international standard — because real competence needs no passport.</p></div>
     <div class="cell reveal"><h3>Skilled employment</h3><p>We create jobs and develop professionals in technical fields — from engineering to risk, from digital to production.</p></div>
     <div class="cell reveal"><h3>Market formalisation</h3><p>Licensed, supervised and fiscally compliant operations that raise the standard of every sector we enter.</p></div>
-    <div class="cell reveal"><h3>Economic literacy</h3><p>We invest in market education — from insurance literacy to business training — because informed markets grow faster.</p></div>
+    <div class="cell reveal"><h3>Economic literacy</h3><p>We invest in market education, from insurance literacy to business training, because informed markets grow faster.</p></div>
   </div>
 </section>
 
@@ -744,9 +768,76 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">The Integration Advantage</p>
       <h2>Each platform extends <span class="lt">the reach of the others.</span></h2>
-      <p class="lead">Infrastructure serves the brands. Risk protects the operations. Digital scales the commerce. Creativity gives voice to it all — an ecosystem that reinforces itself.</p>
+      <p class="lead">Infrastructure serves the brands. Risk protects the operations. Creativity gives voice to it all: an ecosystem that reinforces itself.</p>
     </div>
     <div class="reveal"><a class="btn" href="#contact">Talk to the group</a></div>
+  </div>
+</section>
+</div>
+
+<div class="site-page" id="en-page-advisory">
+<header class="page"><p class="kicker">Advisory</p><h1>The functions that run INOV, <span class="lt">now running for you.</span></h1><p class="hero-sub">Project management, people, finance, tax, procurement, research and strategy: the corporate functions that run INOV from the inside are now available to companies established in Angola and to those preparing to enter it. The same teams, held to the same standard they apply to the group’s own businesses.</p></header>
+
+<section>
+  <p class="sec-label">Why INOV</p>
+  <div class="grid-2">
+    <div class="reveal">
+      <h2>Built as operators. <span class="lt">Offered as advisors.</span></h2>
+      <div class="prose">
+        <p>Every function on this page already exists inside INOV. We run project offices on construction and logistics mandates, process payroll across several companies, consolidate the group’s accounts, file in one of Africa’s more demanding tax regimes, study markets before we enter them and buy at scale for the group’s operating businesses.</p>
+        <p>Advisory is what happens when that machinery is opened to third parties. You are not buying a framework someone read about — you are buying <strong>a function that has to work every month</strong> for companies whose results the same shareholders answer for.</p>
+      </div>
+      <a class="btn" href="#contact">Start a conversation</a>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar"><h3><span>I</span>Operators first</h3><p>We advise on what we run. Every service listed here is a function INOV performs internally before it performs it for anyone else.</p></div>
+      <div class="pillar"><h3><span>II</span>One standard, many markets</h3><p>The same governance, reporting and compliance discipline applied in Luanda, applied wherever the mandate is.</p></div>
+      <div class="pillar"><h3><span>III</span>Capability transferred</h3><p>The objective is a client who no longer needs us. We build the function, document it and hand it over.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cream">
+  <p class="sec-label">Services</p>
+  <h2 class="reveal">Seven functions, <span class="lt">one operating standard.</span></h2>
+  <div class="grid-3">
+    <div class="topline reveal"><span class="step">01 — PMO</span><h3>Project Management Outsourcing</h3><p>An outsourced project office: planning, governance, scheduling, cost and risk control, reporting to sponsors. We staff and run the PMO, or professionalise the one you already have, so projects close on scope, on budget and on record.</p></div>
+    <div class="topline reveal"><span class="step">02 — People</span><h3>Human Resources</h3><p>Recruitment and selection, contracts and payroll, performance frameworks, training plans and labour-law compliance. From a single senior hire to the entire HR function of a growing operation.</p></div>
+    <div class="topline reveal"><span class="step">03 — Finance</span><h3>Accounting &amp; Finance</h3><p>Bookkeeping, monthly closing, management accounts, treasury and budget control, with reporting a board, a bank or an investor can read without translation.</p></div>
+    <div class="topline reveal"><span class="step">04 — Tax</span><h3>Taxation</h3><p>Tax compliance and planning under Angolan law: obligations and filings, VAT, employment income tax and industrial tax, transfer-pricing exposure and support during inspections. Compliance first, optimisation second.</p></div>
+    <div class="topline reveal"><span class="step">05 — Research</span><h3>Market Research</h3><p>Quantitative and qualitative studies, market sizing, segmentation, price testing, competitor mapping and consumer research. Fieldwork designed for the realities of the markets we operate in.</p></div>
+    <div class="topline reveal"><span class="step">06 — Strategy</span><h3>Strategy &amp; Business Analysis</h3><p>Market entry, business plans, feasibility studies and investment cases, operating-model design, unit economics and turnaround diagnostics — decisions supported by numbers, not by decks.</p></div>
+    <div class="topline reveal"><span class="step">07 — Sourcing</span><h3>Procurement</h3><p>Sourcing and supplier qualification, tender management, negotiation, award and spend control, including import logistics, where the group’s own infrastructure platform gives us real leverage.</p></div>
+  </div>
+</section>
+
+
+<section class="cream">
+  <p class="sec-label">Entering Angola</p>
+  <div class="grid-2">
+    <div class="reveal">
+      <h2>Entering Angola is easier <span class="lt">from the inside.</span></h2>
+      <div class="prose">
+        <p>Angola rewards local knowledge and punishes its absence. Incorporation, licensing, tax and social security registration, hiring under Angolan labour law, customs clearance, supplier qualification — each is routine for those who do it every week, and a source of expensive delay for those who do not.</p>
+        <p>We do it every week, for our own companies. For international groups establishing or expanding operations here, INOV already holds the licences, the teams, the supplier base and the regulatory knowledge. <strong>Your operation starts from ours.</strong></p>
+      </div>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar"><h3><span>I</span>Establish</h3><p>Incorporation, licensing, tax and social security registration, and a first compliant payroll — the administrative ground floor of operating here.</p></div>
+      <div class="pillar"><h3><span>II</span>Operate</h3><p>Accounting, tax, human resources, procurement and project management run locally, reported to the standard your group already uses.</p></div>
+      <div class="pillar"><h3><span>III</span>Understand</h3><p>Market research, partner and supplier due diligence, and the read on the ground that no report written abroad can give you.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="navy">
+  <div class="cta-band">
+    <div class="reveal">
+      <p class="sec-label">Start Here</p>
+      <h2>Tell us which function <span class="lt">is holding you back.</span></h2>
+      <p class="lead">A first conversation costs nothing and usually takes an hour. Bring the problem. We will tell you frankly whether it is work we should take.</p>
+    </div>
+    <div class="reveal"><a class="btn" href="#contact">Talk to INOV Advisory</a></div>
   </div>
 </section>
 </div>
@@ -765,9 +856,9 @@ header.home.has-cover .hero-cover::after{
       </div>
     </div>
     <div class="pillars reveal">
-      <div class="pillar"><h3><span>E</span>Economic</h3><p>Resilient platforms, diversified revenue and a generational investment horizon — growth designed to survive cycles.</p></div>
-      <div class="pillar"><h3><span>S</span>Social</h3><p>Skilled jobs, professional development and market literacy — prosperity that is shared, not extracted.</p></div>
-      <div class="pillar"><h3><span>G</span>Governance</h3><p>Transparency, compliance and ethical conduct as non-negotiables — the foundation the other pillars stand on.</p></div>
+      <div class="pillar"><h3><span>E</span>Economic</h3><p>Resilient platforms, diversified revenue and a generational investment horizon. Growth built to survive cycles.</p></div>
+      <div class="pillar"><h3><span>S</span>Social</h3><p>Skilled jobs, professional development and market literacy: prosperity that is shared rather than extracted.</p></div>
+      <div class="pillar"><h3><span>G</span>Governance</h3><p>Transparency, compliance and ethical conduct are non-negotiable. The other two pillars stand on this one.</p></div>
     </div>
   </div>
 </section>
@@ -776,7 +867,7 @@ header.home.has-cover .hero-cover::after{
   <p class="sec-label">Our Commitments</p>
   <h2 class="reveal">Four commitments, <span class="lt">measured in practice.</span></h2>
   <div class="grid-4">
-    <div class="cell reveal"><h3>People first</h3><p>We invest in training and developing local talent across technical fields — engineering, risk, digital, production — building careers, not just headcounts.</p></div>
+    <div class="cell reveal"><h3>People first</h3><p>We invest in training and developing local talent across technical fields: engineering, risk, digital, production. We build careers, not headcounts.</p></div>
     <div class="cell reveal"><h3>Market education</h3><p>From insurance literacy programmes to business training, we expand the markets we operate in by making them better informed.</p></div>
     <div class="cell reveal"><h3>Responsible operations</h3><p>We plan events, construction and logistics with resource efficiency in mind — reducing waste and favouring local sourcing wherever quality allows.</p></div>
     <div class="cell reveal"><h3>Ethical value chains</h3><p>Our suppliers and partners are selected for conduct as well as capability. Sustainability that stops at our own gate is not sustainability.</p></div>
@@ -809,7 +900,7 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">Build With Us</p>
       <h2>Sustainability is a <span class="lt">team sport.</span></h2>
-      <p class="lead">If your organisation shares this conviction — as a client, partner or participant in our initiatives — we would like to hear from you.</p>
+      <p class="lead">If your organisation shares this conviction, whether as a client, a partner or a participant in our initiatives, we would like to hear from you.</p>
     </div>
     <div class="reveal"><a class="btn" href="#contact">Contact INOV</a></div>
   </div>
@@ -851,7 +942,7 @@ header.home.has-cover .hero-cover::after{
     </div>
     <div class="pillars reveal">
       <div class="pillar"><h3><span>I</span>Ownership</h3><p>Real responsibility from day one, with accountability for outcomes.</p></div>
-      <div class="pillar"><h3><span>II</span>Mobility</h3><p>Grow across five platforms and three continents of activity.</p></div>
+      <div class="pillar"><h3><span>II</span>Mobility</h3><p>Grow across the group’s platforms and every sector it operates in.</p></div>
       <div class="pillar"><h3><span>III</span>Standards</h3><p>Institutional rigour and mentorship that raise the bar of your craft.</p></div>
     </div>
   </div>
@@ -866,7 +957,7 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">Apply</p>
       <h2>Send us your <span class="lt">application.</span></h2>
-      <p class="lead">Don't see the right role? We are always interested in exceptional people — submit a general application and tell us where you could add value.</p>
+      <p class="lead">Don't see the right role? We are always looking for exceptional people. Submit a general application and tell us where you could add value.</p>
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'application','en')">
@@ -903,7 +994,7 @@ header.home.has-cover .hero-cover::after{
         <div><label for="en-org">Organisation</label><input id="en-org" name="organisation" type="text"></div>
         <div><label for="en-email">E-mail</label><input id="en-email" name="email" type="email" required></div>
         <div><label for="en-assunto">Subject</label>
-          <select id="en-assunto" name="subject"><option>Commercial proposal</option><option>Partnership</option><option>Press</option><option>Other</option></select></div>
+          <select id="en-assunto" name="subject"><option>Commercial proposal</option><option>Advisory services</option><option>Partnership</option><option>Press</option><option>Other</option></select></div>
         <div><label for="en-msg">Message</label><textarea id="en-msg" name="message" rows="6" required></textarea></div>
         <button type="submit">Send message</button>
         <p class="form-note">By submitting, you consent to the processing of your data for the purpose of responding to this enquiry.</p>
@@ -930,9 +1021,8 @@ header.home.has-cover .hero-cover::after{
       <h2>Raízes profundas. <span class="lt">Horizonte sem fronteiras.</span></h2>
       <div class="prose">
         <p>Nascemos da convicção de que as economias se constroem sector a sector, empresa a empresa. A INOV existe para acelerar essa construção: investimos, desenvolvemos e operamos negócios que <strong>formalizam mercados, retêm valor e exportam competência</strong>.</p>
-        <p>Com sede em Luanda e operações em três continentes, actuamos como investidor de longo prazo, instituição disciplinada e guardião dos activos que gerimos.</p>
+        <p>Com sede em Luanda e operações por todo o continente africano, actuamos como investidor de longo prazo, instituição disciplinada e guardião dos activos que gerimos.</p>
       </div>
-      <p class="purpose-quote">"Para que cada geração construa mais do que a anterior."</p>
       <a class="btn" href="#group">Conhecer o grupo</a>
     </div>
     <div class="pillars reveal">
@@ -946,13 +1036,23 @@ header.home.has-cover .hero-cover::after{
 <section class="navy navy--force">
   <p class="sec-label">Sectores Estratégicos</p>
   <h2 class="reveal">Presença onde a economia <span class="lt">se decide.</span></h2>
-  <div class="grid-4">
-    <div class="cell reveal"><h3>Infra-estrutura &amp; Logística</h3><p>Construção, transporte, gestão de instalações — a base física da actividade produtiva e da expansão urbana.</p></div>
-    <div class="cell reveal"><h3>Serviços Financeiros</h3><p>Corretagem de seguros licenciada e consultoria de risco — protecção do património e aprofundamento do mercado.</p></div>
-    <div class="cell reveal"><h3>Economia Digital</h3><p>Infra-estrutura de marketplace que liga vendedores e compradores — formalização do comércio através da tecnologia.</p></div>
-    <div class="cell reveal"><h3>Indústrias Criativas</h3><p>Comunicação, eventos, produção gráfica e media digital — uma cadeia de valor criativa completa em vários continentes.</p></div>
+  <div class="grid-4 cols-3">
+    <div class="cell reveal"><h3>Infra-estrutura &amp; Logística</h3><p>Construção, transporte e gestão de instalações. A base física da actividade produtiva e da expansão urbana.</p></div>
+    <div class="cell reveal"><h3>Serviços Financeiros</h3><p>Corretagem de seguros licenciada e consultoria de risco que protege património e alarga o mercado.</p></div>
+    <div class="cell reveal"><h3>Indústrias Criativas</h3><p>Comunicação, eventos, produção gráfica e media digital: uma cadeia de valor criativa completa.</p></div>
   </div>
   <div style="text-align:center;margin-top:2.4rem"><a class="btn reveal" href="#companies">Conheça as empresas</a></div>
+</section>
+
+<section>
+  <div class="cta-band">
+    <div class="reveal">
+      <p class="sec-label">Consultoria</p>
+      <h2>Colocamos também as nossas funções <span class="lt">ao seu serviço.</span></h2>
+      <p class="lead">Gestão de projectos, recursos humanos, contabilidade e finanças, fiscalidade, pesquisa de mercado, estratégia e procurement. <strong>As sete funções que sustentam a operação das empresas do grupo</strong> estão ao dispor de negócios já estabelecidos em Angola e de quem se prepara para entrar no país.</p>
+    </div>
+    <div class="reveal"><a class="btn" href="#advisory">Conhecer a INOV Consultoria</a></div>
+  </div>
 </section>
 
 <section class="navy">
@@ -960,7 +1060,7 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">Sustentabilidade</p>
       <h2>A outra metade do <span class="lt">nosso lema.</span></h2>
-      <p class="lead">A sustentabilidade não é um capítulo da nossa estratégia — é metade do nosso lema. Veja como a incorporamos em cada plataforma.</p>
+      <p class="lead">Metade do nosso lema é crescimento sustentável. Veja a que isso nos obriga, plataforma a plataforma.</p>
       <a class="btn" href="#sustainability">A nossa abordagem</a>
     </div>
     <div class="contact-info reveal">
@@ -982,7 +1082,7 @@ header.home.has-cover .hero-cover::after{
       <div class="prose">
         <p>A INOV Holding, S.A., com sede em Luanda, detém e dirige um conjunto integrado de plataformas empresariais nos sectores estratégicos da economia. Mas a nossa identidade não é a de um gestor de carteira distante: <strong>somos fundadores e operadores</strong>, presentes na construção de cada negócio desde o primeiro dia.</p>
         <p>O grupo nasceu no sector da comunicação e expandiu-se com método — primeiro para a produção e infra-estruturas que serviam os nossos próprios projectos, depois para os serviços financeiros e a economia digital que os nossos clientes pediam. Cada plataforma respondeu a uma necessidade real do mercado antes de se tornar uma aposta estratégica.</p>
-        <p>Hoje, esse conjunto opera a partir de Luanda com alcance em três continentes — e com uma característica rara: <strong>cadeias de valor completas sob o mesmo tecto</strong>, da concepção à execução, da produção à protecção do risco.</p>
+        <p>Hoje, esse conjunto opera a partir de Luanda com alcance por todo o continente africano — e com uma característica rara: <strong>cadeias de valor completas sob o mesmo tecto</strong>, da concepção à execução, da produção à protecção do risco.</p>
       </div>
       <p class="purpose-quote">"Para que cada geração construa mais do que a anterior."</p>
     </div>
@@ -1001,25 +1101,23 @@ header.home.has-cover .hero-cover::after{
   <div class="timeline reveal">
     <div class="t-item"><span class="when">Origem</span><h3>A primeira plataforma</h3><p>O grupo nasce no sector da comunicação e dos eventos corporativos, construindo reputação junto de marcas de referência no mercado angolano.</p></div>
     <div class="t-item"><span class="when">Expansão vertical</span><h3>Da concepção à execução</h3><p>A produção gráfica, a construção de stands, as infra-estruturas e a logística entram no grupo — internalizando a cadeia de valor e elevando o controlo de qualidade.</p></div>
-    <div class="t-item"><span class="when">Diversificação</span><h3>Serviços financeiros e economia digital</h3><p>O grupo entra na corretagem de seguros licenciada e no comércio electrónico — sectores de crescimento estrutural onde a confiança e a conformidade são a barreira de entrada.</p></div>
-    <div class="t-item"><span class="when">Internacionalização</span><h3>Três continentes</h3><p>Representação na África do Sul, operações em mercados africanos como o Quénia, Moçambique e a Etiópia, e consultoria a negócios na Península Ibérica e no Brasil.</p></div>
+    <div class="t-item"><span class="when">Diversificação</span><h3>Serviços financeiros</h3><p>O grupo entra na corretagem de seguros licenciada, um sector de crescimento estrutural onde a confiança e a conformidade são a barreira de entrada.</p></div>
+    <div class="t-item"><span class="when">Internacionalização</span><h3>Por todo o continente</h3><p>Representação na África do Sul e operações em mercados africanos como o Quénia, Moçambique e a Etiópia — levando o padrão de Luanda aos principais centros económicos do continente.</p></div>
     <div class="t-item"><span class="when">Hoje</span><h3>Consolidação institucional</h3><p>Reestruturação societária, reporte financeiro consolidado e governação reforçada — a preparação deliberada para a próxima década de crescimento.</p></div>
   </div>
 </section>
 
 <section>
   <p class="sec-label">Os Nossos Mercados</p>
-  <h2 class="reveal">Decisões em Luanda. Valor em <span class="lt">três continentes.</span></h2>
+  <h2 class="reveal">Decisões em Luanda. Valor por <span class="lt">todo o continente.</span></h2>
   <div class="market reveal"><div><span class="mode">Sede do Grupo</span><h3>Angola</h3></div>
     <p>Luanda é o centro de decisão, governação e operações de todas as plataformas do grupo. É aqui que estão as sedes das nossas empresas, as nossas equipas nucleares e a Direcção Jurídica que assegura o rigor de toda a estrutura. Angola não é apenas a nossa origem — é a prova de conceito de tudo o que exportamos.</p></div>
   <div class="market reveal"><div><span class="mode">Representação</span><h3>África do Sul</h3></div>
     <p>Representação permanente da nossa plataforma de comunicação e eventos corporativos no mercado mais sofisticado do continente — uma ponte para clientes multinacionais com operações em toda a África Austral.</p></div>
   <div class="market reveal"><div><span class="mode">Operações</span><h3>África</h3></div>
     <p>Realizamos eventos corporativos e activações de marca para clientes internacionais em mercados como o Quénia, Moçambique e a Etiópia — levando o padrão de execução construído em Luanda aos principais centros económicos do continente.</p></div>
-  <div class="market reveal"><div><span class="mode">Consultoria</span><h3>Portugal &amp; Espanha</h3></div>
-    <p>Prestamos consultoria a negócios na Península Ibérica, apoiando empresas europeias que olham para os mercados africanos — e empresas africanas que procuram a Europa. A nossa posição em ambos os lados da relação é a nossa vantagem.</p></div>
-  <div class="market reveal"><div><span class="mode">Consultoria</span><h3>Brasil</h3></div>
-    <p>Consultoria a negócios no maior mercado lusófono do mundo. A afinidade cultural e linguística entre Angola e o Brasil cria um corredor natural de negócios — e a INOV está posicionada nas duas margens do Atlântico.</p></div>
+  <div class="market reveal"><div><span class="mode">Porta de Entrada</span><h3>Clientes internacionais em Angola</h3></div>
+    <p>Angola recompensa o conhecimento local e castiga a sua ausência. Para grupos internacionais que se instalam no país, a INOV é o parceiro local que já tem licenças, equipas e fornecedores no terreno, e o braço de consultoria que assegura as funções corporativas até as suas estarem prontas.</p></div>
 </section>
 
 <section class="cream">
@@ -1048,9 +1146,9 @@ header.home.has-cover .hero-cover::after{
   <h2 class="reveal">Quatro mecanismos, <span class="lt">um padrão.</span></h2>
   <div class="grid-4">
     <div class="cell reveal"><h3>Reporte financeiro consolidado</h3><p>Relatórios trimestrais ao conselho com visão consolidada de desempenho, tesouraria e risco de todas as plataformas — preparados com rigor de auditoria.</p></div>
-    <div class="cell reveal"><h3>Controlo interno</h3><p>Manual de controlo interno e procedimentos formalizados nas áreas críticas — da contratação à tesouraria e ao reporte regulatório.</p></div>
+    <div class="cell reveal"><h3>Controlo interno</h3><p>Manual de controlo interno e procedimentos formalizados nas áreas críticas, da contratação à tesouraria e ao reporte regulatório.</p></div>
     <div class="cell reveal"><h3>Conformidade regulatória</h3><p>Operações licenciadas e supervisionadas pelas entidades competentes de cada sector, incluindo a actividade seguradora junto da ARSEG, com reporte periódico e atempado.</p></div>
-    <div class="cell reveal"><h3>Gestão de risco</h3><p>Identificação e mitigação sistemática de riscos operacionais, financeiros e jurídicos — com a vantagem de termos uma corretora de seguros dentro de casa.</p></div>
+    <div class="cell reveal"><h3>Gestão de risco</h3><p>Identificação e mitigação sistemática de riscos operacionais, financeiros e jurídicos, com a vantagem de termos uma corretora de seguros dentro de casa.</p></div>
   </div>
 </section>
 
@@ -1078,10 +1176,10 @@ header.home.has-cover .hero-cover::after{
   <p class="sec-label">O Nosso Impacto</p>
   <h2 class="reveal">Impacto que começa em casa <span class="lt">e viaja.</span></h2>
   <div class="grid-4">
-    <div class="cell reveal"><h3>Exportação de competência</h3><p>Capacidade construída em Luanda a competir em três continentes — porque a competência, quando é real, não precisa de passaporte.</p></div>
+    <div class="cell reveal"><h3>Exportação de competência</h3><p>Capacidade construída em Luanda e medida por padrões internacionais — porque a competência, quando é real, não precisa de passaporte.</p></div>
     <div class="cell reveal"><h3>Emprego qualificado</h3><p>Criamos postos de trabalho e desenvolvemos quadros em sectores técnicos — da engenharia ao risco, do digital à produção.</p></div>
     <div class="cell reveal"><h3>Formalização de mercados</h3><p>Operações licenciadas, supervisionadas e fiscalmente conformes que elevam o padrão dos sectores onde actuamos.</p></div>
-    <div class="cell reveal"><h3>Literacia económica</h3><p>Investimos em educação de mercado — da literacia seguradora à capacitação empresarial — porque mercados informados crescem mais depressa.</p></div>
+    <div class="cell reveal"><h3>Literacia económica</h3><p>Investimos em educação de mercado, da literacia seguradora à capacitação empresarial, porque mercados informados crescem mais depressa.</p></div>
   </div>
 </section>
 
@@ -1105,9 +1203,76 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">A Vantagem da Integração</p>
       <h2>Cada plataforma amplia <span class="lt">o alcance das outras.</span></h2>
-      <p class="lead">A infra-estrutura serve as marcas. O risco protege as operações. O digital escala o comércio. A criatividade dá voz a tudo — um ecossistema que se reforça a si próprio.</p>
+      <p class="lead">A infra-estrutura serve as marcas. O risco protege as operações. A criatividade dá voz a tudo: um ecossistema que se reforça a cada elo.</p>
     </div>
     <div class="reveal"><a class="btn" href="#contact">Falar com o grupo</a></div>
+  </div>
+</section>
+</div>
+
+<div class="site-page" id="pt-page-advisory">
+<header class="page"><p class="kicker">Consultoria</p><h1>As funções que fazem a INOV funcionar, <span class="lt">agora ao seu serviço.</span></h1><p class="hero-sub">Gestão de projectos, pessoas, finanças, fiscalidade, procurement, pesquisa e estratégia: as funções corporativas que sustentam a INOV por dentro estão agora ao dispor de empresas já estabelecidas em Angola e de quem se prepara para entrar no país. As mesmas equipas, sujeitas ao mesmo padrão que aplicam aos negócios do próprio grupo.</p></header>
+
+<section>
+  <p class="sec-label">Porquê a INOV</p>
+  <div class="grid-2">
+    <div class="reveal">
+      <h2>Construída como operadora. <span class="lt">Oferecida como consultora.</span></h2>
+      <div class="prose">
+        <p>Todas as funções desta página já existem dentro da INOV. Operamos gabinetes de projecto em mandatos de construção e logística, processamos salários em várias empresas, consolidamos as contas do grupo, cumprimos um dos regimes fiscais mais exigentes de África, estudamos mercados antes de neles entrarmos e compramos à escala para as empresas do grupo.</p>
+        <p>A Consultoria é o que acontece quando essa maquinaria se abre a terceiros. Não está a comprar um modelo que alguém leu — está a comprar <strong>uma função que tem de funcionar todos os meses</strong> para empresas por cujos resultados os mesmos accionistas respondem.</p>
+      </div>
+      <a class="btn" href="#contact">Iniciar uma conversa</a>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar"><h3><span>I</span>Operadores primeiro</h3><p>Aconselhamos sobre aquilo que operamos. Cada serviço aqui listado é uma função que a INOV executa internamente antes de a prestar a terceiros.</p></div>
+      <div class="pillar"><h3><span>II</span>Um padrão, vários mercados</h3><p>A mesma disciplina de governação, reporte e conformidade aplicada em Luanda, aplicada onde quer que esteja o mandato.</p></div>
+      <div class="pillar"><h3><span>III</span>Competência transferida</h3><p>O objectivo é um cliente que deixa de precisar de nós. Construímos a função, documentamo-la e entregamo-la.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cream">
+  <p class="sec-label">Serviços</p>
+  <h2 class="reveal">Sete funções, <span class="lt">um padrão de operação.</span></h2>
+  <div class="grid-3">
+    <div class="topline reveal"><span class="step">01 — PMO</span><h3>Gestão de Projectos em Outsourcing</h3><p>Um gabinete de projectos em outsourcing: planeamento, governação, cronograma, controlo de custos e de riscos, reporte aos patrocinadores. Assumimos e operamos o PMO, ou profissionalizamos o que já existe, para que os projectos fechem no âmbito, no orçamento e com registo.</p></div>
+    <div class="topline reveal"><span class="step">02 — Pessoas</span><h3>Recursos Humanos</h3><p>Recrutamento e selecção, contratos e processamento salarial, sistemas de avaliação de desempenho, planos de formação e conformidade laboral. De uma única contratação sénior à função de RH completa de uma operação em crescimento.</p></div>
+    <div class="topline reveal"><span class="step">03 — Finanças</span><h3>Contabilidade e Finanças</h3><p>Escrituração, fecho mensal, contabilidade de gestão, tesouraria e controlo orçamental, com um reporte que um conselho de administração, um banco ou um investidor lê sem tradução.</p></div>
+    <div class="topline reveal"><span class="step">04 — Fiscal</span><h3>Fiscalidade</h3><p>Conformidade e planeamento fiscal à luz da lei angolana: obrigações e declarações, IVA, IRT e Imposto Industrial, exposição a preços de transferência e acompanhamento em fiscalizações. Primeiro a conformidade, depois a optimização.</p></div>
+    <div class="topline reveal"><span class="step">05 — Pesquisa</span><h3>Pesquisa de Mercado</h3><p>Estudos quantitativos e qualitativos, dimensionamento de mercado, segmentação, testes de preço, mapeamento da concorrência e investigação de consumo. Trabalho de campo desenhado para a realidade dos mercados onde actuamos.</p></div>
+    <div class="topline reveal"><span class="step">06 — Estratégia</span><h3>Consultoria Estratégica e Análise de Negócios</h3><p>Entrada em mercado, planos de negócio, estudos de viabilidade e casos de investimento, desenho de modelo operacional, economia unitária e diagnósticos de recuperação — decisões sustentadas por números, não por apresentações.</p></div>
+    <div class="topline reveal"><span class="step">07 — Compras</span><h3>Procurement</h3><p>Sourcing e qualificação de fornecedores, gestão de concursos, negociação, adjudicação e controlo de despesa, incluindo logística de importação, onde a plataforma de infra-estrutura do próprio grupo nos dá alavancagem real.</p></div>
+  </div>
+</section>
+
+
+<section class="cream">
+  <p class="sec-label">Entrar em Angola</p>
+  <div class="grid-2">
+    <div class="reveal">
+      <h2>Entrar em Angola é mais fácil <span class="lt">a partir de dentro.</span></h2>
+      <div class="prose">
+        <p>Angola recompensa o conhecimento local e castiga a sua ausência. Constituição de sociedade, licenciamento, registo fiscal e na segurança social, contratação à luz da lei laboral angolana, desalfandegamento, qualificação de fornecedores — cada um é rotina para quem o faz todas as semanas e fonte de atrasos caros para quem não faz.</p>
+        <p>Fazemo-lo todas as semanas, para as nossas próprias empresas. Para grupos internacionais que se estabelecem ou expandem no país, a INOV já tem as licenças, as equipas, a base de fornecedores e o conhecimento regulatório. <strong>A sua operação começa a partir da nossa.</strong></p>
+      </div>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar"><h3><span>I</span>Estabelecer</h3><p>Constituição, licenciamento, registo fiscal e na segurança social, e um primeiro processamento salarial conforme — o rés-do-chão administrativo de operar aqui.</p></div>
+      <div class="pillar"><h3><span>II</span>Operar</h3><p>Contabilidade, fiscalidade, recursos humanos, procurement e gestão de projectos executados localmente, reportados segundo o padrão que o seu grupo já usa.</p></div>
+      <div class="pillar"><h3><span>III</span>Compreender</h3><p>Pesquisa de mercado, due diligence a parceiros e fornecedores, e a leitura do terreno que nenhum relatório escrito lá fora consegue dar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="navy">
+  <div class="cta-band">
+    <div class="reveal">
+      <p class="sec-label">Comece Aqui</p>
+      <h2>Diga-nos que função <span class="lt">o está a travar.</span></h2>
+      <p class="lead">Uma primeira conversa não custa nada e costuma demorar uma hora. Traga o problema. Dizemos com franqueza se é trabalho que devemos aceitar.</p>
+    </div>
+    <div class="reveal"><a class="btn" href="#contact">Falar com a INOV Consultoria</a></div>
   </div>
 </section>
 </div>
@@ -1126,9 +1291,9 @@ header.home.has-cover .hero-cover::after{
       </div>
     </div>
     <div class="pillars reveal">
-      <div class="pillar"><h3><span>E</span>Económico</h3><p>Plataformas resilientes, receitas diversificadas e um horizonte de investimento geracional — crescimento desenhado para sobreviver a ciclos.</p></div>
-      <div class="pillar"><h3><span>S</span>Social</h3><p>Emprego qualificado, desenvolvimento profissional e literacia de mercado — prosperidade partilhada, não extraída.</p></div>
-      <div class="pillar"><h3><span>G</span>Governação</h3><p>Transparência, conformidade e conduta ética como inegociáveis — a fundação sobre a qual os outros pilares assentam.</p></div>
+      <div class="pillar"><h3><span>E</span>Económico</h3><p>Plataformas resilientes, receitas diversificadas e um horizonte de investimento geracional. Crescimento feito para sobreviver a ciclos.</p></div>
+      <div class="pillar"><h3><span>S</span>Social</h3><p>Emprego qualificado, desenvolvimento profissional e literacia de mercado: prosperidade que se partilha em vez de se extrair.</p></div>
+      <div class="pillar"><h3><span>G</span>Governação</h3><p>Transparência, conformidade e conduta ética são inegociáveis. Os outros dois pilares assentam neste.</p></div>
     </div>
   </div>
 </section>
@@ -1137,7 +1302,7 @@ header.home.has-cover .hero-cover::after{
   <p class="sec-label">Os Nossos Compromissos</p>
   <h2 class="reveal">Quatro compromissos, <span class="lt">medidos na prática.</span></h2>
   <div class="grid-4">
-    <div class="cell reveal"><h3>Pessoas primeiro</h3><p>Investimos na formação e desenvolvimento de talento local em áreas técnicas — engenharia, risco, digital, produção — construindo carreiras, não apenas quadros de pessoal.</p></div>
+    <div class="cell reveal"><h3>Pessoas primeiro</h3><p>Investimos na formação e desenvolvimento de talento local em áreas técnicas: engenharia, risco, digital, produção. Construímos carreiras, não quadros de pessoal.</p></div>
     <div class="cell reveal"><h3>Educação de mercado</h3><p>Da literacia seguradora à capacitação empresarial, expandimos os mercados onde actuamos tornando-os mais bem informados.</p></div>
     <div class="cell reveal"><h3>Operações responsáveis</h3><p>Planeamos eventos, construção e logística com eficiência de recursos — reduzindo desperdício e privilegiando fornecedores locais sempre que a qualidade o permite.</p></div>
     <div class="cell reveal"><h3>Cadeias de valor éticas</h3><p>Os nossos fornecedores e parceiros são seleccionados pela conduta, não apenas pela capacidade. Sustentabilidade que pára no nosso portão não é sustentabilidade.</p></div>
@@ -1170,7 +1335,7 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">Construa Connosco</p>
       <h2>A sustentabilidade é um <span class="lt">desporto de equipa.</span></h2>
-      <p class="lead">Se a sua organização partilha esta convicção — como cliente, parceiro ou participante nas nossas iniciativas — gostaríamos de falar consigo.</p>
+      <p class="lead">Se a sua organização partilha esta convicção, como cliente, parceiro ou participante nas nossas iniciativas, gostaríamos de falar consigo.</p>
     </div>
     <div class="reveal"><a class="btn" href="#contact">Contactar a INOV</a></div>
   </div>
@@ -1212,7 +1377,7 @@ header.home.has-cover .hero-cover::after{
     </div>
     <div class="pillars reveal">
       <div class="pillar"><h3><span>I</span>Responsabilidade</h3><p>Responsabilidade real desde o primeiro dia, com prestação de contas pelos resultados.</p></div>
-      <div class="pillar"><h3><span>II</span>Mobilidade</h3><p>Cresça entre cinco plataformas e três continentes de actividade.</p></div>
+      <div class="pillar"><h3><span>II</span>Mobilidade</h3><p>Cresça entre as plataformas do grupo e todos os sectores onde actua.</p></div>
       <div class="pillar"><h3><span>III</span>Exigência</h3><p>Rigor institucional e mentoria que elevam o nível do seu trabalho.</p></div>
     </div>
   </div>
@@ -1227,7 +1392,7 @@ header.home.has-cover .hero-cover::after{
     <div class="reveal">
       <p class="sec-label">Candidatar</p>
       <h2>Envie a sua <span class="lt">candidatura.</span></h2>
-      <p class="lead">Não vê a vaga certa? Estamos sempre interessados em pessoas excepcionais — envie uma candidatura espontânea e diga-nos onde pode acrescentar valor.</p>
+      <p class="lead">Não vê a vaga certa? Procuramos sempre pessoas excepcionais. Envie uma candidatura espontânea e diga-nos onde pode acrescentar valor.</p>
     </div>
     <div class="reveal">
       <form class="form" onsubmit="return submitForm(event,'application','pt')">
@@ -1264,7 +1429,7 @@ header.home.has-cover .hero-cover::after{
         <div><label for="pt-org">Organização</label><input id="pt-org" name="organisation" type="text"></div>
         <div><label for="pt-email">E-mail</label><input id="pt-email" name="email" type="email" required></div>
         <div><label for="pt-assunto">Assunto</label>
-          <select id="pt-assunto" name="subject"><option>Proposta comercial</option><option>Parceria</option><option>Imprensa</option><option>Outro</option></select></div>
+          <select id="pt-assunto" name="subject"><option>Proposta comercial</option><option>Serviços de consultoria</option><option>Parceria</option><option>Imprensa</option><option>Outro</option></select></div>
         <div><label for="pt-msg">Mensagem</label><textarea id="pt-msg" name="message" rows="6" required></textarea></div>
         <button type="submit">Enviar mensagem</button>
         <p class="form-note">Ao enviar, autoriza o tratamento dos seus dados para efeitos de resposta a este contacto.</p>
@@ -1284,7 +1449,7 @@ header.home.has-cover .hero-cover::after{
 </footer>
 
 <script>
-const PAGES = ['home', 'group', 'companies', 'sustainability', 'insights', 'careers', 'contact'];
+const PAGES = ['home', 'group', 'companies', 'advisory', 'sustainability', 'insights', 'careers', 'contact'];
 let LANG = 'en';
 let currentPage = 'home';
 let currentArticle = null;
@@ -1299,19 +1464,21 @@ let io;
 const INOV = {
   media: {
     cover: null,                 // hero cover image URL (admin-managed)
-    sectors: { infrastructure:null, finance:null, digital:null, creative:null } // by sector order
+    sectors: { infrastructure:null, finance:null, creative:null } // by sector order
   },
   companies: [
-    { name:'Meteoro',       word:'Meteoro',      color:'#C8102E', url:'#', cap:{en:'Infrastructure & Logistics', pt:'Infra-estrutura & Logística'},
-      desc:{en:'Integrated construction, logistics, transport and facilities management — serving the group’s own platforms and external clients with the scale and cadence that long-term infrastructure demands.', pt:'Construção, logística, transporte e gestão de instalações integradas — ao serviço das próprias plataformas do grupo e de clientes externos, com a escala e a cadência que a infra-estrutura de longo prazo exige.'} },
-    { name:'Hexa',          word:'Hexa',         color:'#1D4ED8', url:'#', cap:{en:'Insurance Brokerage', pt:'Corretagem de Seguros'},
-      desc:{en:'A licensed insurance broker supervised by ARSEG, acting as its clients’ risk-intelligence partner: it analyses, structures and negotiates cover — and widens the market through insurance literacy.', pt:'Corretora de seguros licenciada e supervisionada pela ARSEG, parceira de inteligência de risco dos seus clientes: analisa, estrutura e negoceia coberturas — e alarga o mercado através da literacia seguradora.'} },
-    { name:'Adventure',     word:'Adventure',    color:'#0EA5A4', url:'#', cap:{en:'Communication & Events', pt:'Comunicação & Eventos'},
-      desc:{en:'Communication and corporate events — strategy, brand activations and event production, with reach across the African continent.', pt:'Comunicação e eventos corporativos — estratégia, activações de marca e produção de eventos, com alcance em todo o continente africano.'} },
-    { name:'Factory Ideas', word:'Factory Ideas',color:'#F59E0B', url:'#', cap:{en:'Graphic Production', pt:'Produção Gráfica'},
-      desc:{en:'Graphic production and stand construction — turning ideas into physical brand presence, from print to built environments.', pt:'Produção gráfica e construção de stands — transforma ideias em presença física de marca, do impresso aos ambientes construídos.'} },
-    { name:'Publink',       word:'Publink',      color:'#10B981', url:'#', cap:{en:'Out-of-Home Media', pt:'Media Exterior'},
-      desc:{en:'Digital out-of-home media — billboard and screen rental in high-traffic locations that amplify brands across the city.', pt:'Media exterior digital — aluguer de outdoors e ecrãs em locais de grande tráfego que amplificam as marcas pela cidade.'} }
+    { name:'Meteoro', word:'Meteoro', color:'#C8102E', url:'https://meteoro24.com/', cap:{en:'Infrastructure & Logistics', pt:'Infra-estrutura & Logística'},
+      desc:{en:'Construction, logistics, transport and facilities management, for the group’s own platforms and for external clients.', pt:'Construção, logística, transporte e gestão de instalações, para as plataformas do grupo e para clientes externos.'},
+      services:{en:['Civil construction','Logistics and transport','Facilities management'], pt:['Construção civil','Logística e transporte','Gestão de instalações']} },
+    { name:'Hexa', word:'Hexa', color:'#1D4ED8', url:'https://hexa.ao/', cap:{en:'Insurance Brokerage', pt:'Corretagem de Seguros'},
+      desc:{en:'An insurance broker licensed and supervised by ARSEG. It analyses, structures and negotiates cover on its clients’ behalf.', pt:'Corretora de seguros licenciada e supervisionada pela ARSEG. Analisa, estrutura e negoceia coberturas em nome dos seus clientes.'},
+      services:{en:['Insurance brokerage','Risk advisory','Claims management'], pt:['Corretagem de seguros','Consultoria de risco','Gestão de sinistros']} },
+    { name:'Adventure', word:'Adventure', color:'#0EA5A4', url:'https://adventure.ao/', cap:{en:'Communication & Events', pt:'Comunicação & Eventos'},
+      desc:{en:'Corporate communication and events, from strategy through to production on the ground.', pt:'Comunicação e eventos corporativos, da estratégia à produção no terreno.'},
+      services:{en:['Corporate events','Brand activations','Strategic communication'], pt:['Eventos corporativos','Activações de marca','Comunicação estratégica']} },
+    { name:'Factory Ideas', word:'Factory Ideas', color:'#F59E0B', url:'https://www.factoryideas.ao/', cap:{en:'Graphic Production', pt:'Produção Gráfica'},
+      desc:{en:'Graphic production and stand construction, turning brand ideas into physical presence.', pt:'Produção gráfica e construção de stands, transformando ideias de marca em presença física.'},
+      services:{en:['Graphic production','Stand construction','Joinery and furniture'], pt:['Produção gráfica','Construção de stands','Carpintaria e mobiliário']} }
   ],
   publications: [
     { id:'p1', date:'2026-05-20', cover:null,
@@ -1360,9 +1527,18 @@ function renderCompanies(){
         : `<div class="cc-media cc-media--placeholder" style="--brand:${brand}"><span>${esc(c.word||c.name)}</span></div>`;
       const cap = c.cap ? `<span class="cc-cap">${esc(pick(c.cap,lg))}</span>` : '';
       const desc = (c.desc && pick(c.desc,lg)) ? `<p class="cc-desc">${esc(pick(c.desc,lg))}</p>` : '';
+      /* Services arrive as an array per language; tolerate a missing or partial field. */
+      const sArr = c.services ? (c.services[lg] || c.services.en || c.services.pt || []) : [];
+      const svc = sArr.length
+        ? `<div class="cc-svc"><span class="cc-svc-t">${lg==='pt'?'Principais serviços':'Key services'}</span><ul>${sArr.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div>`
+        : '';
       const real = c.url && c.url !== '#';
-      const link = real ? `<a class="cc-link" href="${escUrl(c.url)}" target="_blank" rel="noopener">${lg==='pt'?'Visitar website':'Visit website'} →</a>` : '';
-      return `<article class="company-card reveal" style="--brand:${brand}">${media}<div class="cc-body"><div class="cc-head"><h3>${name}</h3>${cap}</div>${desc}${link}</div></article>`;
+      const href = real ? escUrl(c.url) : '';
+      const host = real ? href.replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/$/,'') : '';
+      const foot = real
+        ? `<div class="cc-foot"><a class="cc-link" href="${href}" target="_blank" rel="noopener">${lg==='pt'?'Conhecer a empresa':'Visit the company'} →</a><a class="cc-host" href="${href}" target="_blank" rel="noopener">${esc(host)}</a></div>`
+        : '';
+      return `<article class="company-card reveal" style="--brand:${brand}">${media}<div class="cc-body"><div class="cc-head"><h3>${name}</h3>${cap}</div>${desc}${svc}${foot}</div></article>`;
     }).join('');
   });
 }

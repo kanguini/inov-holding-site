@@ -8,6 +8,11 @@ function paras(text) {
     .filter(Boolean);
 }
 
+// Services are stored one per line and surface as an array the cards can list.
+function lines(text) {
+  return String(text || '').split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+}
+
 export function shapePublication(r) {
   return {
     id: String(r.id),
@@ -30,6 +35,7 @@ export function shapeCompany(r) {
     logo: r.logo || null,
     cap: { en: r.cap_en || '', pt: r.cap_pt || '' },
     desc: { en: r.desc_en || '', pt: r.desc_pt || '' },
+    services: { en: lines(r.services_en), pt: lines(r.services_pt) },
   };
 }
 

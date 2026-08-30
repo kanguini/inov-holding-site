@@ -49,7 +49,9 @@ export async function q(sql, params = []) {
     return { insertId: res.insertId, affectedRows: res.affectedRows };
   }
   const stmt = sdb.prepare(sql);
-  if (/^\s*select/i.test(sql)) return stmt.all(...params);
+  // PRAGMA is a read too — without it, addColumnIfMissing() gets a write result
+  // back and the SQLite migration path throws.
+  if (/^\s*(select|pragma)/i.test(sql)) return stmt.all(...params);
   const info = stmt.run(...params);
   return { insertId: Number(info.lastInsertRowid), affectedRows: info.changes };
 }
@@ -129,6 +131,8 @@ async function migrate() {
   // Additive migrations: columns added after a table already shipped.
   await addColumnIfMissing('companies', 'desc_en', 'TEXT');
   await addColumnIfMissing('companies', 'desc_pt', 'TEXT');
+  await addColumnIfMissing('companies', 'services_en', 'TEXT');
+  await addColumnIfMissing('companies', 'services_pt', 'TEXT');
 }
 
 // Adds a column only when it is missing — safe to run on every boot, on a
@@ -150,25 +154,30 @@ async function addColumnIfMissing(table, col, type) {
 // backfill installations that predate the description field. Editable in admin.
 const COMPANY_DESCS = {
   'Meteoro': {
-    en: 'Integrated construction, logistics, transport and facilities management — serving the group’s own platforms and external clients with the scale and cadence that long-term infrastructure demands.',
-    pt: 'Construção, logística, transporte e gestão de instalações integradas — ao serviço das próprias plataformas do grupo e de clientes externos, com a escala e a cadência que a infra-estrutura de longo prazo exige.',
+    en: 'Construction, logistics, transport and facilities management, for the group’s own platforms and for external clients.',
+    pt: 'Construção, logística, transporte e gestão de instalações, para as plataformas do grupo e para clientes externos.',
   },
   'Hexa': {
-    en: 'A licensed insurance broker supervised by ARSEG, acting as its clients’ risk-intelligence partner: it analyses, structures and negotiates cover — and widens the market through insurance literacy.',
-    pt: 'Corretora de seguros licenciada e supervisionada pela ARSEG, parceira de inteligência de risco dos seus clientes: analisa, estrutura e negoceia coberturas — e alarga o mercado através da literacia seguradora.',
+    en: 'An insurance broker licensed and supervised by ARSEG. It analyses, structures and negotiates cover on its clients’ behalf.',
+    pt: 'Corretora de seguros licenciada e supervisionada pela ARSEG. Analisa, estrutura e negoceia coberturas em nome dos seus clientes.',
   },
   'Adventure': {
-    en: 'Communication and corporate events — strategy, brand activations and event production, with reach across the African continent.',
-    pt: 'Comunicação e eventos corporativos — estratégia, activações de marca e produção de eventos, com alcance em todo o continente africano.',
+    en: 'Corporate communication and events, from strategy through to production on the ground.',
+    pt: 'Comunicação e eventos corporativos, da estratégia à produção no terreno.',
   },
   'Factory Ideas': {
-    en: 'Graphic production and stand construction — turning ideas into physical brand presence, from print to built environments.',
-    pt: 'Produção gráfica e construção de stands — transforma ideias em presença física de marca, do impresso aos ambientes construídos.',
+    en: 'Graphic production and stand construction, turning brand ideas into physical presence.',
+    pt: 'Produção gráfica e construção de stands, transformando ideias de marca em presença física.',
   },
-  'Publink': {
-    en: 'Digital out-of-home media — billboard and screen rental in high-traffic locations that amplify brands across the city.',
-    pt: 'Media exterior digital — aluguer de outdoors e ecrãs em locais de grande tráfego que amplificam as marcas pela cidade.',
-  },
+};
+
+// Website and key services per company. Seeded on a fresh DB and backfilled
+// into installations created before these fields existed. Editable in admin.
+const COMPANY_META = {
+  'Meteoro':       { url: 'https://meteoro24.com/',       en: 'Civil construction\nLogistics and transport\nFacilities management',        pt: 'Construção civil\nLogística e transporte\nGestão de instalações' },
+  'Hexa':          { url: 'https://hexa.ao/',             en: 'Insurance brokerage\nRisk advisory\nClaims management',                     pt: 'Corretagem de seguros\nConsultoria de risco\nGestão de sinistros' },
+  'Adventure':     { url: 'https://adventure.ao/',        en: 'Corporate events\nBrand activations\nStrategic communication',              pt: 'Eventos corporativos\nActivações de marca\nComunicação estratégica' },
+  'Factory Ideas': { url: 'https://www.factoryideas.ao/', en: 'Graphic production\nStand construction\nJoinery and furniture',             pt: 'Produção gráfica\nConstrução de stands\nCarpintaria e mobiliário' },
 };
 
 async function seed() {
@@ -225,15 +234,15 @@ async function seed() {
       ['Hexa', 'Hexa', '#1D4ED8', 'Insurance Brokerage', 'Corretagem de Seguros'],
       ['Adventure', 'Adventure', '#0EA5A4', 'Communication & Events', 'Comunicação & Eventos'],
       ['Factory Ideas', 'Factory Ideas', '#F59E0B', 'Graphic Production', 'Produção Gráfica'],
-      ['Publink', 'Publink', '#10B981', 'Out-of-Home Media', 'Media Exterior'],
     ];
     let ord = 0;
     for (const c of comps) {
       const d = COMPANY_DESCS[c[0]] || { en: '', pt: '' };
+      const m = COMPANY_META[c[0]] || { url: '#', en: '', pt: '' };
       await q(
-        `INSERT INTO companies (name, word, color, url, cap_en, cap_pt, desc_en, desc_pt, sort_order)
-         VALUES (?,?,?,?,?,?,?,?,?)`,
-        [c[0], c[1], c[2], '#', c[3], c[4], d.en, d.pt, ord++]
+        `INSERT INTO companies (name, word, color, url, cap_en, cap_pt, desc_en, desc_pt, services_en, services_pt, sort_order)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+        [c[0], c[1], c[2], m.url, c[3], c[4], d.en, d.pt, m.en, m.pt, ord++]
       );
     }
     console.log('[db] seeded companies');
@@ -245,6 +254,16 @@ async function seed() {
     await q(
       `UPDATE companies SET desc_en=?, desc_pt=? WHERE name=? AND (desc_en IS NULL OR desc_en='')`,
       [d.en, d.pt, name]
+    );
+  }
+
+  // Same rule for website and services: fill only what is still empty, so an
+  // edit made in admin is never overwritten on the next boot.
+  for (const [name, m] of Object.entries(COMPANY_META)) {
+    await q(`UPDATE companies SET url=? WHERE name=? AND (url IS NULL OR url='' OR url='#')`, [m.url, name]);
+    await q(
+      `UPDATE companies SET services_en=?, services_pt=? WHERE name=? AND (services_en IS NULL OR services_en='')`,
+      [m.en, m.pt, name]
     );
   }
 
@@ -269,7 +288,7 @@ async function seed() {
   // Default media settings.
   const media = await one('SELECT svalue FROM settings WHERE skey = ?', ['media']);
   if (!media) {
-    const def = { cover: null, coverFit: 'cover', coverPos: '50% 50%', sectors: { infrastructure: null, finance: null, digital: null, creative: null } };
+    const def = { cover: null, coverFit: 'cover', coverPos: '50% 50%', sectors: { infrastructure: null, finance: null, creative: null } };
     await setSetting('media', def);
   }
 }

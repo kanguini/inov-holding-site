@@ -25,7 +25,7 @@ router.get('/content', async (req, res) => {
       getSetting('media'),
     ]);
     res.json({
-      media: media || { cover: null, sectors: { infrastructure: null, finance: null, digital: null, creative: null } },
+      media: media || { cover: null, sectors: { infrastructure: null, finance: null, creative: null } },
       companies: comps.map(shapeCompany),
       publications: pubs.map(shapePublication),
       positions: pos.map(shapePosition),

@@ -133,11 +133,12 @@ router.get('/companies', async (req, res) => {
 router.post('/companies', async (req, res) => {
   const b = req.body || {};
   const r = await q(
-    `INSERT INTO companies (name, word, color, url, logo, cap_en, cap_pt, desc_en, desc_pt, sort_order)
-     VALUES (?,?,?,?,?,?,?,?,?,?)`,
+    `INSERT INTO companies (name, word, color, url, logo, cap_en, cap_pt, desc_en, desc_pt, services_en, services_pt, sort_order)
+     VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
     [clean(b.name, 200), clean(b.word, 200), clean(b.color, 20) || '#002F55', clean(b.url, 500) || '#',
      clean(b.logo, 500) || null, clean(b.cap_en, 200), clean(b.cap_pt, 200),
-     clean(b.desc_en, 800), clean(b.desc_pt, 800), num(b.sort_order)]
+     clean(b.desc_en, 800), clean(b.desc_pt, 800),
+     clean(b.services_en, 500), clean(b.services_pt, 500), num(b.sort_order)]
   );
   res.json({ ok: true, id: r.insertId });
 });
@@ -145,10 +146,11 @@ router.post('/companies', async (req, res) => {
 router.put('/companies/:id', async (req, res) => {
   const b = req.body || {};
   await q(
-    `UPDATE companies SET name=?, word=?, color=?, url=?, logo=?, cap_en=?, cap_pt=?, desc_en=?, desc_pt=?, sort_order=? WHERE id=?`,
+    `UPDATE companies SET name=?, word=?, color=?, url=?, logo=?, cap_en=?, cap_pt=?, desc_en=?, desc_pt=?, services_en=?, services_pt=?, sort_order=? WHERE id=?`,
     [clean(b.name, 200), clean(b.word, 200), clean(b.color, 20) || '#002F55', clean(b.url, 500) || '#',
      clean(b.logo, 500) || null, clean(b.cap_en, 200), clean(b.cap_pt, 200),
-     clean(b.desc_en, 800), clean(b.desc_pt, 800), num(b.sort_order), num(req.params.id)]
+     clean(b.desc_en, 800), clean(b.desc_pt, 800),
+     clean(b.services_en, 500), clean(b.services_pt, 500), num(b.sort_order), num(req.params.id)]
   );
   res.json({ ok: true });
 });
@@ -176,7 +178,6 @@ router.put('/media', async (req, res) => {
     sectors: {
       infrastructure: b?.sectors?.infrastructure || null,
       finance: b?.sectors?.finance || null,
-      digital: b?.sectors?.digital || null,
       creative: b?.sectors?.creative || null,
     },
   };

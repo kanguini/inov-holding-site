@@ -5,16 +5,19 @@ import { one, q } from './db.js';
 
 const COOKIE = 'inov_admin';
 const IS_PROD = process.env.NODE_ENV === 'production';
-// Fail closed: em produção, um JWT_SECRET ausente significaria assinar as sessões
-// admin com uma constante do repositório — qualquer pessoa forjaria um cookie
-// válido. Recusar arrancar em vez de degradar em silêncio.
-if (IS_PROD && !process.env.JWT_SECRET) {
-  throw new Error('[inov] JWT_SECRET obrigatório em produção — defina-o nas variáveis de ambiente.');
+// Fail closed, mas SEM derrubar o site: em produção sem JWT_SECRET, o painel
+// admin fica desactivado (login e sessões recusados) em vez de a app assinar
+// sessões com uma constante do repositório. O site público não é afectado.
+const ADMIN_DISABLED = IS_PROD && !process.env.JWT_SECRET;
+if (ADMIN_DISABLED) {
+  console.warn('[inov] painel admin DESACTIVADO: defina JWT_SECRET nas variáveis de ambiente para o activar.');
 }
+export function adminDisabled() { return ADMIN_DISABLED; }
 const SECRET = process.env.JWT_SECRET || 'dev-insecure-secret-change-me';
 const MAX_AGE = 1000 * 60 * 60 * 8; // 8 hours
 
 export async function login(email, password) {
+  if (ADMIN_DISABLED) return null;
   const row = await one('SELECT * FROM admins WHERE email = ?', [String(email || '').toLowerCase()]);
   if (!row) return null;
   if (!bcrypt.compareSync(String(password || ''), row.password_hash)) return null;
@@ -36,6 +39,7 @@ export function clearAuthCookie(res) {
 
 // Express middleware — rejects unauthenticated requests.
 export function requireAuth(req, res, next) {
+  if (ADMIN_DISABLED) return res.status(503).json({ error: 'admin_unconfigured', detail: 'Defina JWT_SECRET para activar o painel.' });
   const token = req.cookies?.[COOKIE];
   if (!token) return res.status(401).json({ error: 'unauthorized' });
   try {

@@ -45,22 +45,26 @@ export function initDbWithRetry({ onReady } = {}) {
 
 export async function initDb() {
   if (USE_MYSQL) {
-    const mysql = await import('mysql2/promise');
-    pool = mysql.createPool({
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT || 3306),
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      waitForConnections: true,
-      connectionLimit: 5,
-      charset: 'utf8mb4',
-    });
-    await pool.query('SELECT 1');
+    if (!pool) {
+      const mysql = await import('mysql2/promise');
+      pool = mysql.createPool({
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT || 3306),
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        waitForConnections: true,
+        connectionLimit: 5,
+        charset: 'utf8mb4',
+      });
+    }
+    await pool.query('SELECT 1'); // retentado a cada arranque; o pool é reutilizado
   } else {
-    const { default: Database } = await import('better-sqlite3');
-    sdb = new Database(process.env.SQLITE_PATH || './data.sqlite');
-    sdb.pragma('journal_mode = WAL');
+    if (!sdb) {
+      const { default: Database } = await import('better-sqlite3');
+      sdb = new Database(process.env.SQLITE_PATH || './data.sqlite');
+      sdb.pragma('journal_mode = WAL');
+    }
   }
   await migrate();
   await seed();
@@ -283,20 +287,16 @@ async function seed() {
   // Backfill descriptions for companies seeded before the field existed.
   // Only fills empties — never clobbers a description edited in admin.
   for (const [name, d] of Object.entries(COMPANY_DESCS)) {
-    await q(
-      `UPDATE companies SET desc_en=?, desc_pt=? WHERE name=? AND (desc_en IS NULL OR desc_en='')`,
-      [d.en, d.pt, name]
-    );
+    await q(`UPDATE companies SET desc_en=? WHERE name=? AND (desc_en IS NULL OR desc_en='')`, [d.en, name]);
+    await q(`UPDATE companies SET desc_pt=? WHERE name=? AND (desc_pt IS NULL OR desc_pt='')`, [d.pt, name]);
   }
 
   // Same rule for website and services: fill only what is still empty, so an
   // edit made in admin is never overwritten on the next boot.
   for (const [name, m] of Object.entries(COMPANY_META)) {
     await q(`UPDATE companies SET url=? WHERE name=? AND (url IS NULL OR url='' OR url='#')`, [m.url, name]);
-    await q(
-      `UPDATE companies SET services_en=?, services_pt=? WHERE name=? AND (services_en IS NULL OR services_en='')`,
-      [m.en, m.pt, name]
-    );
+    await q(`UPDATE companies SET services_en=? WHERE name=? AND (services_en IS NULL OR services_en='')`, [m.en, name]);
+    await q(`UPDATE companies SET services_pt=? WHERE name=? AND (services_pt IS NULL OR services_pt='')`, [m.pt, name]);
   }
 
   const posCount = await one('SELECT COUNT(*) AS n FROM positions');

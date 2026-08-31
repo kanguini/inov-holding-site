@@ -149,7 +149,8 @@
 
 <script>
 const $ = (s,r=document)=>r.querySelector(s);
-const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const escUrl = u => { try { const p=new URL(u, location.href); return ['http:','https:','mailto:'].includes(p.protocol)?p.href:'#'; } catch(e){ return '#'; } };
 function toast(msg,bad){ const t=$('#toast'); t.textContent=msg; t.className='toast show'+(bad?' bad':''); setTimeout(()=>t.className='toast',2400); }
 
 async function api(path, opts={}){
@@ -438,7 +439,7 @@ async function renderApplications(v){
     openDrawer('Candidatura', `<div class="detail">
       <p class="lbl">Candidato</p><p>${esc(r.name)} &lt;${esc(r.email)}&gt;</p>
       <p class="lbl">Vaga</p><p>${esc(r.position||'—')}</p>
-      <p class="lbl">Link</p><p>${r.link?`<a href="${esc(r.link)}" target="_blank">${esc(r.link)}</a>`:'—'}</p>
+      <p class="lbl">Link</p><p>${r.link?`<a href="${escUrl(r.link)}" target="_blank" rel="noopener noreferrer">${esc(r.link)}</a>`:'—'}</p>
       <p class="lbl">CV</p><p>${r.cv?`<a href="${esc(r.cv)}" target="_blank">Descarregar ficheiro</a>`:'— (sem ficheiro)'}</p>
       <p class="lbl">Data</p><p>${esc(String(r.created_at).replace('T',' ').slice(0,19))}</p>
       <p class="lbl">Mensagem</p><p style="white-space:pre-wrap">${esc(r.message)}</p></div>`,

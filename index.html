@@ -1511,7 +1511,7 @@ const INOV = {
       summary:{en:'Run integrated logistics for Meteoro and group clients.', pt:'Gerir a logística integrada da Meteoro e clientes do grupo.'} },
   ]
 };
-function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function escUrl(u){ try{ const p=new URL(u,location.href); return ['http:','https:','mailto:'].includes(p.protocol)?p.href:'#'; }catch(e){ return '#'; } }
 function fmtDate(iso, lg){ try{ return new Date(iso+'T00:00:00').toLocaleDateString(lg==='pt'?'pt-PT':'en-GB',{day:'2-digit',month:'short',year:'numeric'}); }catch(e){ return iso; } }
 function pick(o, lg){ return o ? (o[lg] || o.en || o.pt || '') : ''; }
@@ -1547,7 +1547,7 @@ function renderInsights(){
     const el = document.getElementById('insights-'+lg); if(!el) return;
     if(!INOV.publications.length){ el.innerHTML = `<p class="pub-empty">${lg==='pt'?'Sem publicações por agora.':'No publications yet.'}</p>`; return; }
     el.innerHTML = INOV.publications.map(p=>{
-      const cov = p.cover ? `style="background-image:url('${p.cover}')"` : '';
+      const cov = p.cover ? `style="background-image:url('${escUrl(p.cover)}')"` : '';
       return `<button class="pub-card reveal" data-pub="${esc(p.id)}"><div class="pub-cover" ${cov}></div><div class="pub-meta"><span>${esc(pick(p.cat,lg))}</span><span>${fmtDate(p.date,lg)}</span></div><h3>${esc(pick(p.title,lg))}</h3><p>${esc(pick(p.excerpt,lg))}</p><span class="pub-more">${lg==='pt'?'Ler mais':'Read more'} →</span></button>`;
     }).join('');
   });
@@ -1679,7 +1679,8 @@ function render(){
 }
 function showPage(pid){
   if(pid && pid.indexOf('article/')===0){
-    currentArticle = decodeURIComponent(pid.slice('article/'.length));
+    try { currentArticle = decodeURIComponent(pid.slice('article/'.length)); }
+    catch(e){ currentArticle = pid.slice('article/'.length); }
     currentPage = 'article';
     render();
     setNavMode();
@@ -1753,9 +1754,11 @@ document.addEventListener('click', function(ev){
   }
   const a = ev.target.closest('a[href^="#"]');
   if(!a) return;
+  const href = a.getAttribute('href');
+  if(href === '#main-content'){ ev.preventDefault(); const m=document.getElementById('main-content'); if(m){ m.focus(); m.scrollIntoView(); } return; }
   ev.preventDefault();
   closeMenu();
-  showPage(a.getAttribute('href').slice(1));
+  showPage(href.slice(1));
 }, true);
 document.addEventListener('keydown', e=>{ if(e.key==='Escape' && currentPage==='article') showPage('insights'); });
 window.addEventListener('hashchange', ()=>showPage((location.hash||'#home').slice(1)));

@@ -12,6 +12,14 @@ const loginLimit = rateLimit({ windowMs: 5 * 60_000, max: 10, message: 'too_many
 const clean = (v, max = 5000) => String(v == null ? '' : v).trim().slice(0, max);
 const num = (v, d = 0) => (Number.isFinite(Number(v)) ? Number(v) : d);
 
+// Valida qualquer :id de rota uma só vez; rejeita ids malformados com 400.
+router.param('id', (req, res, next, val) => {
+  const n = Number(val);
+  if (!Number.isInteger(n) || n <= 0) return res.status(400).json({ error: 'invalid_id' });
+  req.idNum = n;
+  next();
+});
+
 // ── Auth ─────────────────────────────────────────────────────────────────
 router.post('/login', loginLimit, async (req, res) => {
   const token = await login(req.body?.email, req.body?.password);
@@ -78,13 +86,13 @@ router.put('/publications/:id', async (req, res) => {
     [clean(b.pdate, 10), clean(b.cover, 500) || null, clean(b.cat_en, 120), clean(b.cat_pt, 120),
      clean(b.title_en, 300), clean(b.title_pt, 300), clean(b.excerpt_en), clean(b.excerpt_pt),
      clean(b.body_en, 20000), clean(b.body_pt, 20000), b.status === 'draft' ? 'draft' : 'published',
-     num(b.sort_order), num(req.params.id)]
+     num(b.sort_order), req.idNum]
   );
   res.json({ ok: true });
 });
 
 router.delete('/publications/:id', async (req, res) => {
-  await q('DELETE FROM publications WHERE id=?', [num(req.params.id)]);
+  await q('DELETE FROM publications WHERE id=?', [req.idNum]);
   res.json({ ok: true });
 });
 
@@ -115,13 +123,13 @@ router.put('/positions/:id', async (req, res) => {
      WHERE id=?`,
     [clean(b.location, 200), clean(b.title_en, 300), clean(b.title_pt, 300), clean(b.dept_en, 120),
      clean(b.dept_pt, 120), clean(b.type_en, 120), clean(b.type_pt, 120), clean(b.summary_en),
-     clean(b.summary_pt), b.status === 'closed' ? 'closed' : 'open', num(b.sort_order), num(req.params.id)]
+     clean(b.summary_pt), b.status === 'closed' ? 'closed' : 'open', num(b.sort_order), req.idNum]
   );
   res.json({ ok: true });
 });
 
 router.delete('/positions/:id', async (req, res) => {
-  await q('DELETE FROM positions WHERE id=?', [num(req.params.id)]);
+  await q('DELETE FROM positions WHERE id=?', [req.idNum]);
   res.json({ ok: true });
 });
 
@@ -150,13 +158,13 @@ router.put('/companies/:id', async (req, res) => {
     [clean(b.name, 200), clean(b.word, 200), clean(b.color, 20) || '#002F55', clean(b.url, 500) || '#',
      clean(b.logo, 500) || null, clean(b.cap_en, 200), clean(b.cap_pt, 200),
      clean(b.desc_en, 800), clean(b.desc_pt, 800),
-     clean(b.services_en, 500), clean(b.services_pt, 500), num(b.sort_order), num(req.params.id)]
+     clean(b.services_en, 500), clean(b.services_pt, 500), num(b.sort_order), req.idNum]
   );
   res.json({ ok: true });
 });
 
 router.delete('/companies/:id', async (req, res) => {
-  await q('DELETE FROM companies WHERE id=?', [num(req.params.id)]);
+  await q('DELETE FROM companies WHERE id=?', [req.idNum]);
   res.json({ ok: true });
 });
 
@@ -191,12 +199,12 @@ router.get('/messages', async (req, res) => {
 });
 
 router.patch('/messages/:id', async (req, res) => {
-  await q('UPDATE messages SET is_read=? WHERE id=?', [req.body?.is_read ? 1 : 0, num(req.params.id)]);
+  await q('UPDATE messages SET is_read=? WHERE id=?', [req.body?.is_read ? 1 : 0, req.idNum]);
   res.json({ ok: true });
 });
 
 router.delete('/messages/:id', async (req, res) => {
-  await q('DELETE FROM messages WHERE id=?', [num(req.params.id)]);
+  await q('DELETE FROM messages WHERE id=?', [req.idNum]);
   res.json({ ok: true });
 });
 
@@ -206,12 +214,12 @@ router.get('/applications', async (req, res) => {
 });
 
 router.patch('/applications/:id', async (req, res) => {
-  await q('UPDATE applications SET is_read=? WHERE id=?', [req.body?.is_read ? 1 : 0, num(req.params.id)]);
+  await q('UPDATE applications SET is_read=? WHERE id=?', [req.body?.is_read ? 1 : 0, req.idNum]);
   res.json({ ok: true });
 });
 
 router.delete('/applications/:id', async (req, res) => {
-  await q('DELETE FROM applications WHERE id=?', [num(req.params.id)]);
+  await q('DELETE FROM applications WHERE id=?', [req.idNum]);
   res.json({ ok: true });
 });
 

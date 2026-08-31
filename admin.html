@@ -453,15 +453,15 @@ async function renderApplications(v){
 function renderAccount(v){
   v.innerHTML=`<div class="head"><div><h1>Conta</h1><div class="sub">Alterar palavra-passe de administrador</div></div></div>
     <div class="field-group" style="max-width:420px">
-      <label>Palavra-passe atual</label><input id="a-cur" type="password">
+      <label>Palavra-passe actual</label><input id="a-cur" type="password">
       <label>Nova palavra-passe (mín. 8 caracteres)</label><input id="a-new" type="password">
       <label>Confirmar nova palavra-passe</label><input id="a-conf" type="password">
-      <button class="btn" id="a-save" style="margin-top:16px">Atualizar palavra-passe</button>
+      <button class="btn" id="a-save" style="margin-top:16px">Actualizar palavra-passe</button>
     </div>`;
   $('#a-save').onclick=async()=>{
     if(val('a-new')!==val('a-conf')) return toast('As palavras-passe não coincidem',true);
-    try{ await api('/admin/password',{method:'POST',body:JSON.stringify({current:val('a-cur'),next:val('a-new')})}); toast('Palavra-passe atualizada'); $('#a-cur').value=$('#a-new').value=$('#a-conf').value=''; }
-    catch(err){ toast(err.message==='wrong_password'?'Palavra-passe atual incorreta':err.message==='weak_password'?'Mínimo 8 caracteres':'Erro',true); }
+    try{ await api('/admin/password',{method:'POST',body:JSON.stringify({current:val('a-cur'),next:val('a-new')})}); toast('Palavra-passe actualizada'); $('#a-cur').value=$('#a-new').value=$('#a-conf').value=''; }
+    catch(err){ toast(err.message==='wrong_password'?'Palavra-passe actual incorrecta':err.message==='weak_password'?'Mínimo 8 caracteres':'Erro',true); }
   };
 }
 

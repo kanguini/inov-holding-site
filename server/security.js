@@ -7,6 +7,10 @@ export function securityHeaders(req, res, next) {
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  // CSP com 'unsafe-inline' (o site usa <style>/<script> inline), mas a
+  // restringir tudo o resto: sem objectos, sem enquadramento externo, e
+  // recursos só da própria origem + Google Fonts. Reduz o alcance de um XSS.
+  res.setHeader('Content-Security-Policy', "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'");
   next();
 }
 

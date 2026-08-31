@@ -38,7 +38,9 @@ export const uploadImage = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const ok = /\.(png|jpg|jpeg|webp|svg|gif)$/i.test(file.originalname);
+    // SVG excluído de propósito: um SVG servido inline em /uploads executaria
+    // script (XSS armazenado). Só formatos raster.
+    const ok = /\.(png|jpg|jpeg|webp|gif)$/i.test(file.originalname);
     cb(ok ? null : new Error('invalid_file_type'), ok);
   },
 });

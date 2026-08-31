@@ -43,16 +43,29 @@ app.use('/api/admin', adminRoutes);
 // Liveness/readiness, so an outage can be diagnosed without shell access.
 app.get('/healthz', (req, res) => {
   const err = dbLastError();
+  const isProd = process.env.NODE_ENV === 'production';
   res.status(dbReady() ? 200 : 503).json({
     ok: dbReady(),
     db: dbReady() ? 'ready' : 'unavailable',
-    ...(err ? { lastError: `${err.code || err.name}: ${err.message}` } : {}),
+    // Em produção só o código/nome do erro — a mensagem crua revela caminhos do
+    // servidor. O detalhe completo fica nos logs.
+    ...(err ? { lastError: isProd ? (err.code || err.name || 'error') : `${err.code || err.name}: ${err.message}` } : {}),
     uptimeSeconds: Math.round(process.uptime()),
   });
 });
 
 // Uploaded files
 app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '7d' }));
+
+// Defense-in-depth: block sensitive paths before the static handler, so the
+// server code, local DB and secrets are never served even if STATIC falls back
+// to the repo root (dist/ missing).
+app.use((req, res, next) => {
+  if (/\.(sqlite|sqlite-wal|sqlite-shm|env)$|^\/(server|nodejs|node_modules)(\/|$)|(^|\/)\.env/i.test(req.path)) {
+    return res.status(404).end();
+  }
+  next();
+});
 
 // Static frontend assets
 app.use(express.static(STATIC, { index: false, maxAge: '1h' }));

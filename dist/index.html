@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>INOV Holding — Intelligent Management, Sustainable Growth</title>
-<meta name="description" content="INOV Holding is an Angolan holding company: business platforms across the strategic sectors of the economy, headquartered in Luanda — and the way in for international companies operating and building projects in Angola.">
+<meta name="description" content="Angolan holding company headquartered in Luanda — business platforms across strategic sectors, and the entry point for companies operating in Angola.">
 <meta name="theme-color" content="#002F55">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://inovholding.com/">
@@ -20,7 +20,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="INOV Holding — Intelligent Management, Sustainable Growth">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="pt_AO">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="INOV Holding">
@@ -1669,6 +1669,20 @@ function render(){
   });
   const tl = document.querySelector('footer .tagline');
   if(tl) tl.textContent = LANG==='pt' ? 'Gestão Inteligente, Crescimento Sustentável.' : 'Intelligent Management, Sustainable Growth.';
+  // Título da página, por rota e idioma — antes as 8 páginas partilhavam um só.
+  const BRAND = 'INOV Holding';
+  let docTitle;
+  if(currentPage==='home'){
+    docTitle = LANG==='pt' ? BRAND+' — Gestão Inteligente, Crescimento Sustentável'
+                           : BRAND+' — Intelligent Management, Sustainable Growth';
+  } else if(currentPage==='article'){
+    const ah = page.querySelector('.article-head h1, h1');
+    docTitle = (ah ? ah.textContent.trim() : (LANG==='pt'?'Insights':'Insights')) + ' — ' + BRAND;
+  } else {
+    const k = page.querySelector('.kicker');
+    docTitle = (k ? k.textContent.trim() : currentPage) + ' — ' + BRAND;
+  }
+  document.title = docTitle;
   window.scrollTo(0,0);
   const hash = currentPage==='article' && currentArticle ? 'article/'+currentArticle : currentPage;
   try{ history.replaceState(null,'','#'+hash); }catch(e){}

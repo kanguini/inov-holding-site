@@ -1,7 +1,7 @@
 # INOV Holding — Institutional Website + Admin
 
 Bilingual (EN/PT) institutional website for **INOV Holding**, an Angolan
-holding company headquartered in Luanda and active on three continents, now with a
+holding company headquartered in Luanda, now with a
 self-hosted content/admin backend.
 
 *Intelligent Management, Sustainable Growth.*
@@ -9,8 +9,8 @@ self-hosted content/admin backend.
 ## Overview
 
 - **Bilingual** EN/PT, switchable in-page (no reload).
-- **Client-side routing** across sections: Home, The Group, Sectors, Presence,
-  Governance, Sustainability, **Insights**, **Careers**, Contact.
+- **Client-side routing** across 8 pages: Home, About, Companies, Advisory,
+  Sustainability, **Insights**, **Careers**, Contact.
 - **Data-driven**: publications, group companies, open positions and site images
   are loaded from the API (`GET /api/content`) with a graceful fallback to built-in
   defaults when no API is present (e.g. the static GitHub Pages mirror).
@@ -76,7 +76,7 @@ Forms require the backend, so the live site should be the Hostinger deployment.
 
 ## Contact
 
-- General: geral@inovholding.ao
+- General: geral@inovholding.com
 - Partnerships: parcerias@inovholding.ao
 
 ---

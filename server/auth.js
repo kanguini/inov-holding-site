@@ -4,6 +4,13 @@ import bcrypt from 'bcryptjs';
 import { one, q } from './db.js';
 
 const COOKIE = 'inov_admin';
+const IS_PROD = process.env.NODE_ENV === 'production';
+// Fail closed: em produção, um JWT_SECRET ausente significaria assinar as sessões
+// admin com uma constante do repositório — qualquer pessoa forjaria um cookie
+// válido. Recusar arrancar em vez de degradar em silêncio.
+if (IS_PROD && !process.env.JWT_SECRET) {
+  throw new Error('[inov] JWT_SECRET obrigatório em produção — defina-o nas variáveis de ambiente.');
+}
 const SECRET = process.env.JWT_SECRET || 'dev-insecure-secret-change-me';
 const MAX_AGE = 1000 * 60 * 60 * 8; // 8 hours
 
@@ -18,7 +25,7 @@ export function setAuthCookie(res, token) {
   res.cookie(COOKIE, token, {
     httpOnly: true,
     sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    secure: IS_PROD,
     maxAge: MAX_AGE,
   });
 }

@@ -211,6 +211,12 @@ async function seed() {
   const email = (process.env.ADMIN_EMAIL || 'admin@inovholding.com').toLowerCase();
   const existing = await one('SELECT id FROM admins WHERE email = ?', [email]);
   if (!existing) {
+    // Fail closed: nunca criar um admin com a password por omissão em produção.
+    // O seed corre só uma vez, pelo que uma conta-armadilha criada aqui ficaria
+    // em permanência; melhor recusar do que semear credenciais conhecidas.
+    if (process.env.NODE_ENV === 'production' && !process.env.ADMIN_PASSWORD) {
+      throw new Error('[inov] ADMIN_PASSWORD obrigatório no primeiro arranque em produção — defina-o nas variáveis de ambiente.');
+    }
     const hash = bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'change-me-now', 10);
     await q('INSERT INTO admins (email, password_hash) VALUES (?, ?)', [email, hash]);
     console.log(`[db] seeded admin: ${email}`);

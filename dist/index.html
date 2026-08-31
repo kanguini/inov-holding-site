@@ -48,6 +48,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip-link{position:absolute;left:1rem;top:-4rem;z-index:1000;background:var(--navy);color:#fff;padding:.65rem 1.1rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;transition:top .2s ease}
 .skip-link:focus{top:1rem;outline:3px solid rgba(255,255,255,.6);outline-offset:2px}
 :focus-visible{outline:3px solid var(--steel);outline-offset:2px}
@@ -290,7 +291,7 @@ header.home.has-cover .hero-cover .cover-tag{display:none}
 .cc-body{display:flex;flex-direction:column;gap:.9rem;padding:1.8rem}
 .cc-head{display:flex;flex-direction:column;gap:.35rem}
 .cc-head h3{font-size:clamp(1.3rem,2.2vw,1.6rem);line-height:1.1}
-.cc-cap{font-family:var(--head);font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--brand)}
+.cc-cap{font-family:var(--head);font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--steel)}
 .cc-desc{color:var(--grey);font-size:.95rem;line-height:1.6;max-width:54ch}
 .cc-body{flex:1}
 .cc-svc{border-top:1px solid var(--line);padding-top:.95rem}
@@ -560,9 +561,9 @@ header.home.has-cover .hero-cover::after{
   <div class="nav-right">
     <ul class="nav-links" id="nav-en"><li><a href="#home" data-nav="home">Home</a></li><li><a href="#group" data-nav="group">About</a></li><li><a href="#companies" data-nav="companies">Companies</a></li><li><a href="#advisory" data-nav="advisory">Advisory</a></li><li><a href="#sustainability" data-nav="sustainability">Sustainability</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Careers</a></li><li><a href="#contact" data-nav="contact">Contact</a></li></ul>
     <ul class="nav-links" id="nav-pt" style="display:none"><li><a href="#home" data-nav="home">Início</a></li><li><a href="#group" data-nav="group">Sobre Nós</a></li><li><a href="#companies" data-nav="companies">Empresas</a></li><li><a href="#advisory" data-nav="advisory">Consultoria</a></li><li><a href="#sustainability" data-nav="sustainability">Sustentabilidade</a></li><li><a href="#insights" data-nav="insights">Insights</a></li><li><a href="#careers" data-nav="careers">Carreiras</a></li><li><a href="#contact" data-nav="contact">Contacto</a></li></ul>
-    <div class="lang-toggle">
-      <button data-lang="en" class="active">EN</button>
-      <button data-lang="pt">PT</button>
+    <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+      <button data-lang="en" class="active" aria-pressed="true">EN</button>
+      <button data-lang="pt" aria-pressed="false">PT</button>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
@@ -760,6 +761,7 @@ header.home.has-cover .hero-cover::after{
 <header class="page"><p class="kicker">Companies</p><h1>The companies we <span class="lt">build.</span></h1><p class="hero-sub">Independent platforms, one shared standard — each operating in its own market with its own team, together forming the group's integrated value chain.</p></header>
 
 <section>
+  <h2 class="sr-only">Our companies</h2>
   <div class="company-cards reveal" id="companies-en"></div>
 </section>
 
@@ -911,6 +913,7 @@ header.home.has-cover .hero-cover::after{
 <header class="page"><p class="kicker">Insights</p><h1>Ideas from <span class="lt">the ground up.</span></h1><p class="hero-sub">Perspectives, announcements and reports from across the group — on the sectors, markets and ideas shaping how value is built in Angola and beyond.</p></header>
 <section>
   <p class="sec-label">Latest</p>
+  <h2 class="sr-only">Latest publications</h2>
   <div class="pub-grid" id="insights-en"></div>
 </section>
 </div>
@@ -1195,6 +1198,7 @@ header.home.has-cover .hero-cover::after{
 <header class="page"><p class="kicker">Empresas</p><h1>As empresas que <span class="lt">construímos.</span></h1><p class="hero-sub">Plataformas independentes, um padrão comum — cada uma a operar no seu mercado com a sua equipa, juntas formando a cadeia de valor integrada do grupo.</p></header>
 
 <section>
+  <h2 class="sr-only">As nossas empresas</h2>
   <div class="company-cards reveal" id="companies-pt"></div>
 </section>
 
@@ -1346,6 +1350,7 @@ header.home.has-cover .hero-cover::after{
 <header class="page"><p class="kicker">Insights</p><h1>Ideias desde <span class="lt">a base.</span></h1><p class="hero-sub">Perspectivas, anúncios e relatórios de todo o grupo — sobre os sectores, os mercados e as ideias que moldam a forma como se constrói valor em Angola e além-fronteiras.</p></header>
 <section>
   <p class="sec-label">Mais Recentes</p>
+  <h2 class="sr-only">Publicações recentes</h2>
   <div class="pub-grid" id="insights-pt"></div>
 </section>
 </div>
@@ -1630,11 +1635,15 @@ async function submitForm(ev, type, lang){
                 pt:'Não foi possível enviar — escreva para geral@inovholding.com' };
   const sending = { en:'Sending…', pt:'A enviar…' };
   const endpoint = '/api/'+(type==='application'?'applications':'messages');
+  let live = f.querySelector('.form-live');
+  if(!live){ live=document.createElement('p'); live.className='form-live sr-only'; live.setAttribute('role','status'); live.setAttribute('aria-live','polite'); f.appendChild(live); }
   if(btn){ btn.disabled=true; btn.textContent = sending[lang]||sending.en; }
   try{
     const res = await fetch(endpoint, { method:'POST', body:new FormData(f) });
     if(!res.ok) throw new Error('bad');
-    if(btn) btn.textContent = (ok[lang]||ok.en)[type];
+    const okMsg = (ok[lang]||ok.en)[type];
+    if(btn) btn.textContent = okMsg;
+    live.textContent = okMsg;
     f.reset();
   }catch(e){
     if(btn){ btn.disabled=false; btn.textContent = label || ((lang==='pt'?'Enviar':'Send')); }
@@ -1655,7 +1664,7 @@ function render(){
   document.querySelectorAll('.lang-wrap').forEach(w=>w.classList.toggle('active', w.id==='wrap-'+LANG));
   document.getElementById('nav-en').style.display = LANG==='en' ? '' : 'none';
   document.getElementById('nav-pt').style.display = LANG==='pt' ? '' : 'none';
-  document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active', b.dataset.lang===LANG));
+  document.querySelectorAll('.lang-toggle button').forEach(b=>{ const on=b.dataset.lang===LANG; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on?'true':'false'); });
   document.documentElement.lang = LANG;
   document.querySelectorAll('.site-page').forEach(p=>p.classList.remove('active'));
   const page = document.getElementById(LANG+'-page-'+currentPage);
